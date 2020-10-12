@@ -140,7 +140,7 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listKhachHang);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 200, 1190, 540);
+        jScrollPane1.setBounds(0, 200, 1170, 540);
 
         pn.add(jPanel1);
         jPanel1.setBounds(0, 0, 1170, 740);
