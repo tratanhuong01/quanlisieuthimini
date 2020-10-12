@@ -1,5 +1,6 @@
-package view.nhanvien;
+package view.quanli;
 
+import view.nhanvien.*;
 import controller.PTHoaDon;
 import controller.ThemKhachHang;
 import java.awt.BorderLayout;
@@ -15,23 +16,13 @@ import modal.NhanVien;
 import modal.StringUtil;
 import view.DangNhap;
 import view.jfBanHang;
-import view.pnDDiaChi;
 
-public class pnDKhachHang extends javax.swing.JDialog {
-    NhanVien nvs;
-    pnMain pnM;
-    JPanel pnBanHang;
-    String idHoaDon = "";
-    public pnDKhachHang(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang) {
+public class pnDNhanVien extends javax.swing.JDialog {
+    public pnDNhanVien(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang,JMenuItem pnSua) {
         super(parent, modal);
         initComponents();
-        this.nvs = nv;
-        this.pnM = pnM;
-        this.pnBanHang = pnBanHang;
-        txtDiaChi.setEditable(false);
-        txtIDKhachHang.setEditable(false);
-        txtIDKhachHang.setText(StringUtil.taoID("IDKhachHang", "KhachHang", "KH"));
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -119,11 +110,6 @@ public class pnDKhachHang extends javax.swing.JDialog {
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtDiaChi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDiaChiMouseClicked(evt);
-            }
-        });
         jPanel1.add(txtDiaChi);
         txtDiaChi.setBounds(220, 490, 330, 40);
 
@@ -193,32 +179,8 @@ public class pnDKhachHang extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVeTrangChuActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        ThemKhachHang tkh = new ThemKhachHang();
-        if (tkh.them(txtIDKhachHang.getText(),cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText()
-                , cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
-                txtDiaChi.getText()) == true) {
-            this.setVisible(false);
-            pnM.setVisible(false);
-            PTHoaDon pTHoaDon = new PTHoaDon();
-            idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-            pTHoaDon.insertHoaDon(idHoaDon,txtIDKhachHang.getText(), nvs.getIdNhanVien(), 
-                1, "");
-            pnMain pnmain = new pnMain(pnBanHang,new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()),nvs,idHoaDon);
-            pnBanHang.removeAll();
-            pnmain.setVisible(true);
-            pnBanHang.setLayout(new BorderLayout());
-            pnBanHang.add(pnmain);
-            pnBanHang.validate();
-        }
-        else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm Thất Bại Vui Lòng Kiểm Tra Lại Dữ Liệu Nhập Vào");
-        }
         
     }//GEN-LAST:event_btnLuuActionPerformed
-
-    private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new pnDDiaChi(new javax.swing.JFrame(),true, nvs, pnM, pnBanHang, txtDiaChi).setVisible(true);
-    }//GEN-LAST:event_txtDiaChiMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;

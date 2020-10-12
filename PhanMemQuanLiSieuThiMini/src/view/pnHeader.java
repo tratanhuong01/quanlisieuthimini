@@ -1,37 +1,25 @@
-package view.thukho;
+package view;
 
-import view.quanli.*;
-import view.nhanvien.*;
-import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dialog.ModalityType;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import modal.ImageIconSoftware;
 import modal.NhanVien;
-
-public class jfThuKho extends javax.swing.JFrame {
+import javax.swing.*;
+public class pnHeader extends javax.swing.JPanel {
     NhanVien nvs;
-    public jfThuKho() {
+    JPanel pnHeaderf;
+    public pnHeader(JPanel pn,NhanVien nv) {
         initComponents();
-        this.setTitle("Quản Lí Siêu Thị Mini");
-        this.setIconImage(new ImageIconSoftware().createImageIcon().getImage());
-    }
-    public jfThuKho(NhanVien nv) {
-        initComponents();
-        this.setTitle("Quản Lí Siêu Thị Mini");
-        this.setIconImage(new ImageIconSoftware().createImageIcon().getImage());
         this.nvs = nv;
+        this.pnHeaderf = pn;
         lbBoPhan.setText(nvs.getTenBoPhan());
-        lbTenNhanVien.setText(nvs.getHoTen());
+        lbTenNhanVien.setText(nvs.getHoTen());   
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        pnBanHang = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lbBoPhan = new javax.swing.JLabel();
@@ -62,28 +50,8 @@ public class jfThuKho extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mnThemKhachHang = new javax.swing.JMenu();
-        pnThemKhachHang = new javax.swing.JMenuItem();
-        pnThemKhachHang1 = new javax.swing.JMenuItem();
-        pnThemKhachHang2 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1440, 850));
-        setSize(new java.awt.Dimension(1440, 850));
-
-        jPanel1.setEnabled(false);
-        jPanel1.setMaximumSize(new java.awt.Dimension(1440, 850));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1440, 850));
-        jPanel1.setLayout(null);
-
-        pnBanHang.setBackground(java.awt.Color.white);
-        pnBanHang.setMaximumSize(new java.awt.Dimension(1440, 740));
-        pnBanHang.setMinimumSize(new java.awt.Dimension(1440, 740));
-        pnBanHang.setRequestFocusEnabled(false);
-        pnBanHang.setLayout(null);
-        jPanel1.add(pnBanHang);
-        pnBanHang.setBounds(0, 110, 1440, 740);
+        setLayout(null);
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jPanel2.setLayout(null);
@@ -104,6 +72,11 @@ public class jfThuKho extends javax.swing.JFrame {
         jPanel2.add(lbTenNhanVien);
         lbTenNhanVien.setBounds(300, 50, 470, 30);
 
+        bnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bnDangXuatMouseClicked(evt);
+            }
+        });
         bnDangXuat.setLayout(null);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -232,90 +205,24 @@ public class jfThuKho extends javax.swing.JFrame {
         jPanel2.add(jLabel6);
         jLabel6.setBounds(800, 10, 260, 30);
 
-        jPanel1.add(jPanel2);
+        add(jPanel2);
         jPanel2.setBounds(0, 0, 1440, 90);
-
-        mnThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/users.png"))); // NOI18N
-        mnThemKhachHang.setText("Kho");
-
-        pnThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        pnThemKhachHang.setText("Phiếu Nhập");
-        pnThemKhachHang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pnThemKhachHangActionPerformed(evt);
-            }
-        });
-        mnThemKhachHang.add(pnThemKhachHang);
-
-        pnThemKhachHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        pnThemKhachHang1.setText("Phiếu Xuất");
-        pnThemKhachHang1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pnThemKhachHang1ActionPerformed(evt);
-            }
-        });
-        mnThemKhachHang.add(pnThemKhachHang1);
-
-        pnThemKhachHang2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        pnThemKhachHang2.setText("Hàng Tồn");
-        pnThemKhachHang2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pnThemKhachHang2ActionPerformed(evt);
-            }
-        });
-        mnThemKhachHang.add(pnThemKhachHang2);
-
-        jMenuBar1.add(mnThemKhachHang);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
-        );
-
-        pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnThemKhachHangActionPerformed
-        nvBanHang nv = new nvBanHang();
-        pnDKhachHang pnbanhang = new pnDKhachHang(nv, true);
-        pnbanhang.setModalityType(ModalityType.APPLICATION_MODAL);
-        pnbanhang.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        pnbanhang.setVisible(true);
-    }//GEN-LAST:event_pnThemKhachHangActionPerformed
-
-    private void pnThemKhachHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnThemKhachHang1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnThemKhachHang1ActionPerformed
-
-    private void pnThemKhachHang2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnThemKhachHang2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnThemKhachHang2ActionPerformed
-
     private void pnThongTinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnThongTinMouseClicked
-        jfThuKho nv = new jfThuKho();
-        pnDInfo info = new pnDInfo(nv, true);
+        jfBanHang nv = new jfBanHang(nvs);
+        pnDInfo info = new pnDInfo(nv,true,nvs);
         info.setModalityType(ModalityType.APPLICATION_MODAL);
         info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         info.setVisible(true);
     }//GEN-LAST:event_pnThongTinMouseClicked
 
-    public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jfThuKho().setVisible(true);
-            }
-        });
-    }
+    private void bnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bnDangXuatMouseClicked
+        JFrame f1 = (JFrame) SwingUtilities.windowForComponent(this);
+        f1.dispose();
+        new DangNhap().setVisible(true);
+    }//GEN-LAST:event_bnDangXuatMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bnDangXuat;
@@ -338,8 +245,6 @@ public class jfThuKho extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
@@ -349,11 +254,6 @@ public class jfThuKho extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lbBoPhan;
     private javax.swing.JLabel lbTenNhanVien;
-    private javax.swing.JMenu mnThemKhachHang;
-    private javax.swing.JPanel pnBanHang;
-    private javax.swing.JMenuItem pnThemKhachHang;
-    private javax.swing.JMenuItem pnThemKhachHang1;
-    private javax.swing.JMenuItem pnThemKhachHang2;
     private javax.swing.JPanel pnThongTin;
     // End of variables declaration//GEN-END:variables
 }

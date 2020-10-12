@@ -1,30 +1,28 @@
 package view;
 
-import controller.LoginController;
+import controller.DangNhapController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modal.ConnectDAO;
 import modal.DAO;
 import modal.NhanVien;
-import view.nhanvien.nvBanHang;
-import view.quanli.jfQuanLi;
-import view.thukho.jfThuKho;
 import java.sql.*;
 
 public class DangNhap extends javax.swing.JFrame {
-    
+
     public DangNhap() {
         initComponents();
         loadBoPhan();
-        
+
     }
-    
+
     public void loadBoPhan() {
         ArrayList list = new DAO().getBoPhan();
         for (int i = 0; i < list.size(); i++) {
             cbBoPhan.addItem((String) list.get(i));
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,30 +100,34 @@ public class DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        NhanVien nv = new LoginController().getNhanVien(txtTaiKhoan.getText(), txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString());
-        System.out.println(nv.getHoTen());
-        if (cbBoPhan.getSelectedItem().equals("Quản Lí")) {
-            if (nv != null) {
-                this.setVisible(false);
-                new jfQuanLi(nv).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-            }
-        } else if (cbBoPhan.getSelectedItem().equals("Nhân Viên Bán Hàng")) {
-            if (nv != null) {
-                this.setVisible(false);
-                new nvBanHang(nv).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-            }
-        } else {
-            if (nv != null) {
-                this.setVisible(false);
-                
-                new jfThuKho(nv).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-            }
+        NhanVien nv = new DangNhapController().getNhanVien(txtTaiKhoan.getText(),
+                txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString());
+        switch (cbBoPhan.getSelectedItem().toString()) {
+            case "Quản Lí":
+                if (nv != null) {
+                    this.setVisible(false);
+                    jfQuanLi quanLi = new jfQuanLi(nv);
+                    new jfQuanLi(nv).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+                }
+                break;
+            case "Nhân Viên Bán Hàng":
+                if (nv != null) {
+                    this.setVisible(false);
+                    new jfBanHang(nv).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+                }
+                break;
+            case "Thủ Kho":
+                if (nv != null) {
+                    this.setVisible(false);
+
+                    new jfThuKho(nv).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+                }
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 

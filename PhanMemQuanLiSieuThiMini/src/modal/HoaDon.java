@@ -2,7 +2,7 @@ package modal;
 
 public class HoaDon {
     private String idHoaDon;
-    private String idSanPham;
+    private String tenSanPham;
     private String tenKH;
     private String tenNV;
     private String ngayTao;
@@ -12,7 +12,6 @@ public class HoaDon {
 
     public HoaDon(String idHoaDon, String idSanPham, String tenKH, String tenNV, String ngayTao, String tenSP, float donGia, int soLuong) {
         this.idHoaDon = idHoaDon;
-        this.idSanPham = idSanPham;
         this.tenKH = tenKH;
         this.tenNV = tenNV;
         this.ngayTao = ngayTao;
@@ -27,14 +26,6 @@ public class HoaDon {
 
     public void setIdHoaDon(String idHoaDon) {
         this.idHoaDon = idHoaDon;
-    }
-
-    public String getIdSanPham() {
-        return idSanPham;
-    }
-
-    public void setIdSanPham(String idSanPham) {
-        this.idSanPham = idSanPham;
     }
 
     public String getTenKH() {

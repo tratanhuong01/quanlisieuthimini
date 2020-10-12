@@ -1,19 +1,28 @@
-package view.nhanvien;
+package view.quanli;
 
-public class pnDInfo extends javax.swing.JDialog {
+import view.nhanvien.*;
+import controller.PTHoaDon;
+import controller.ThemKhachHang;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import modal.KhachHang;
+import modal.NhanVien;
+import modal.StringUtil;
+import view.DangNhap;
+import view.jfBanHang;
 
-    public pnDInfo(java.awt.Frame parent, boolean modal) {
+public class pnDNhaCungCap extends javax.swing.JDialog {
+    public pnDNhaCungCap(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang,JMenuItem pnSua) {
         super(parent, modal);
         initComponents();
-        txtMaNhanVien.setEditable(false);
-        txtTenBoPhan.setEditable(false);
-        txtHoTen.setEditable(false);
-        txtGioiTinh.setEditable(false);
-        txtDiaChi.setEditable(false);
-        txtSoDienThoai.setEditable(false);
-        txtLoaiNhanVien.setEditable(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,21 +31,20 @@ public class pnDInfo extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        txtMaNhanVien = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        txtTenBoPhan = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
-        txtGioiTinh = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
         txtSoDienThoai = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
+        btnVeTrangChu = new javax.swing.JButton();
+        cbGioiTinh = new javax.swing.JComboBox<>();
+        btnLuu = new javax.swing.JButton();
+        cbNhomKhachHang = new javax.swing.JComboBox<>();
+        txtIDKhachHang = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
-        txtLoaiNhanVien = new javax.swing.JTextField();
-        btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -50,39 +58,22 @@ public class pnDInfo extends javax.swing.JDialog {
         jPanel2.setBackground(java.awt.Color.orange);
         jPanel2.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/info.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(60, 10, 70, 70);
+        jLabel1.setBounds(60, 0, 70, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel2.setText("Thông Tin Nhân Viên");
+        jLabel2.setText("Thêm Khách Hàng");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 20, 350, 50);
+        jLabel2.setBounds(160, 0, 350, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 600, 90);
 
-        jLabel36.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel36.setText("Mã Nhân Viên");
-        jPanel1.add(jLabel36);
-        jLabel36.setBounds(40, 130, 121, 24);
-
-        txtMaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtMaNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtMaNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtMaNhanVien);
-        txtMaNhanVien.setBounds(180, 120, 370, 40);
-
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel37.setText("Bộ Phận");
+        jLabel37.setText("Nhóm Khách Hàng");
         jPanel1.add(jLabel37);
-        jLabel37.setBounds(40, 200, 70, 24);
-
-        txtTenBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtTenBoPhan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtTenBoPhan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtTenBoPhan);
-        txtTenBoPhan.setBounds(180, 190, 370, 40);
+        jLabel37.setBounds(40, 130, 157, 24);
 
         jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel38.setText("Họ Tên");
@@ -93,58 +84,80 @@ public class pnDInfo extends javax.swing.JDialog {
         txtHoTen.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtHoTen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(txtHoTen);
-        txtHoTen.setBounds(180, 260, 370, 40);
+        txtHoTen.setBounds(220, 260, 330, 40);
 
         jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel39.setText("Giới Tính");
         jPanel1.add(jLabel39);
         jLabel39.setBounds(40, 340, 100, 24);
 
-        txtGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtGioiTinh.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtGioiTinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtGioiTinh);
-        txtGioiTinh.setBounds(180, 330, 370, 40);
-
         jLabel40.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel40.setText("Số Điện Thoại");
         jPanel1.add(jLabel40);
-        jLabel40.setBounds(40, 410, 130, 24);
+        jLabel40.setBounds(40, 420, 130, 24);
 
         txtSoDienThoai.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtSoDienThoai.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtSoDienThoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(txtSoDienThoai);
-        txtSoDienThoai.setBounds(180, 400, 370, 40);
+        txtSoDienThoai.setBounds(220, 410, 330, 40);
 
         jLabel41.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel41.setText("Địa Chỉ");
         jPanel1.add(jLabel41);
-        jLabel41.setBounds(40, 480, 130, 24);
+        jLabel41.setBounds(40, 500, 130, 24);
 
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(txtDiaChi);
-        txtDiaChi.setBounds(180, 470, 370, 40);
+        txtDiaChi.setBounds(220, 490, 330, 40);
+
+        btnVeTrangChu.setBackground(java.awt.Color.orange);
+        btnVeTrangChu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btnVeTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/home.png"))); // NOI18N
+        btnVeTrangChu.setText("Trang Chủ");
+        btnVeTrangChu.setToolTipText("");
+        btnVeTrangChu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVeTrangChuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVeTrangChu);
+        btnVeTrangChu.setBounds(70, 570, 200, 70);
+
+        cbGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jPanel1.add(cbGioiTinh);
+        cbGioiTinh.setBounds(220, 330, 330, 40);
+
+        btnLuu.setBackground(java.awt.Color.orange);
+        btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLuu);
+        btnLuu.setBounds(330, 570, 200, 70);
+
+        cbNhomKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbNhomKhachHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbNhomKhachHang);
+        cbNhomKhachHang.setBounds(220, 120, 330, 40);
+
+        txtIDKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtIDKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtIDKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtIDKhachHang);
+        txtIDKhachHang.setBounds(220, 190, 330, 40);
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel42.setText("Loại Nhân Viên");
+        jLabel42.setText("IDKhachHang");
         jPanel1.add(jLabel42);
-        jLabel42.setBounds(40, 550, 140, 24);
-
-        txtLoaiNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtLoaiNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtLoaiNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtLoaiNhanVien);
-        txtLoaiNhanVien.setBounds(180, 540, 370, 40);
-
-        btnThoat.setBackground(java.awt.Color.orange);
-        btnThoat.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        btnThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/exit.png"))); // NOI18N
-        btnThoat.setText("Thoát");
-        jPanel1.add(btnThoat);
-        btnThoat.setBounds(200, 610, 160, 60);
+        jLabel42.setBounds(40, 200, 140, 24);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,12 +174,21 @@ public class pnDInfo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVeTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeTrangChuActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVeTrangChuActionPerformed
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        
+    }//GEN-LAST:event_btnLuuActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThoat;
+    private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnVeTrangChu;
+    private javax.swing.JComboBox<String> cbGioiTinh;
+    private javax.swing.JComboBox<String> cbNhomKhachHang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -176,11 +198,8 @@ public class pnDInfo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtGioiTinh;
     private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtLoaiNhanVien;
-    private javax.swing.JTextField txtMaNhanVien;
+    private javax.swing.JTextField txtIDKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
-    private javax.swing.JTextField txtTenBoPhan;
     // End of variables declaration//GEN-END:variables
 }

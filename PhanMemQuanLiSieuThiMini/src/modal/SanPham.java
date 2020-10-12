@@ -13,7 +13,9 @@ public class SanPham {
     private float giam;
     private String tenKhuVuc;
 
-    public SanPham(String idSanPham, String idNhomSanPham, String tenSanPham, String idDonViTinh, String ngaySanXuat, String hanSuDung, String urlSanPham, String tenNhom, float donGia, float giam, String tenKhuVuc) {
+    public SanPham(String idSanPham, String idNhomSanPham, String tenSanPham, 
+            String idDonViTinh, String ngaySanXuat, String hanSuDung, String urlSanPham,
+            String tenNhom, float donGia, float giam, String tenKhuVuc) {
         this.idSanPham = idSanPham;
         this.idNhomSanPham = idNhomSanPham;
         this.tenSanPham = tenSanPham;

@@ -8,12 +8,13 @@ public class NhanVien {
     private String hoTen;
     private String gioiTinh;
     private String soDienThoai;
+    private String diaChi;
     private String tenBoPhan;
-
+    
     public NhanVien() {
     }
-    
-    public NhanVien(String tenDangNhap, String matKhau, String idNhanVien, String idBoPhan, String hoTen, String gioiTinh, String soDienThoai, String tenBoPhan) {
+
+    public NhanVien(String tenDangNhap, String matKhau, String idNhanVien, String idBoPhan, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenBoPhan) {
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.idNhanVien = idNhanVien;
@@ -21,6 +22,7 @@ public class NhanVien {
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
+        this.diaChi = diaChi;
         this.tenBoPhan = tenBoPhan;
     }
 
@@ -80,6 +82,14 @@ public class NhanVien {
         this.soDienThoai = soDienThoai;
     }
 
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
     public String getTenBoPhan() {
         return tenBoPhan;
     }
@@ -87,6 +97,5 @@ public class NhanVien {
     public void setTenBoPhan(String tenBoPhan) {
         this.tenBoPhan = tenBoPhan;
     }
-
     
 }

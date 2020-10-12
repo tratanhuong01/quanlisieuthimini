@@ -1,6 +1,7 @@
 package view.nhanvien;
 
 import controller.PTHoaDon;
+import controller.SuaKhachHang;
 import controller.ThemKhachHang;
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -17,21 +18,31 @@ import view.DangNhap;
 import view.jfBanHang;
 import view.pnDDiaChi;
 
-public class pnDKhachHang extends javax.swing.JDialog {
+public class pnDSuaKH extends javax.swing.JDialog {
+
     NhanVien nvs;
-    pnMain pnM;
+    KhachHang kh;
+    JTextField txtTenKhachHang;
     JPanel pnBanHang;
-    String idHoaDon = "";
-    public pnDKhachHang(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang) {
+    String idHoaDon;
+    public pnDSuaKH(java.awt.Frame parent, boolean modal,NhanVien nvs, KhachHang kh,JTextField txtTenKhachHang,JPanel pnBanHang,String idHoaDon) {
         super(parent, modal);
         initComponents();
-        this.nvs = nv;
-        this.pnM = pnM;
+        this.kh = kh;
+        this.txtTenKhachHang = txtTenKhachHang;
         this.pnBanHang = pnBanHang;
-        txtDiaChi.setEditable(false);
+        this.idHoaDon = idHoaDon;
+        this.nvs = nvs;
+        cbNhomKhachHang.setEditable(false);
         txtIDKhachHang.setEditable(false);
-        txtIDKhachHang.setText(StringUtil.taoID("IDKhachHang", "KhachHang", "KH"));
+        cbNhomKhachHang.setText(kh.getIdNhomKhachHang());
+        txtIDKhachHang.setText(kh.getIdKhachHang());
+        txtHoTen.setText(kh.getHoTen());
+        txtSoDienThoai.setText(kh.getSoDienThoai());
+        txtDiaChi.setText(kh.getDiaChi());
+        cbGioiTinh.setSelectedItem(kh.getGioiTinh().toString());
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -51,9 +62,9 @@ public class pnDKhachHang extends javax.swing.JDialog {
         btnVeTrangChu = new javax.swing.JButton();
         cbGioiTinh = new javax.swing.JComboBox<>();
         btnLuu = new javax.swing.JButton();
-        cbNhomKhachHang = new javax.swing.JComboBox<>();
-        txtIDKhachHang = new javax.swing.JTextField();
+        cbNhomKhachHang = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
+        txtIDKhachHang = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -158,20 +169,21 @@ public class pnDKhachHang extends javax.swing.JDialog {
         btnLuu.setBounds(330, 570, 200, 70);
 
         cbNhomKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbNhomKhachHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
+        cbNhomKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        cbNhomKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(cbNhomKhachHang);
         cbNhomKhachHang.setBounds(220, 120, 330, 40);
+
+        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel42.setText("IDKhachHang");
+        jPanel1.add(jLabel42);
+        jLabel42.setBounds(40, 200, 140, 24);
 
         txtIDKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtIDKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtIDKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(txtIDKhachHang);
         txtIDKhachHang.setBounds(220, 190, 330, 40);
-
-        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel42.setText("IDKhachHang");
-        jPanel1.add(jLabel42);
-        jLabel42.setBounds(40, 200, 140, 24);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,20 +201,13 @@ public class pnDKhachHang extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVeTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeTrangChuActionPerformed
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_btnVeTrangChuActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        ThemKhachHang tkh = new ThemKhachHang();
-        if (tkh.them(txtIDKhachHang.getText(),cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText()
-                , cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
-                txtDiaChi.getText()) == true) {
+        if (new SuaKhachHang().Sua(txtIDKhachHang.getText(), txtHoTen.getText(),
+                cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(), txtDiaChi.getText()) == true) {
             this.setVisible(false);
-            pnM.setVisible(false);
-            PTHoaDon pTHoaDon = new PTHoaDon();
-            idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-            pTHoaDon.insertHoaDon(idHoaDon,txtIDKhachHang.getText(), nvs.getIdNhanVien(), 
-                1, "");
             pnMain pnmain = new pnMain(pnBanHang,new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()),nvs,idHoaDon);
             pnBanHang.removeAll();
             pnmain.setVisible(true);
@@ -211,20 +216,19 @@ public class pnDKhachHang extends javax.swing.JDialog {
             pnBanHang.validate();
         }
         else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm Thất Bại Vui Lòng Kiểm Tra Lại Dữ Liệu Nhập Vào");
+            JOptionPane.showMessageDialog(rootPane, "Vui Lòng Thử Lại");
         }
-        
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new pnDDiaChi(new javax.swing.JFrame(),true, nvs, pnM, pnBanHang, txtDiaChi).setVisible(true);
+        new pnDDiaChi(new javax.swing.JFrame(),true, nvs, null, pnBanHang, txtDiaChi).setVisible(true);
     }//GEN-LAST:event_txtDiaChiMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbGioiTinh;
-    private javax.swing.JComboBox<String> cbNhomKhachHang;
+    private javax.swing.JTextField cbNhomKhachHang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;

@@ -1,12 +1,73 @@
 package view.nhanvien;
 
-public class pnDSoLuong extends javax.swing.JDialog {
+import controller.PTHoaDon;
+import controller.ThemKhachHang;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.List;
+import javafx.scene.Parent;
+import javax.swing.*;
+import modal.DongHoaDon;
+import modal.HoaDon;
+import modal.KhachHang;
+import modal.NhanVien;
+import modal.SanPham;
+import modal.StringUtil;
+import view.jfBanHang;
 
-    public pnDSoLuong(java.awt.Frame parent, boolean modal) {
+public class pnDSoLuong extends javax.swing.JDialog {
+    JPanel pnSanPhamDaChon;
+    SanPham sp;
+    int soLuong = 0;
+    NhanVien nv;
+    KhachHang kh;
+    String idHoaDon;
+    JScrollPane jsc;
+    float tongTien;
+    JPanel pnBanHang;
+    JTextField txtTien;
+    JButton btnTaoHoaDon;
+    JTextField tienKhuyenMai;
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
+    public pnDSoLuong(java.awt.Frame parent, boolean modal,SanPham sp,NhanVien nv,KhachHang kh,
+            String idHoaDon,JPanel pnSanPhamDaChon,JScrollPane jsc,JPanel pnBanHang,
+            JTextField txtTien,JButton btnTaoHoaDon,JTextField tienKhuyenMai) {
         super(parent, modal);
         initComponents();
+        this.sp = sp;
+        this.kh = kh;
+        this.nv = nv;
+        this.idHoaDon = idHoaDon;
+        this.pnSanPhamDaChon = pnSanPhamDaChon;
+        this.jsc = jsc;
+        this.pnBanHang = pnBanHang;
+        this.txtTien = txtTien;
+        this.btnTaoHoaDon = btnTaoHoaDon;
+        this.tienKhuyenMai = tienKhuyenMai;
+        load();
     }
-
+    public void load() {
+        soLuong = Integer.parseInt(txtSoLuong.getText());
+        hinhSanPham.setText(sp.getUrlSanPham());
+        lbTenSanPham.setText(sp.getTenSanPham());
+        lbGiaSanPham.setText(formatter.format(sp.getDonGia() * soLuong) + " VNĐ");
+        btnTang.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                soLuong++;
+                lbGiaSanPham.setText(formatter.format(sp.getDonGia() * soLuong) + " VNĐ");
+            }
+        });
+        btnGiam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                soLuong--;
+                lbGiaSanPham.setText(formatter.format(sp.getDonGia() * soLuong) + " VNĐ");
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -40,7 +101,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
         jPanel1.add(hinhSanPham);
         hinhSanPham.setBounds(20, 60, 70, 80);
 
-        lbGiaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbGiaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbGiaSanPham.setForeground(java.awt.Color.red);
         lbGiaSanPham.setText("Thịt bò 500g");
         jPanel1.add(lbGiaSanPham);
@@ -53,7 +114,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
 
         txtSoLuong.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtSoLuong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSoLuong.setText("0");
+        txtSoLuong.setText("1");
         jPanel1.add(txtSoLuong);
         txtSoLuong.setBounds(160, 160, 70, 40);
 
@@ -81,11 +142,21 @@ public class pnDSoLuong extends javax.swing.JDialog {
 
         btnChon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnChon.setText("Chọn");
+        btnChon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnChon);
         btnChon.setBounds(220, 230, 100, 50);
 
         btnHuy.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnHuy);
         btnHuy.setBounds(70, 230, 100, 50);
 
@@ -114,7 +185,29 @@ public class pnDSoLuong extends javax.swing.JDialog {
         int sl = Integer.parseInt(txtSoLuong.getText());
         sl--;
         txtSoLuong.setText(String.valueOf(sl));
+        
     }//GEN-LAST:event_btnGiamActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
+        this.setVisible(false);
+        PTHoaDon pTHoaDon = new PTHoaDon();
+        pTHoaDon.insertDongHoaDon(idHoaDon, sp.getIdSanPham(), sp.getIdDonViTinh(),
+                Integer.parseInt(txtSoLuong.getText()));
+        pTHoaDon.load(pnSanPhamDaChon, sp.getUrlSanPham(), sp.getTenSanPham(), 
+                sp.getDonGia(), idHoaDon,jsc,txtTien,tongTien,tienKhuyenMai,1);
+        
+        List<DongHoaDon> list = pTHoaDon.getListDongHoaDon(idHoaDon);
+        if (list.size() > 0 ) {
+            btnTaoHoaDon.setEnabled(true);
+        }
+        else {
+            btnTaoHoaDon.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnChonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
