@@ -1,10 +1,16 @@
 package view.nhanvien;
 
+import controller.CapNhatTienHoaDon;
+import controller.CheckHoaDon;
 import controller.PTHoaDon;
+import controller.TimKiemSanPham;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -23,9 +29,13 @@ import modal.NhomSanPham;
 import modal.SanPham;
 import view.jfBanHang;
 import java.sql.*;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.text.JTextComponent;
 import modal.DongHoaDon;
 
 public class pnMain extends javax.swing.JPanel {
+
     int dem = -100;
     JPanel pnBanHang;
     float tien = 0;
@@ -34,7 +44,8 @@ public class pnMain extends javax.swing.JPanel {
     KhachHang kh = null;
     String idHoaDon;
     jfBanHang jfbh;
-    public pnMain(JPanel pnBanHang,KhachHang kh,NhanVien nv,String idHoaDon) {
+
+    public pnMain(JPanel pnBanHang, KhachHang kh, NhanVien nv, String idHoaDon) {
         initComponents();
         this.pnBanHang = pnBanHang;
         this.kh = kh;
@@ -42,20 +53,27 @@ public class pnMain extends javax.swing.JPanel {
         this.idHoaDon = idHoaDon;
         if (kh != null) {
             loadNhomSanPham();
-            loadSanPhamByNhomSanPham();
-            txtTenKhachHang.setText(kh.getHoTen());    
-        }
-        else {
+            loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+            txtTenKhachHang.setText(kh.getHoTen());
+        } else {
             pnFull.removeAll();
             JLabel lb = new JLabel();
             lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sieu-thi-mini.jpg"))); // NOI18N
             pnFull.add(lb);
             lb.setBounds(0, 0, 1440, 600);
         }
+        if (new CheckHoaDon().check(idHoaDon) == true) {
+            btnTaoHoaDon.setEnabled(false);
+        } else {
+            btnTaoHoaDon.setEnabled(true);
+        }
+        btnTaoHoaDon.setEnabled(false);
         txtTenKhachHang.setEditable(false);
         txtSoDiemTich.setEditable(false);
+        loadPTThanhToan();
     }
-    public pnMain(JPanel pnBanHang,KhachHang kh,NhanVien nv,jfBanHang jfbh) {
+
+    public pnMain(JPanel pnBanHang, KhachHang kh, NhanVien nv, jfBanHang jfbh) {
         initComponents();
         this.pnBanHang = pnBanHang;
         this.kh = kh;
@@ -63,10 +81,9 @@ public class pnMain extends javax.swing.JPanel {
         this.jfbh = jfbh;
         if (kh != null) {
             loadNhomSanPham();
-            loadSanPhamByNhomSanPham();
+            loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
             txtTenKhachHang.setText(kh.getHoTen());
-        }
-        else {
+        } else {
             pnFull.removeAll();
             JLabel lb = new JLabel();
             lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sieu-thi-mini.jpg"))); // NOI18N
@@ -76,7 +93,9 @@ public class pnMain extends javax.swing.JPanel {
         }
         txtTenKhachHang.setEditable(false);
         txtSoDiemTich.setEditable(false);
+        loadPTThanhToan();
     }
+
     public pnMain(JPanel pnFull) {
         initComponents();
         this.pnFull = pnFull;
@@ -87,17 +106,17 @@ public class pnMain extends javax.swing.JPanel {
         lb.setBounds(0, 0, 1440, 600);
         txtTenKhachHang.setEditable(false);
         txtSoDiemTich.setEditable(false);
+        loadPTThanhToan();
     }
+
     public void loadNhomSanPham() {
         List<NhomSanPham> list = new DAO().getNhomSanPham();
         for (int i = 0; i < list.size(); i++) {
             cbNhomSanPham.addItem(list.get(i).getTenNhomSanPham());
         }
     }
-    public void loadSanPhamByNhomSanPham() {
-        List<SanPham> list = new DAO().getSanPhamByNhomSanPham();
-        List<SanPham> listSp = new ArrayList<>();
 
+    public void loadSanPhamByNhomSanPham(List<SanPham> list) {
         int left = -200;
         int top = -150;
         for (int i = 0; i < list.size(); i++) {
@@ -109,6 +128,7 @@ public class pnMain extends javax.swing.JPanel {
                 top += 0;
             }
             JPanel pn = new JPanel();
+            pn.setBackground(Color.yellow);
             JLabel lbTenSanPham = new JLabel();
             JLabel lbGiaSanPham = new JLabel();
             JLabel lbHinhSanPham = new JLabel();
@@ -122,7 +142,7 @@ public class pnMain extends javax.swing.JPanel {
             lbGiaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
             lbGiaSanPham.setForeground(java.awt.Color.red);
             lbGiaSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lbGiaSanPham.setText(formatter.format(list.get(i).getDonGia())+ " VNĐ");
+            lbGiaSanPham.setText(formatter.format(list.get(i).getDonGia()) + " VNĐ");
             pn.add(lbGiaSanPham);
             lbGiaSanPham.setBounds(0, 100, 190, 30);
 
@@ -135,20 +155,75 @@ public class pnMain extends javax.swing.JPanel {
             pn.setBounds(left, top, 190, 130);
             pnChonSanPham.setPreferredSize(new Dimension(left, top));
             SanPham sp = list.get(i);
-            
+
             pn.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     jfBanHang nvs = new jfBanHang(nv);
-                    pnDSoLuong soLuong = new pnDSoLuong(nvs, true, sp,nv,kh,idHoaDon,pnSanPhamDaChon,jScrollPane2
-                            ,pnBanHang,txtTongTien,btnTaoHoaDon,txtTienKhuyenMai);
+                    pnDSoLuong soLuong = new pnDSoLuong(nvs, true, sp, nv, kh, idHoaDon, pnSanPhamDaChon, jScrollPane2,
+                            pnBanHang, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
                     soLuong.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
                     soLuong.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                     soLuong.setVisible(true);
                 }
             });
         }
-        
+        list = null;
     }
+
+    public void loadSanPhamByNhomSanPham(String tenNhomSP) {
+        List<SanPham> list = new DAO().getSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+        int left = -200;
+        int top = -150;
+        for (int i = 0; i < list.size(); i++) {
+            if (i % 5 == 0) {
+                top += 160;
+                left = 0;
+            } else {
+                left += 200;
+                top += 0;
+            }
+            JPanel pn = new JPanel();
+            pn.setBackground(Color.yellow);
+            JLabel lbTenSanPham = new JLabel();
+            JLabel lbGiaSanPham = new JLabel();
+            JLabel lbHinhSanPham = new JLabel();
+            pn.setLayout(null);
+            lbTenSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+            lbTenSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lbTenSanPham.setText(list.get(i).getTenSanPham());
+            pn.add(lbTenSanPham);
+            lbTenSanPham.setBounds(0, 70, 190, 30);
+
+            lbGiaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+            lbGiaSanPham.setForeground(java.awt.Color.red);
+            lbGiaSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lbGiaSanPham.setText(formatter.format(list.get(i).getDonGia()) + " VNĐ");
+            pn.add(lbGiaSanPham);
+            lbGiaSanPham.setBounds(0, 100, 190, 30);
+
+            lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/pay.png"))); // NOI18N
+            pn.add(lbHinhSanPham);
+            lbHinhSanPham.setBounds(30, 10, 120, 60);
+
+            pnChonSanPham.add(pn);
+            pn.setBounds(left, top, 190, 130);
+            pnChonSanPham.setPreferredSize(new Dimension(left, top));
+            SanPham sp = list.get(i);
+
+            pn.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    jfBanHang nvs = new jfBanHang(nv);
+                    pnDSoLuong soLuong = new pnDSoLuong(nvs, true, sp, nv, kh, idHoaDon, pnSanPhamDaChon, jScrollPane2,
+                            pnBanHang, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
+                    soLuong.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                    soLuong.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    soLuong.setVisible(true);
+                }
+            });
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -167,7 +242,7 @@ public class pnMain extends javax.swing.JPanel {
         pnFull = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         cbNhomSanPham = new javax.swing.JComboBox<>();
@@ -270,9 +345,14 @@ public class pnMain extends javax.swing.JPanel {
         jPanel23.add(jLabel38);
         jLabel38.setBounds(110, 0, 450, 30);
 
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jPanel23.add(jTextField4);
-        jTextField4.setBounds(110, 40, 450, 40);
+        txtSearch.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
+        jPanel23.add(txtSearch);
+        txtSearch.setBounds(110, 40, 450, 40);
 
         jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search1.png"))); // NOI18N
         jPanel23.add(jLabel39);
@@ -282,6 +362,11 @@ public class pnMain extends javax.swing.JPanel {
         jPanel24.setLayout(null);
 
         cbNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbNhomSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNhomSanPhamActionPerformed(evt);
+            }
+        });
         jPanel24.add(cbNhomSanPham);
         cbNhomSanPham.setBounds(20, 20, 360, 50);
 
@@ -335,7 +420,7 @@ public class pnMain extends javax.swing.JPanel {
         jScrollPane1.setViewportView(pnChonSanPham);
 
         pnFull.add(jScrollPane1);
-        jScrollPane1.setBounds(430, 100, 990, 490);
+        jScrollPane1.setBounds(440, 100, 970, 490);
 
         jScrollPane2.setMaximumSize(new java.awt.Dimension(430, 450));
         jScrollPane2.setMinimumSize(new java.awt.Dimension(430, 450));
@@ -388,25 +473,61 @@ public class pnMain extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    public void loadPTThanhToan() {
+        ptThanhToan.removeAll();
+        ptThanhToan.removeAllItems();
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT TenPTThanhToan FROM PhuongThucThanhToan";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ptThanhToan.addItem(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public String getIDPTThanhToan(String tenPTThanhToan) {
+        String string = "";
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT IDPTThanhToan FROM PhuongThucThanhToan WHERE TenPTThanhToan = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, tenPTThanhToan);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                string = rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
     private void btnTaoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonActionPerformed
         List<DongHoaDon> list = new PTHoaDon().getListDongHoaDon(idHoaDon);
         float tongTien = 0;
         float tienKhuyenMai = 0;
         for (int i = 0; i < list.size(); i++) {
-            tongTien += (list.get(i).getDonGia()*list.get(i).getSoLuong());
-            tienKhuyenMai += (list.get(i).getDonGia()*(list.get(i).getGiam()/100)) * list.get(i).getSoLuong();
+            tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
+            tienKhuyenMai += (list.get(i).getDonGia() * (list.get(i).getGiam() / 100)) * list.get(i).getSoLuong();
         }
         if (Float.parseFloat(txtTienKhachTra.getText()) < (tongTien - tienKhuyenMai)) {
-            
-        }
-        else {
+
+        } else {
+            CapNhatTienHoaDon cn = new CapNhatTienHoaDon();
+            cn.CapNhat(tongTien - tienKhuyenMai, idHoaDon);
             pnBanHang.removeAll();
-            jpnTaoHoaDon pnM = new jpnTaoHoaDon(pnBanHang,list,Float.parseFloat(txtTienKhachTra.getText()),tienKhuyenMai);
-            pnM.setVisible(true);
-            pnBanHang.setLayout(new BorderLayout());
-            pnBanHang.add(pnM);
-            pnBanHang.validate();
+            jpnTaoHoaDon thd = new jpnTaoHoaDon(pnBanHang, list, Float.parseFloat(txtTienKhachTra.getText()), tienKhuyenMai);
+            if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
+                pnDAtm pnAtm = new pnDAtm(jfbh, true,kh, nv, this, pnBanHang, thd,ptThanhToan.getSelectedItem().toString());
+                pnAtm.setVisible(true);
+                
+            } else {
+                thd.setVisible(true);
+                pnBanHang.setLayout(new BorderLayout());
+                pnBanHang.add(thd);
+                pnBanHang.validate();
+            }
         }
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
 
@@ -415,13 +536,21 @@ public class pnMain extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTongTienActionPerformed
 
     private void suaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaKhachHangActionPerformed
-        jfBanHang bh = new jfBanHang(nv,kh);
-        pnBanHang.removeAll();
-        pnDSuaKH pnbanhang = new pnDSuaKH(bh, true,nv,kh,txtTenKhachHang,pnBanHang,idHoaDon);
-        pnbanhang.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        pnbanhang.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        pnbanhang.setVisible(true);
+        new pnDSuaKH(jfbh, true, txtTenKhachHang,kh.getIdKhachHang()).setVisible(true);
     }//GEN-LAST:event_suaKhachHangActionPerformed
+
+    private void cbNhomSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhomSanPhamActionPerformed
+        pnChonSanPham.removeAll();
+        pnChonSanPham.repaint();
+        loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+    }//GEN-LAST:event_cbNhomSanPhamActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        pnChonSanPham.removeAll();
+        pnChonSanPham.repaint();
+        List<SanPham> list = new TimKiemSanPham().getSanPhamByNhomSanPham(txtSearch.getText());
+        loadSanPhamByNhomSanPham(list);
+    }//GEN-LAST:event_txtSearchKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -444,12 +573,12 @@ public class pnMain extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel pnChonSanPham;
     private javax.swing.JPanel pnFull;
     private javax.swing.JPanel pnSanPhamDaChon;
     private javax.swing.JComboBox<String> ptThanhToan;
     private javax.swing.JButton suaKhachHang;
+    private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSoDiemTich;
     private javax.swing.JTextField txtTenKhachHang;
     private javax.swing.JTextField txtTienKhachTra;

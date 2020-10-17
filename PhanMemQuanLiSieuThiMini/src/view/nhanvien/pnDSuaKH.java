@@ -11,30 +11,31 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import modal.ConnectDAO;
 import modal.KhachHang;
 import modal.NhanVien;
 import modal.StringUtil;
 import view.DangNhap;
 import view.jfBanHang;
 import view.pnDDiaChi;
+import java.sql.*;
 
 public class pnDSuaKH extends javax.swing.JDialog {
 
     NhanVien nvs;
-    KhachHang kh;
+    String idKhachHang;
     JTextField txtTenKhachHang;
     JPanel pnBanHang;
     String idHoaDon;
-    public pnDSuaKH(java.awt.Frame parent, boolean modal,NhanVien nvs, KhachHang kh,JTextField txtTenKhachHang,JPanel pnBanHang,String idHoaDon) {
+    KhachHang kh;
+    public pnDSuaKH(java.awt.Frame parent, boolean modal, JTextField txtTenKhachHang, String idKhachHang) {
         super(parent, modal);
         initComponents();
-        this.kh = kh;
         this.txtTenKhachHang = txtTenKhachHang;
-        this.pnBanHang = pnBanHang;
-        this.idHoaDon = idHoaDon;
-        this.nvs = nvs;
+        this.idKhachHang = idKhachHang;
         cbNhomKhachHang.setEditable(false);
         txtIDKhachHang.setEditable(false);
+        kh = new ThemKhachHang().getKhachHang(idKhachHang);
         cbNhomKhachHang.setText(kh.getIdNhomKhachHang());
         txtIDKhachHang.setText(kh.getIdKhachHang());
         txtHoTen.setText(kh.getHoTen());
@@ -42,7 +43,6 @@ public class pnDSuaKH extends javax.swing.JDialog {
         txtDiaChi.setText(kh.getDiaChi());
         cbGioiTinh.setSelectedItem(kh.getGioiTinh().toString());
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -208,20 +208,14 @@ public class pnDSuaKH extends javax.swing.JDialog {
         if (new SuaKhachHang().Sua(txtIDKhachHang.getText(), txtHoTen.getText(),
                 cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(), txtDiaChi.getText()) == true) {
             this.setVisible(false);
-            pnMain pnmain = new pnMain(pnBanHang,new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()),nvs,idHoaDon);
-            pnBanHang.removeAll();
-            pnmain.setVisible(true);
-            pnBanHang.setLayout(new BorderLayout());
-            pnBanHang.add(pnmain);
-            pnBanHang.validate();
-        }
-        else {
+            txtTenKhachHang.setText(txtHoTen.getText());
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Vui Lòng Thử Lại");
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new pnDDiaChi(new javax.swing.JFrame(),true, nvs, null, pnBanHang, txtDiaChi).setVisible(true);
+        new pnDDiaChi(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
     }//GEN-LAST:event_txtDiaChiMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

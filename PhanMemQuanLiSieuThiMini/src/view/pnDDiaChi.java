@@ -28,13 +28,10 @@ public class pnDDiaChi extends javax.swing.JDialog {
     NhanVien nvs;
     pnMain pnM;
     JPanel pnBanHang;
-    public pnDDiaChi(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang,JTextField _txtDiaChi) {
+    public pnDDiaChi(java.awt.Frame parent, boolean modal,JTextField _txtDiaChi) {
         super(parent, modal);
         initComponents();
         this._txtDiaChi = _txtDiaChi;
-        this.nvs = nv;
-        this.pnM = pnM;
-        this.pnBanHang  = pnBanHang;
         pnListTinh.setLayout(new BoxLayout(pnListTinh, BoxLayout.Y_AXIS));
         loadData("");
         txtDiaChi.addKeyListener(new KeyListener() {
@@ -159,7 +156,6 @@ public class pnDDiaChi extends javax.swing.JDialog {
         for (int i = 0; i < list.size(); i++) {
             if (txtDiaChi.getText().equals((String) list.get(i))) {
                 this.setVisible(false);
-                new pnDKhachHang(new JFrame(), true, nvs, pnM, pnBanHang);
                 _txtDiaChi.setText(txtDiaChi.getText());
             }
             else {

@@ -68,6 +68,7 @@ public class jfBanHang extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         mnThemKhachHang = new javax.swing.JMenu();
         pnThemKhachHang = new javax.swing.JMenuItem();
+        pnKhachHangThanThien = new javax.swing.JMenuItem();
         mnHoaDon = new javax.swing.JMenu();
         mniSuaHoaDon = new javax.swing.JMenuItem();
         mniXemHoaDon = new javax.swing.JMenuItem();
@@ -118,6 +119,15 @@ public class jfBanHang extends javax.swing.JFrame {
         });
         mnThemKhachHang.add(pnThemKhachHang);
 
+        pnKhachHangThanThien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        pnKhachHangThanThien.setText("Khách Hàng Thân Thiện");
+        pnKhachHangThanThien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pnKhachHangThanThienActionPerformed(evt);
+            }
+        });
+        mnThemKhachHang.add(pnKhachHangThanThien);
+
         menu.add(mnThemKhachHang);
 
         mnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-hoadon.png"))); // NOI18N
@@ -158,6 +168,10 @@ public class jfBanHang extends javax.swing.JFrame {
         pnbanhang.setVisible(true); 
     }//GEN-LAST:event_pnThemKhachHangActionPerformed
 
+    private void pnKhachHangThanThienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnKhachHangThanThienActionPerformed
+        
+    }//GEN-LAST:event_pnKhachHangThanThienActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -178,6 +192,7 @@ public class jfBanHang extends javax.swing.JFrame {
     private javax.swing.JPanel pnBanHang;
     private javax.swing.JPanel pnFullGui;
     private javax.swing.JPanel pnHeaderf;
+    private javax.swing.JMenuItem pnKhachHangThanThien;
     private javax.swing.JMenuItem pnThemKhachHang;
     // End of variables declaration//GEN-END:variables
 }

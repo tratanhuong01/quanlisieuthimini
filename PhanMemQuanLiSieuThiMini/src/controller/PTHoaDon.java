@@ -60,8 +60,8 @@ public class PTHoaDon {
     public boolean insertHoaDon(String idHoaDon, String idKhachHang, String idNhanVien,
             int trangThai, String ptThanhToan) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai,PTThanhToan)"
-                    + "VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai)"
+                    + "VALUES (?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idHoaDon);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -70,7 +70,6 @@ public class PTHoaDon {
             ps.setString(3, idKhachHang);
             ps.setString(4, idNhanVien);
             ps.setInt(5, trangThai);
-            ps.setString(6, ptThanhToan);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,13 +96,15 @@ public class PTHoaDon {
         return false;
     }
 
-    public void load(JPanel pn, String hinhSanPham, String tenSanPham, float giaSanPham,
-        String idHoaDon, JScrollPane jsc, JTextField txtTien, float tongTien,JTextField giaKhuyenMai,float giaKM) {
+    public float load(JPanel pn, String hinhSanPham, String tenSanPham, float giaSanPham,
+        String idHoaDon, JScrollPane jsc, JTextField txtTien,JTextField giaKhuyenMai,JButton btnTaoHoaDon) {
         pn.removeAll();
         pn.setLayout(new BoxLayout(pn, BoxLayout.Y_AXIS));
         List<DongHoaDon> list = getListDongHoaDon(idHoaDon);
-
+        float tongTien = 0;
+        float giaKM = 0;
         if (list.size() > 0) {
+            btnTaoHoaDon.setEnabled(true);
             for (int i = 0; i < list.size(); i++) {
                 JPanel pnMain = new JPanel();
                 JLabel lbHinhSanPham = new JLabel();
@@ -167,7 +168,7 @@ public class PTHoaDon {
                         pn.updateUI();
                         XoaSanPham xoa = new XoaSanPham();
                         xoa.xoa(idDongHoaDon);
-                        load(pn, hinhSanPham, tenSanPham, giaSanPham, idHoaDon, jsc, txtTien, tongTien_clone,giaKhuyenMai,giaKM_clone);
+                        load(pn, hinhSanPham, tenSanPham, giaSanPham, idHoaDon, jsc, txtTien,giaKhuyenMai,btnTaoHoaDon);
                     }
                 });
 
@@ -187,5 +188,11 @@ public class PTHoaDon {
             txtTien.setText(formatter.format(tongTien - giaKM) + " VNĐ");
             giaKhuyenMai.setText(formatter.format(giaKM) + " VNĐ");
         }
+        else {
+            btnTaoHoaDon.setEnabled(false);
+            txtTien.setText(formatter.format(0) + " VNĐ");
+            giaKhuyenMai.setText(formatter.format(0) + " VNĐ");
+        }
+        return tongTien;
     }
 }

@@ -198,7 +198,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
         pTHoaDon.insertDongHoaDon(idHoaDon, sp.getIdSanPham(), sp.getIdDonViTinh(),
                 Integer.parseInt(txtSoLuong.getText()));
         pTHoaDon.load(pnSanPhamDaChon, sp.getUrlSanPham(), sp.getTenSanPham(), 
-                sp.getDonGia(), idHoaDon,jsc,txtTien,tongTien,tienKhuyenMai,1);
+                sp.getDonGia(), idHoaDon,jsc,txtTien,tienKhuyenMai,btnTaoHoaDon);
         
         List<DongHoaDon> list = pTHoaDon.getListDongHoaDon(idHoaDon);
         if (list.size() > 0 ) {
