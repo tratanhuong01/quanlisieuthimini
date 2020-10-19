@@ -5,6 +5,21 @@ import modal.ConnectDAO;
 import modal.StringUtil;
 
 public class LuuAtm {
+    String idThongTin;
+
+    public boolean updateIDTTThanhToan(String idThongTin,String idHoaDon) {
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "UPDATE HoaDon SET IDThongTin = ? WHERE IDHoaDon = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, idThongTin);
+            ps.setString(2, idHoaDon);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public String getIDByTen(String ten) {
         String string = "";
         try (Connection conn = new ConnectDAO().getConnection()){
@@ -22,13 +37,13 @@ public class LuuAtm {
         }
         return string;
     }
-    public boolean luu(String idPTThanhToan,String loaiThe,
+    public boolean luu(String idThongTin,String idPTThanhToan,String loaiThe,
                     String soTaiKhoan,String tenTaiKhoan,String chiNhanh,String tenNganHang) {
         try (Connection conn = new ConnectDAO().getConnection()){
             String query = "INSERT INTO ThongTinThanhToan(IDThongTin,IDPTThanhToan,LoaiThe,"
                     + "SoTaiKhoan,TenTaiKhoan,ChiNhanh,TenNganHang)VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, StringUtil.taoID("IDThongTin", "ThongTinThanhToan", "TTTT"));
+            ps.setString(1, idThongTin);
             ps.setString(2, idPTThanhToan);
             ps.setString(3, loaiThe);
             ps.setString(4, soTaiKhoan);

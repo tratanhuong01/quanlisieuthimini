@@ -23,10 +23,11 @@ public class pnDAtm extends javax.swing.JDialog {
     pnMain pnM;
     JPanel pnBanHang;
     jpnTaoHoaDon thd;
-    String idHoaDon = "";
+    String idHoaDon;
     String tenPTThanhToan;
     KhachHang kh;
-    public pnDAtm(java.awt.Frame parent, boolean modal,KhachHang kh,NhanVien nv,pnMain pnM,JPanel pnBanHang,jpnTaoHoaDon thd,String tenPTThanhToan) {
+    public pnDAtm(java.awt.Frame parent, boolean modal,KhachHang kh,NhanVien nv,pnMain pnM,
+            JPanel pnBanHang,jpnTaoHoaDon thd,String tenPTThanhToan,String idHoaDon) {
         super(parent,modal);
         initComponents();
         this.nvs = nv;
@@ -35,6 +36,7 @@ public class pnDAtm extends javax.swing.JDialog {
         this.thd = thd;
         this.tenPTThanhToan = tenPTThanhToan;
         this.kh = kh;
+        this.idHoaDon = idHoaDon;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -189,9 +191,11 @@ public class pnDAtm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        
-        if (new LuuAtm().luu(new LuuAtm().getIDByTen(tenPTThanhToan), cbLoaiThe.getSelectedItem().toString()
+        String idThongTin = StringUtil.taoID("IDThongTin", "ThongTinThanhToan", "TTTT");
+        LuuAtm luuatm = new LuuAtm();
+        if (luuatm.luu(idThongTin,luuatm.getIDByTen(tenPTThanhToan), cbLoaiThe.getSelectedItem().toString()
                 , txtSoTaiKhoan.getText(), txtTenTaiKhoan.getText(), txtChiNhanh.getText(), txtTenNganHang.getText()) == true) {
+            luuatm.updateIDTTThanhToan(idThongTin,idHoaDon);
             this.setVisible(false);
             pnBanHang.removeAll();
             thd.setVisible(true);

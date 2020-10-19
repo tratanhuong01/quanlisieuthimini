@@ -63,20 +63,20 @@ public class pnQLSanPham extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         pnQuanLiKhachHang = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTenSanPham = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbDonViTinh = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtMaSanPham = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listNhanVien = new javax.swing.JTable();
-        btnXoaNhanVien = new javax.swing.JButton();
-        btnSuaNhanVien = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnThemNhanVien = new javax.swing.JButton();
+        btnThemSanPham = new javax.swing.JButton();
+        btnSuaSanPham = new javax.swing.JButton();
+        btnKiemTraHSD = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
+        btnXoaSanPham = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
         setMinimumSize(new java.awt.Dimension(1440, 740));
@@ -96,9 +96,9 @@ public class pnQLSanPham extends javax.swing.JPanel {
         pnQuanLiKhachHang.add(jLabel1);
         jLabel1.setBounds(10, 40, 150, 50);
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        pnQuanLiKhachHang.add(jTextField1);
-        jTextField1.setBounds(160, 40, 410, 50);
+        txtTenSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        pnQuanLiKhachHang.add(txtTenSanPham);
+        txtTenSanPham.setBounds(160, 40, 410, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Đơn Vị Tính");
@@ -110,23 +110,22 @@ public class pnQLSanPham extends javax.swing.JPanel {
         jTextField3.setBounds(770, 120, 410, 50);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setText("Số Điện Thoại");
         pnQuanLiKhachHang.add(jLabel3);
         jLabel3.setBounds(620, 120, 150, 50);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pnQuanLiKhachHang.add(jComboBox1);
-        jComboBox1.setBounds(160, 120, 420, 50);
+        cbDonViTinh.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbDonViTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnQuanLiKhachHang.add(cbDonViTinh);
+        cbDonViTinh.setBounds(160, 120, 420, 50);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("Mã Sản Phẩm");
         pnQuanLiKhachHang.add(jLabel4);
         jLabel4.setBounds(620, 40, 150, 50);
 
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        pnQuanLiKhachHang.add(jTextField2);
-        jTextField2.setBounds(770, 40, 410, 50);
+        txtMaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        pnQuanLiKhachHang.add(txtMaSanPham);
+        txtMaSanPham.setBounds(770, 40, 410, 50);
 
         jPanel1.add(pnQuanLiKhachHang);
         pnQuanLiKhachHang.setBounds(0, 0, 1190, 190);
@@ -149,35 +148,35 @@ public class pnQLSanPham extends javax.swing.JPanel {
         pn.add(jPanel1);
         jPanel1.setBounds(0, 0, 1190, 740);
 
-        btnXoaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnXoaNhanVien.setText("Xóa Sản Phẩm");
-        pn.add(btnXoaNhanVien);
-        btnXoaNhanVien.setBounds(1210, 120, 230, 80);
+        btnThemSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThemSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnThemSanPham.setText("Thêm Sản Phẩm");
+        pn.add(btnThemSanPham);
+        btnThemSanPham.setBounds(1200, 200, 230, 90);
 
-        btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnSuaNhanVien.setText("Sửa Sản Phẩm");
-        pn.add(btnSuaNhanVien);
-        btnSuaNhanVien.setBounds(1210, 230, 230, 80);
+        btnSuaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSuaSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnSuaSanPham.setText("Sửa Sản Phẩm");
+        pn.add(btnSuaSanPham);
+        btnSuaSanPham.setBounds(1200, 430, 230, 80);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        jButton3.setText("Tìm Kiếm");
-        pn.add(jButton3);
-        jButton3.setBounds(1210, 340, 230, 80);
+        btnKiemTraHSD.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnKiemTraHSD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnKiemTraHSD.setText("Kiểm Tra HSD");
+        pn.add(btnKiemTraHSD);
+        btnKiemTraHSD.setBounds(1200, 650, 230, 80);
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        jButton2.setText("Kiểm Tra HSD");
-        pn.add(jButton2);
-        jButton2.setBounds(1210, 450, 230, 80);
+        btnTimKiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnTimKiem.setText("Tìm Kiếm");
+        pn.add(btnTimKiem);
+        btnTimKiem.setBounds(1200, 50, 230, 80);
 
-        btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien.setText("Thêm Sản Phẩm");
-        pn.add(btnThemNhanVien);
-        btnThemNhanVien.setBounds(1210, 10, 230, 80);
+        btnXoaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoaSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnXoaSanPham.setText("Xóa Sản Phẩm");
+        pn.add(btnXoaSanPham);
+        btnXoaSanPham.setBounds(1200, 320, 230, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,23 +192,23 @@ public class pnQLSanPham extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSuaNhanVien;
-    private javax.swing.JButton btnThemNhanVien;
-    private javax.swing.JButton btnXoaNhanVien;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnKiemTraHSD;
+    private javax.swing.JButton btnSuaSanPham;
+    private javax.swing.JButton btnThemSanPham;
+    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnXoaSanPham;
+    private javax.swing.JComboBox<String> cbDonViTinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTable listNhanVien;
     private javax.swing.JPanel pn;
     private javax.swing.JPanel pnQuanLiKhachHang;
+    private javax.swing.JTextField txtMaSanPham;
+    private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables
 }

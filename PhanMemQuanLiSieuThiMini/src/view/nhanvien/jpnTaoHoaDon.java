@@ -24,12 +24,13 @@ import modal.HoaDon;
 public class jpnTaoHoaDon extends javax.swing.JPanel {
 
     JPanel pnBanHang;
-
-    public jpnTaoHoaDon(JPanel pnBanHang, List<DongHoaDon> list, float tienKhachDua, float tienKhuyenMai) {
+    String ptThanhToan;
+    public jpnTaoHoaDon(JPanel pnBanHang, List<DongHoaDon> list, float tienKhachDua, float tienKhuyenMai,String ptThanhToan) {
         initComponents();
         this.pnBanHang = pnBanHang;
+        this.ptThanhToan = ptThanhToan;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        int a = 250;
+        int a = 300;
         float tongTienFull = 0;
         JLabel tenSPTitle = new JLabel();
         JLabel donGiaTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
@@ -127,6 +128,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.add(br1);
         pnHoaDon.add(camOn);
         pnHoaDon.setPreferredSize(new Dimension(550, a + 380));
+        tenPTThanhToan.setText("Phương Thức Thanh Toán : " + ptThanhToan);
     }
 
     @SuppressWarnings("unchecked")
@@ -147,11 +149,12 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel54 = new javax.swing.JLabel();
         datetimeHoaDon = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
+        tenPTThanhToan = new javax.swing.JLabel();
         txtTenKH = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
         txtTenNV = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
         btnTaoHoaDonVaThanhToan = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
@@ -203,7 +206,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel51.setForeground(java.awt.Color.blue);
         jLabel51.setText("-----------------------------------------------------------------------------------------------------------------------------------------");
         pnHoaDon.add(jLabel51);
-        jLabel51.setBounds(10, 230, 560, 16);
+        jLabel51.setBounds(10, 260, 560, 16);
 
         lbidHoaDon.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbidHoaDon.setForeground(java.awt.Color.blue);
@@ -235,11 +238,11 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.add(jLabel56);
         jLabel56.setBounds(180, 140, 220, 20);
 
-        jLabel57.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel57.setForeground(java.awt.Color.blue);
-        jLabel57.setText("Tên KH");
-        pnHoaDon.add(jLabel57);
-        jLabel57.setBounds(280, 200, 90, 20);
+        tenPTThanhToan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tenPTThanhToan.setForeground(java.awt.Color.blue);
+        tenPTThanhToan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnHoaDon.add(tenPTThanhToan);
+        tenPTThanhToan.setBounds(10, 230, 570, 30);
 
         txtTenKH.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txtTenKH.setForeground(java.awt.Color.blue);
@@ -260,6 +263,12 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/logo.png"))); // NOI18N
         pnHoaDon.add(jLabel1);
         jLabel1.setBounds(10, 0, 280, 130);
+
+        jLabel58.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel58.setForeground(java.awt.Color.blue);
+        jLabel58.setText("Tên KH");
+        pnHoaDon.add(jLabel58);
+        jLabel58.setBounds(280, 200, 90, 20);
 
         jScrollPane1.setViewportView(pnHoaDon);
 
@@ -336,12 +345,13 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbidHoaDon;
     private javax.swing.JPanel pnHoaDon;
+    private javax.swing.JLabel tenPTThanhToan;
     private javax.swing.JLabel txtTenKH;
     private javax.swing.JLabel txtTenNV;
     // End of variables declaration//GEN-END:variables

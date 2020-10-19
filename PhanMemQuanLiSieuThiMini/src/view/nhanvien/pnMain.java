@@ -517,9 +517,10 @@ public class pnMain extends javax.swing.JPanel {
             CapNhatTienHoaDon cn = new CapNhatTienHoaDon();
             cn.CapNhat(tongTien - tienKhuyenMai, idHoaDon);
             pnBanHang.removeAll();
-            jpnTaoHoaDon thd = new jpnTaoHoaDon(pnBanHang, list, Float.parseFloat(txtTienKhachTra.getText()), tienKhuyenMai);
+            jpnTaoHoaDon thd = new jpnTaoHoaDon(pnBanHang, list, Float.parseFloat(txtTienKhachTra.getText()), 
+                    tienKhuyenMai,ptThanhToan.getSelectedItem().toString());
             if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
-                pnDAtm pnAtm = new pnDAtm(jfbh, true,kh, nv, this, pnBanHang, thd,ptThanhToan.getSelectedItem().toString());
+                pnDAtm pnAtm = new pnDAtm(jfbh, true,kh, nv, this, pnBanHang, thd,ptThanhToan.getSelectedItem().toString(),idHoaDon);
                 pnAtm.setVisible(true);
                 
             } else {
