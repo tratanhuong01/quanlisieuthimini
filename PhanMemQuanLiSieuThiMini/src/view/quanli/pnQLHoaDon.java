@@ -18,8 +18,8 @@ public class pnQLHoaDon extends javax.swing.JPanel {
 
     public void loadTable() {
         String query = "SELECT IDHoaDon AS 'ID Hóa Đơn' , NgayTao AS 'Ngày Tạo',IDKhachHang AS 'ID Khách Hàng'\n"
-                + ",IDNhanVien AS 'ID Nhân Viên',TongTien AS 'Tổng Tiền',TrangThai AS 'Trạng Thái'\n"
-                + ",PTThanhToan AS 'PT Thanh Toán' FROM HoaDon";
+                        + ",IDNhanVien AS 'ID Nhân Viên',TongTien AS 'Tổng Tiền',TrangThai AS 'Trạng Thái'\n"
+                        + ",IDThongTin AS 'ID Thông Tin' FROM HoaDon";      
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;

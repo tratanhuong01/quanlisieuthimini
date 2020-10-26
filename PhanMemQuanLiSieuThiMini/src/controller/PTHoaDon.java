@@ -116,8 +116,8 @@ public class PTHoaDon {
                 JTextField txtSoLuong = new JTextField();
                 tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
                 pnMain.setLayout(null);
-                lbHinhSanPham.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-                lbHinhSanPham.setText(list.get(i).getHinhSanPham());
+                lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/pay.png"))); // NOI18N
                 pnMain.add(lbHinhSanPham);
                 lbHinhSanPham.setBounds(0, 0, 90, 90);
 
@@ -171,7 +171,20 @@ public class PTHoaDon {
                         load(pn, hinhSanPham, tenSanPham, giaSanPham, idHoaDon, jsc, txtTien,giaKhuyenMai,btnTaoHoaDon);
                     }
                 });
-
+                btnTang.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                        soLuong++;
+                        txtSoLuong.setText(String.valueOf(soLuong));
+                    }
+                });
+                btnGiam.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                    }
+                });
                 int numComponent = pn.getComponentCount();
                 pn.setPreferredSize(new Dimension(410, numComponent * 100));
                 jsc.getViewport().setViewPosition(new Point(0, pn.getComponentCount() * 100));
@@ -194,5 +207,17 @@ public class PTHoaDon {
             giaKhuyenMai.setText(formatter.format(0) + " VNĐ");
         }
         return tongTien;
+    }
+    public boolean ThayDoiSLSanPham(int soLuong,String idDongHoaDon) {
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "UPDATE SoLuong = ? FROM DongHoaDon WHERE IDDongHoaDon = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, soLuong);
+            ps.setString(2, idDongHoaDon);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

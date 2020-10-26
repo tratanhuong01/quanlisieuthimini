@@ -81,10 +81,10 @@ public class pnHeader extends javax.swing.JPanel {
             if (Integer.parseInt(ss) > 59) {
                 ss = "00";
                 if (Integer.parseInt(mm) > 59) {
-                    mm = "0";
+                    mm = "";
                     if (Integer.parseInt(hh) > 23) {
                         hh = "00";
-                        mm = "0";
+                        mm = "";
                     } else {
                         int h = Integer.parseInt(hh);
                         h++;
