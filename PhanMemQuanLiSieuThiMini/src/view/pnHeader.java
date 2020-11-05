@@ -76,7 +76,7 @@ public class pnHeader extends javax.swing.JPanel {
             s++;
             ss = String.valueOf(s);
             hh = (Integer.parseInt(hh) < 10) ? hh = "0" + hh : hh;
-            mm = (Integer.parseInt(mm) < 10) ? mm = "0" + mm : mm;
+            mm = (Integer.parseInt(mm) < 10) ? mm = "" + mm : mm;
             ss = (Integer.parseInt(ss) < 10) ? ss = "0" + ss : ss;
             if (Integer.parseInt(ss) > 59) {
                 ss = "00";

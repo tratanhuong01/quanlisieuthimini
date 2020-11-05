@@ -147,7 +147,7 @@ public class pnMain extends javax.swing.JPanel {
             lbGiaSanPham.setBounds(0, 100, 190, 30);
 
             lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/pay.png"))); // NOI18N
+            lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + list.get(i).getUrlSanPham()))); // NOI18N
             pn.add(lbHinhSanPham);
             lbHinhSanPham.setBounds(30, 10, 120, 60);
 
@@ -420,7 +420,7 @@ public class pnMain extends javax.swing.JPanel {
         jScrollPane1.setViewportView(pnChonSanPham);
 
         pnFull.add(jScrollPane1);
-        jScrollPane1.setBounds(440, 100, 970, 490);
+        jScrollPane1.setBounds(450, 100, 970, 490);
 
         jScrollPane2.setMaximumSize(new java.awt.Dimension(430, 450));
         jScrollPane2.setMinimumSize(new java.awt.Dimension(430, 450));

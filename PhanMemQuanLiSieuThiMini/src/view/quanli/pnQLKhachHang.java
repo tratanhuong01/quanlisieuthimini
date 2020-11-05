@@ -14,7 +14,6 @@ public class pnQLKhachHang extends javax.swing.JPanel {
 
     public pnQLKhachHang() {
         initComponents();
-        loadTable();
     }
 
     public void loadTable() {
@@ -64,7 +63,6 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         listKhachHang = new javax.swing.JTable();
         btnSuaKhachHang = new javax.swing.JButton();
         btnXoaKhachHang = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         btnThemNhanVien = new javax.swing.JButton();
         pnQuanLiKhachHang = new javax.swing.JPanel();
         txtDiaChi = new javax.swing.JTextField();
@@ -75,6 +73,7 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         txtMaKhachHang = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTenKhachHang = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
         setMinimumSize(new java.awt.Dimension(1440, 740));
@@ -119,12 +118,6 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         btnXoaKhachHang.setText("Xóa Khách Hàng");
         pn.add(btnXoaKhachHang);
         btnXoaKhachHang.setBounds(1190, 500, 250, 80);
-
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        jButton3.setText("Tìm Kiếm");
-        pn.add(jButton3);
-        jButton3.setBounds(1190, 640, 250, 80);
 
         btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
@@ -184,6 +177,12 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         txtTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         pnQuanLiKhachHang.add(txtTenKhachHang);
         txtTenKhachHang.setBounds(170, 40, 280, 50);
+
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        jButton3.setText("Tìm Kiếm");
+        pnQuanLiKhachHang.add(jButton3);
+        jButton3.setBounds(1180, 40, 250, 80);
 
         pn.add(pnQuanLiKhachHang);
         pnQuanLiKhachHang.setBounds(0, 0, 1440, 190);

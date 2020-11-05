@@ -117,7 +117,7 @@ public class PTHoaDon {
                 tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
                 pnMain.setLayout(null);
                 lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/pay.png"))); // NOI18N
+                lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + list.get(i).getHinhSanPham()))); // NOI18N
                 pnMain.add(lbHinhSanPham);
                 lbHinhSanPham.setBounds(0, 0, 90, 90);
 
@@ -176,6 +176,7 @@ public class PTHoaDon {
                     public void actionPerformed(ActionEvent e) {
                         int soLuong = Integer.parseInt(txtSoLuong.getText());
                         soLuong++;
+                        ThayDoiSLSanPham(soLuong, idDongHoaDon);
                         txtSoLuong.setText(String.valueOf(soLuong));
                     }
                 });
@@ -183,6 +184,9 @@ public class PTHoaDon {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         int soLuong = Integer.parseInt(txtSoLuong.getText());
+                        soLuong--;
+                        ThayDoiSLSanPham(soLuong, idDongHoaDon);
+                        txtSoLuong.setText(String.valueOf(soLuong));
                     }
                 });
                 int numComponent = pn.getComponentCount();
@@ -215,6 +219,7 @@ public class PTHoaDon {
             ps.setInt(1, soLuong);
             ps.setString(2, idDongHoaDon);
             ps.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

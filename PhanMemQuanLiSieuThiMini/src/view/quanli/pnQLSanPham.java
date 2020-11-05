@@ -13,7 +13,6 @@ public class pnQLSanPham extends javax.swing.JPanel {
 
     public pnQLSanPham() {
         initComponents();
-        loadTable();
     }
 
     public void loadTable() {
@@ -158,7 +157,7 @@ public class pnQLSanPham extends javax.swing.JPanel {
         btnSuaSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnSuaSanPham.setText("Sửa Sản Phẩm");
         pn.add(btnSuaSanPham);
-        btnSuaSanPham.setBounds(1200, 430, 230, 80);
+        btnSuaSanPham.setBounds(1200, 500, 230, 80);
 
         btnKiemTraHSD.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnKiemTraHSD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
@@ -176,7 +175,7 @@ public class pnQLSanPham extends javax.swing.JPanel {
         btnXoaSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnXoaSanPham.setText("Xóa Sản Phẩm");
         pn.add(btnXoaSanPham);
-        btnXoaSanPham.setBounds(1200, 320, 230, 80);
+        btnXoaSanPham.setBounds(1200, 350, 230, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

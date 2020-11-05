@@ -50,7 +50,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
     }
     public void load() {
         soLuong = Integer.parseInt(txtSoLuong.getText());
-        hinhSanPham.setText(sp.getUrlSanPham());
+        hinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + sp.getUrlSanPham())));
         lbTenSanPham.setText(sp.getTenSanPham());
         lbGiaSanPham.setText(formatter.format(sp.getDonGia() * soLuong) + " VNĐ");
         btnTang.addActionListener(new ActionListener() {
@@ -97,7 +97,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(90, 0, 220, 60);
 
-        hinhSanPham.setText("jLabel2");
+        hinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/BG00010SP00010.png"))); // NOI18N
         jPanel1.add(hinhSanPham);
         hinhSanPham.setBounds(20, 60, 70, 80);
 

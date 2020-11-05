@@ -13,7 +13,6 @@ public class pnQLHoaDon extends javax.swing.JPanel {
 
     public pnQLHoaDon() {
         initComponents();
-        loadTable();
     }
 
     public void loadTable() {
