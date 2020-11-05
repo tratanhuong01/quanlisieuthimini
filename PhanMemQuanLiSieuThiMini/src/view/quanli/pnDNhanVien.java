@@ -42,8 +42,8 @@ public class pnDNhanVien extends javax.swing.JDialog {
         btnVeTrangChu = new javax.swing.JButton();
         cbGioiTinh = new javax.swing.JComboBox<>();
         btnLuu = new javax.swing.JButton();
-        cbNhomKhachHang = new javax.swing.JComboBox<>();
-        txtIDKhachHang = new javax.swing.JTextField();
+        cbBoPhan = new javax.swing.JComboBox<>();
+        txtIDNhanVien = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,20 +60,20 @@ public class pnDNhanVien extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(60, 0, 70, 50);
+        jLabel1.setBounds(60, 0, 70, 90);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel2.setText("Thêm Khách Hàng");
+        jLabel2.setText("Thêm Nhân Viên");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 0, 350, 50);
+        jLabel2.setBounds(160, 0, 350, 90);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 600, 90);
 
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel37.setText("Nhóm Khách Hàng");
+        jLabel37.setText("Bộ Phận");
         jPanel1.add(jLabel37);
-        jLabel37.setBounds(40, 130, 157, 24);
+        jLabel37.setBounds(40, 130, 70, 24);
 
         jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel38.setText("Họ Tên");
@@ -143,19 +143,19 @@ public class pnDNhanVien extends javax.swing.JDialog {
         jPanel1.add(btnLuu);
         btnLuu.setBounds(330, 570, 200, 70);
 
-        cbNhomKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbNhomKhachHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbNhomKhachHang);
-        cbNhomKhachHang.setBounds(220, 120, 330, 40);
+        cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbBoPhan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbBoPhan);
+        cbBoPhan.setBounds(220, 120, 330, 40);
 
-        txtIDKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtIDKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtIDKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtIDKhachHang);
-        txtIDKhachHang.setBounds(220, 190, 330, 40);
+        txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtIDNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtIDNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtIDNhanVien);
+        txtIDNhanVien.setBounds(220, 190, 330, 40);
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel42.setText("IDKhachHang");
+        jLabel42.setText("ID Nhân Viên");
         jPanel1.add(jLabel42);
         jLabel42.setBounds(40, 200, 140, 24);
 
@@ -185,8 +185,8 @@ public class pnDNhanVien extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnVeTrangChu;
+    private javax.swing.JComboBox<String> cbBoPhan;
     private javax.swing.JComboBox<String> cbGioiTinh;
-    private javax.swing.JComboBox<String> cbNhomKhachHang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
@@ -199,7 +199,7 @@ public class pnDNhanVien extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtIDKhachHang;
+    private javax.swing.JTextField txtIDNhanVien;
     private javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

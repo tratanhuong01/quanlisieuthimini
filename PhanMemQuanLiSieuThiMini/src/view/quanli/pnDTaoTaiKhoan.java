@@ -34,11 +34,13 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
         jLabel39 = new javax.swing.JLabel();
         btnVeTrangChu = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtTenDangNhap = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtMatKhau = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtIDNhanVien = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        cbBoPhan = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -67,7 +69,7 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
         jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel39.setText("Tài Khoản");
         jPanel1.add(jLabel39);
-        jLabel39.setBounds(30, 210, 120, 50);
+        jLabel39.setBounds(30, 290, 120, 50);
 
         btnVeTrangChu.setBackground(java.awt.Color.orange);
         btnVeTrangChu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -80,7 +82,7 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnVeTrangChu);
-        btnVeTrangChu.setBounds(30, 390, 191, 70);
+        btnVeTrangChu.setBounds(30, 480, 191, 70);
 
         btnLuu.setBackground(java.awt.Color.orange);
         btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -92,29 +94,39 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnLuu);
-        btnLuu.setBounds(250, 390, 190, 70);
+        btnLuu.setBounds(250, 480, 190, 70);
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(170, 210, 280, 50);
+        txtTenDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(txtTenDangNhap);
+        txtTenDangNhap.setBounds(170, 290, 280, 50);
 
         jLabel41.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel41.setText("Mật Khẩu");
         jPanel1.add(jLabel41);
-        jLabel41.setBounds(30, 290, 120, 50);
+        jLabel41.setBounds(30, 370, 120, 50);
 
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(170, 290, 280, 50);
+        txtMatKhau.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(txtMatKhau);
+        txtMatKhau.setBounds(170, 370, 280, 50);
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel42.setText("ID Nhân Viên");
         jPanel1.add(jLabel42);
-        jLabel42.setBounds(30, 130, 130, 50);
+        jLabel42.setBounds(30, 210, 130, 50);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(170, 130, 280, 50);
+        txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(txtIDNhanVien);
+        txtIDNhanVien.setBounds(170, 210, 280, 50);
+
+        jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel37.setText("Bộ Phân");
+        jPanel1.add(jLabel37);
+        jLabel37.setBounds(30, 140, 70, 30);
+
+        cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbBoPhan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbBoPhan);
+        cbBoPhan.setBounds(170, 130, 280, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,7 +136,9 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,15 +156,17 @@ public class pnDTaoTaiKhoan extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnVeTrangChu;
+    private javax.swing.JComboBox<String> cbBoPhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtIDNhanVien;
+    private javax.swing.JTextField txtMatKhau;
+    private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
 }

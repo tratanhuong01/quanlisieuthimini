@@ -13,7 +13,6 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
 
     public pnQLNhaCungCap() {
         initComponents();
-        loadTable();
     }
     public void loadTable() {
         String query = "SELECT IDKhachHang AS 'ID Khách Hàng' , IDNhomKH AS 'ID Nhóm Khách Hàng',\n"
@@ -140,7 +139,7 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listKhachHang);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 200, 1190, 540);
+        jScrollPane1.setBounds(0, 200, 1170, 540);
 
         pn.add(jPanel1);
         jPanel1.setBounds(0, 0, 1170, 740);
@@ -149,19 +148,19 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         btnXoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnXoaNhanVien.setText("Xóa Nhà Cung Cấp");
         pn.add(btnXoaNhanVien);
-        btnXoaNhanVien.setBounds(1180, 160, 260, 80);
+        btnXoaNhanVien.setBounds(1180, 200, 260, 80);
 
         btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnSuaNhanVien.setText("Sửa Nhà Cung Cấp");
         pn.add(btnSuaNhanVien);
-        btnSuaNhanVien.setBounds(1180, 320, 260, 80);
+        btnSuaNhanVien.setBounds(1180, 350, 260, 80);
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         jButton3.setText("Tìm Kiếm");
         pn.add(jButton3);
-        jButton3.setBounds(1180, 480, 260, 80);
+        jButton3.setBounds(1180, 500, 260, 80);
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N

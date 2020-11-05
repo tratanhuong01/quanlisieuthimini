@@ -13,7 +13,6 @@ public class pnQLNhanVien extends javax.swing.JPanel {
 
     public pnQLNhanVien() {
         initComponents();
-        loadTableNhanVien();
     }
 
     public void loadTableNhanVien() {
@@ -76,11 +75,12 @@ public class pnQLNhanVien extends javax.swing.JPanel {
         listNhanVien = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btnThemNhanVien1 = new javax.swing.JButton();
-        btnThemNhanVien2 = new javax.swing.JButton();
-        btnThemNhanVien3 = new javax.swing.JButton();
-        btnThemNhanVien4 = new javax.swing.JButton();
-        btnThemNhanVien5 = new javax.swing.JButton();
+        btnTinhLuong = new javax.swing.JButton();
+        btnThemNhanVien = new javax.swing.JButton();
+        btnXoaNhanVien = new javax.swing.JButton();
+        btnSuaNhanVien = new javax.swing.JButton();
+        btnTaoTaiKhoan = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
         setMinimumSize(new java.awt.Dimension(1440, 740));
@@ -163,35 +163,41 @@ public class pnQLNhanVien extends javax.swing.JPanel {
         pn.add(jPanel1);
         jPanel1.setBounds(0, 0, 1190, 740);
 
-        btnThemNhanVien1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien1.setText("Tìm Kiếm");
-        pn.add(btnThemNhanVien1);
-        btnThemNhanVien1.setBounds(1210, 370, 220, 60);
+        btnTinhLuong.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTinhLuong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnTinhLuong.setText("Tính Lương");
+        pn.add(btnTinhLuong);
+        btnTinhLuong.setBounds(1210, 640, 220, 90);
 
-        btnThemNhanVien2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien2.setText("Thêm Nhân Viên");
-        pn.add(btnThemNhanVien2);
-        btnThemNhanVien2.setBounds(1210, 10, 220, 60);
+        btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnThemNhanVien.setText("Thêm Nhân Viên");
+        pn.add(btnThemNhanVien);
+        btnThemNhanVien.setBounds(1210, 200, 220, 90);
 
-        btnThemNhanVien3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien3.setText("Xóa Nhân Viên");
-        pn.add(btnThemNhanVien3);
-        btnThemNhanVien3.setBounds(1210, 100, 220, 60);
+        btnXoaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnXoaNhanVien.setText("Xóa Nhân Viên");
+        pn.add(btnXoaNhanVien);
+        btnXoaNhanVien.setBounds(1210, 310, 220, 90);
 
-        btnThemNhanVien4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien4.setText("Sửa Nhân Viên");
-        pn.add(btnThemNhanVien4);
-        btnThemNhanVien4.setBounds(1210, 190, 220, 60);
+        btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnSuaNhanVien.setText("Sửa Nhân Viên");
+        pn.add(btnSuaNhanVien);
+        btnSuaNhanVien.setBounds(1210, 420, 220, 90);
 
-        btnThemNhanVien5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien5.setText("Tạo Tài Khoản");
-        pn.add(btnThemNhanVien5);
-        btnThemNhanVien5.setBounds(1210, 280, 220, 60);
+        btnTaoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTaoTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnTaoTaiKhoan.setText("Tạo Tài Khoản");
+        pn.add(btnTaoTaiKhoan);
+        btnTaoTaiKhoan.setBounds(1210, 530, 220, 90);
+
+        btnTimKiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnTimKiem.setText("Tìm Kiếm");
+        pn.add(btnTimKiem);
+        btnTimKiem.setBounds(1210, 50, 220, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -207,11 +213,12 @@ public class pnQLNhanVien extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThemNhanVien1;
-    private javax.swing.JButton btnThemNhanVien2;
-    private javax.swing.JButton btnThemNhanVien3;
-    private javax.swing.JButton btnThemNhanVien4;
-    private javax.swing.JButton btnThemNhanVien5;
+    private javax.swing.JButton btnSuaNhanVien;
+    private javax.swing.JButton btnTaoTaiKhoan;
+    private javax.swing.JButton btnThemNhanVien;
+    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnTinhLuong;
+    private javax.swing.JButton btnXoaNhanVien;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

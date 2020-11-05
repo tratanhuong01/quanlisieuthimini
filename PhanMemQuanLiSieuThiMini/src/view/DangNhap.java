@@ -1,6 +1,7 @@
 package view;
 
 import controller.DangNhapController;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modal.ConnectDAO;
@@ -98,10 +99,23 @@ public class DangNhap extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public String checkTaiKhoan(String taikhoan) {
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query  = "SELECT IDNhanVien FROM TaiKhoan WHERE TaiKhoan = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, taikhoan);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         NhanVien nv = new DangNhapController().getNhanVien(txtTaiKhoan.getText(),
-                txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString());
+                txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString(),checkTaiKhoan(txtTaiKhoan.getText()));
         switch (cbBoPhan.getSelectedItem().toString()) {
             case "Quản Lí":
                 if (nv != null) {

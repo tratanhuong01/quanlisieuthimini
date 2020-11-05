@@ -12,8 +12,8 @@ public class NhanVien {
     private String tenBoPhan;
     
     public NhanVien() {
+        
     }
-
     public NhanVien(String tenDangNhap, String matKhau, String idNhanVien, String idBoPhan, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenBoPhan) {
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;

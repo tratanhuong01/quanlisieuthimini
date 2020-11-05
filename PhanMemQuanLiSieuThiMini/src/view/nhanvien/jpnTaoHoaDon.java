@@ -1,10 +1,19 @@
 package view.nhanvien;
 
+import com.sun.xml.internal.fastinfoset.tools.PrintTable;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.PrintJob;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.print.Printer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,19 +22,20 @@ import modal.DongHoaDon;
 import modal.HoaDon;
 
 public class jpnTaoHoaDon extends javax.swing.JPanel {
+
     JPanel pnBanHang;
-    public jpnTaoHoaDon(JPanel pnBanHang,List<DongHoaDon> list,float tienKhachDua,float tienKhuyenMai) {
+    String ptThanhToan;
+    public jpnTaoHoaDon(JPanel pnBanHang, List<DongHoaDon> list, float tienKhachDua, float tienKhuyenMai,String ptThanhToan) {
         initComponents();
         this.pnBanHang = pnBanHang;
-        
+        this.ptThanhToan = ptThanhToan;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        int a = 250;
+        int a = 300;
         float tongTienFull = 0;
-        float tienTraLai = 0;
         JLabel tenSPTitle = new JLabel();
-        JLabel donGiaTitle = new JLabel("CenterLeft",SwingConstants.CENTER);
-        JLabel soLuongTitle = new JLabel("CenterLeft",SwingConstants.CENTER);
-        JLabel tongTienTitle = new JLabel("CenterLeft",SwingConstants.CENTER);
+        JLabel donGiaTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
+        JLabel soLuongTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
+        JLabel tongTienTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
         tenSPTitle.setText("Tên Sản Phẩm");
         donGiaTitle.setText("Đơn Giá");
         soLuongTitle.setText("SL");
@@ -50,9 +60,9 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
             lbidHoaDon.setText(list.get(i).getIdHoaDon());
             datetimeHoaDon.setText(list.get(i).getNgayTao());
             JLabel tenSP = new JLabel();
-            JLabel donGia = new JLabel("CenterLeft",SwingConstants.CENTER);
-            JLabel soLuong = new JLabel("CenterLeft",SwingConstants.CENTER);
-            JLabel tongTien = new JLabel("CenterLeft",SwingConstants.CENTER);
+            JLabel donGia = new JLabel("CenterLeft", SwingConstants.CENTER);
+            JLabel soLuong = new JLabel("CenterLeft", SwingConstants.CENTER);
+            JLabel tongTien = new JLabel("CenterLeft", SwingConstants.CENTER);
             tenSP.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
             tenSP.setForeground(java.awt.Color.blue);
             donGia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -62,9 +72,9 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
             tongTien.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
             tongTien.setForeground(java.awt.Color.blue);
             tenSP.setText(list.get(i).getTenSanPham());
-            donGia.setText((formatter.format(list.get(i).getDonGia())+ " VNĐ"));
+            donGia.setText((formatter.format(list.get(i).getDonGia()) + " VNĐ"));
             soLuong.setText(String.valueOf(list.get(i).getSoLuong()));
-            float rs = (float)list.get(i).getDonGia() * list.get(i).getSoLuong();
+            float rs = (float) list.get(i).getDonGia() * list.get(i).getSoLuong();
             tongTien.setText((formatter.format(rs)) + " VNĐ");
             a += 50;
             tenSP.setBounds(10, a, 250, 25);
@@ -87,10 +97,10 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
                 + "---------------------------------------------------------------"
                 + "--------------------------");
         JLabel tongTienF = new JLabel("Tổng Tiền Phải Thanh Toán :  " + formatter.format(tongTienFull - tienKhuyenMai) + " VNĐ");
-        JLabel tienDaGiam = new JLabel("Tiền Đã Giảm :  :   " +  formatter.format(tienKhuyenMai) + " VNĐ");
-        JLabel tongSl = new JLabel("Tiền Khách Trả  :   " +  formatter.format(tienKhachDua) + " VNĐ");
+        JLabel tienDaGiam = new JLabel("Tiền Đã Giảm :  :   " + formatter.format(tienKhuyenMai) + " VNĐ");
+        JLabel tongSl = new JLabel("Tiền Khách Trả  :   " + formatter.format(tienKhachDua) + " VNĐ");
         JLabel tienTl = new JLabel("Tiền Trả Lại :  " + formatter.format((tienKhachDua - (tongTienFull - tienKhuyenMai))) + " VNĐ");
-        JLabel camOn = new JLabel("CenterLeft",SwingConstants.CENTER);
+        JLabel camOn = new JLabel("CenterLeft", SwingConstants.CENTER);
         camOn.setText("Cảm Ơn Quý Khách - Hẹn Gặp Lại!!");
         br.setForeground(Color.blue);
         br1.setForeground(Color.blue);
@@ -118,7 +128,9 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.add(br1);
         pnHoaDon.add(camOn);
         pnHoaDon.setPreferredSize(new Dimension(550, a + 380));
+        tenPTThanhToan.setText("Phương Thức Thanh Toán : " + ptThanhToan);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -137,11 +149,12 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel54 = new javax.swing.JLabel();
         datetimeHoaDon = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
+        tenPTThanhToan = new javax.swing.JLabel();
         txtTenKH = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
         txtTenNV = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
         btnTaoHoaDonVaThanhToan = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
@@ -156,6 +169,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.setMaximumSize(new java.awt.Dimension(40000, 40000));
         pnHoaDon.setMinimumSize(new java.awt.Dimension(40000, 40000));
         pnHoaDon.setPreferredSize(new java.awt.Dimension(0, 0));
+        pnHoaDon.setRequestFocusEnabled(false);
         pnHoaDon.setLayout(null);
 
         jLabel47.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -192,7 +206,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel51.setForeground(java.awt.Color.blue);
         jLabel51.setText("-----------------------------------------------------------------------------------------------------------------------------------------");
         pnHoaDon.add(jLabel51);
-        jLabel51.setBounds(10, 230, 560, 16);
+        jLabel51.setBounds(10, 260, 560, 16);
 
         lbidHoaDon.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbidHoaDon.setForeground(java.awt.Color.blue);
@@ -224,11 +238,11 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.add(jLabel56);
         jLabel56.setBounds(180, 140, 220, 20);
 
-        jLabel57.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel57.setForeground(java.awt.Color.blue);
-        jLabel57.setText("Tên KH");
-        pnHoaDon.add(jLabel57);
-        jLabel57.setBounds(280, 200, 90, 20);
+        tenPTThanhToan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tenPTThanhToan.setForeground(java.awt.Color.blue);
+        tenPTThanhToan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnHoaDon.add(tenPTThanhToan);
+        tenPTThanhToan.setBounds(10, 230, 570, 30);
 
         txtTenKH.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txtTenKH.setForeground(java.awt.Color.blue);
@@ -249,6 +263,12 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/logo.png"))); // NOI18N
         pnHoaDon.add(jLabel1);
         jLabel1.setBounds(10, 0, 280, 130);
+
+        jLabel58.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel58.setForeground(java.awt.Color.blue);
+        jLabel58.setText("Tên KH");
+        pnHoaDon.add(jLabel58);
+        jLabel58.setBounds(280, 200, 90, 20);
 
         jScrollPane1.setViewportView(pnHoaDon);
 
@@ -279,9 +299,34 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void printHoaDon(JPanel pn) {
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setJobName("Print HoaDon");
+        printerJob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                if (pageIndex > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+                Graphics2D g2 = (Graphics2D) graphics;
+                g2.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+                pn.paint(g2);
+                pn.paint(graphics);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        boolean result = printerJob.printDialog();
+        if (result) {
+            try {
+                printerJob.print();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void btnTaoHoaDonVaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonVaThanhToanActionPerformed
         JOptionPane.showMessageDialog(pnHoaDon, "Vui Lòng Nhận Hóa Đơn Tại Máy");
+        printHoaDon(pnHoaDon);
         this.setVisible(false);
         new pnMain(pnBanHang).setVisible(true);
     }//GEN-LAST:event_btnTaoHoaDonVaThanhToanActionPerformed
@@ -300,12 +345,13 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbidHoaDon;
     private javax.swing.JPanel pnHoaDon;
+    private javax.swing.JLabel tenPTThanhToan;
     private javax.swing.JLabel txtTenKH;
     private javax.swing.JLabel txtTenNV;
     // End of variables declaration//GEN-END:variables

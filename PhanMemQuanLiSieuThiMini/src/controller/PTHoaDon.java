@@ -60,8 +60,8 @@ public class PTHoaDon {
     public boolean insertHoaDon(String idHoaDon, String idKhachHang, String idNhanVien,
             int trangThai, String ptThanhToan) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai,PTThanhToan)"
-                    + "VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai)"
+                    + "VALUES (?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idHoaDon);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -70,7 +70,6 @@ public class PTHoaDon {
             ps.setString(3, idKhachHang);
             ps.setString(4, idNhanVien);
             ps.setInt(5, trangThai);
-            ps.setString(6, ptThanhToan);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,13 +96,15 @@ public class PTHoaDon {
         return false;
     }
 
-    public void load(JPanel pn, String hinhSanPham, String tenSanPham, float giaSanPham,
-        String idHoaDon, JScrollPane jsc, JTextField txtTien, float tongTien,JTextField giaKhuyenMai,float giaKM) {
+    public float load(JPanel pn, String hinhSanPham, String tenSanPham, float giaSanPham,
+        String idHoaDon, JScrollPane jsc, JTextField txtTien,JTextField giaKhuyenMai,JButton btnTaoHoaDon) {
         pn.removeAll();
         pn.setLayout(new BoxLayout(pn, BoxLayout.Y_AXIS));
         List<DongHoaDon> list = getListDongHoaDon(idHoaDon);
-
+        float tongTien = 0;
+        float giaKM = 0;
         if (list.size() > 0) {
+            btnTaoHoaDon.setEnabled(true);
             for (int i = 0; i < list.size(); i++) {
                 JPanel pnMain = new JPanel();
                 JLabel lbHinhSanPham = new JLabel();
@@ -115,8 +116,8 @@ public class PTHoaDon {
                 JTextField txtSoLuong = new JTextField();
                 tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
                 pnMain.setLayout(null);
-                lbHinhSanPham.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-                lbHinhSanPham.setText(list.get(i).getHinhSanPham());
+                lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + list.get(i).getHinhSanPham()))); // NOI18N
                 pnMain.add(lbHinhSanPham);
                 lbHinhSanPham.setBounds(0, 0, 90, 90);
 
@@ -167,10 +168,27 @@ public class PTHoaDon {
                         pn.updateUI();
                         XoaSanPham xoa = new XoaSanPham();
                         xoa.xoa(idDongHoaDon);
-                        load(pn, hinhSanPham, tenSanPham, giaSanPham, idHoaDon, jsc, txtTien, tongTien_clone,giaKhuyenMai,giaKM_clone);
+                        load(pn, hinhSanPham, tenSanPham, giaSanPham, idHoaDon, jsc, txtTien,giaKhuyenMai,btnTaoHoaDon);
                     }
                 });
-
+                btnTang.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                        soLuong++;
+                        ThayDoiSLSanPham(soLuong, idDongHoaDon);
+                        txtSoLuong.setText(String.valueOf(soLuong));
+                    }
+                });
+                btnGiam.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                        soLuong--;
+                        ThayDoiSLSanPham(soLuong, idDongHoaDon);
+                        txtSoLuong.setText(String.valueOf(soLuong));
+                    }
+                });
                 int numComponent = pn.getComponentCount();
                 pn.setPreferredSize(new Dimension(410, numComponent * 100));
                 jsc.getViewport().setViewPosition(new Point(0, pn.getComponentCount() * 100));
@@ -187,5 +205,24 @@ public class PTHoaDon {
             txtTien.setText(formatter.format(tongTien - giaKM) + " VNĐ");
             giaKhuyenMai.setText(formatter.format(giaKM) + " VNĐ");
         }
+        else {
+            btnTaoHoaDon.setEnabled(false);
+            txtTien.setText(formatter.format(0) + " VNĐ");
+            giaKhuyenMai.setText(formatter.format(0) + " VNĐ");
+        }
+        return tongTien;
+    }
+    public boolean ThayDoiSLSanPham(int soLuong,String idDongHoaDon) {
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "UPDATE SoLuong = ? FROM DongHoaDon WHERE IDDongHoaDon = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, soLuong);
+            ps.setString(2, idDongHoaDon);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

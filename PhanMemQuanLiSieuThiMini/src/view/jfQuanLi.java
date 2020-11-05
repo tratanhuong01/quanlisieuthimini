@@ -41,7 +41,6 @@ public class jfQuanLi extends javax.swing.JFrame {
         mnThemKhachHang = new javax.swing.JMenu();
         mnHoaDon = new javax.swing.JMenu();
         mnNhanVien = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
         mnThongKe = new javax.swing.JMenu();
         mnPhamMem = new javax.swing.JMenu();
         mnNhaCungCap = new javax.swing.JMenu();
@@ -94,10 +93,6 @@ public class jfQuanLi extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(mnNhanVien);
-
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-hoadon.png"))); // NOI18N
-        jMenu4.setText("Tạo Phiếu Nhập");
-        jMenuBar1.add(jMenu4);
 
         mnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-hoadon.png"))); // NOI18N
         mnThongKe.setText("Thống Kê");
@@ -211,7 +206,6 @@ public class jfQuanLi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnHoaDon;

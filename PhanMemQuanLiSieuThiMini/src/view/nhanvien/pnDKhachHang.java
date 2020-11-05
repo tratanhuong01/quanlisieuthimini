@@ -18,11 +18,14 @@ import view.jfBanHang;
 import view.pnDDiaChi;
 
 public class pnDKhachHang extends javax.swing.JDialog {
+
     NhanVien nvs;
     pnMain pnM;
     JPanel pnBanHang;
     String idHoaDon = "";
-    public pnDKhachHang(java.awt.Frame parent, boolean modal,NhanVien nv,pnMain pnM,JPanel pnBanHang) {
+    boolean checkKhachHang = false;
+    String idKhachCu;
+    public pnDKhachHang(java.awt.Frame parent, boolean modal, NhanVien nv, pnMain pnM, JPanel pnBanHang) {
         super(parent, modal);
         initComponents();
         this.nvs = nv;
@@ -31,7 +34,11 @@ public class pnDKhachHang extends javax.swing.JDialog {
         txtDiaChi.setEditable(false);
         txtIDKhachHang.setEditable(false);
         txtIDKhachHang.setText(StringUtil.taoID("IDKhachHang", "KhachHang", "KH"));
+        btnLuu.setVisible(false);
+        btnLuu_DaMua.setVisible(false);
+        CheckKhachHang();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -40,6 +47,7 @@ public class pnDKhachHang extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnDocTheThanhVien = new javax.swing.JButton();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
@@ -54,6 +62,7 @@ public class pnDKhachHang extends javax.swing.JDialog {
         cbNhomKhachHang = new javax.swing.JComboBox<>();
         txtIDKhachHang = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
+        btnLuu_DaMua = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -69,12 +78,22 @@ public class pnDKhachHang extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(60, 0, 70, 50);
+        jLabel1.setBounds(20, 20, 70, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel2.setText("Thêm Khách Hàng");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 0, 350, 50);
+        jLabel2.setBounds(80, 20, 300, 50);
+
+        btnDocTheThanhVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnDocTheThanhVien.setText("Đọc Thẻ Thành Viên");
+        btnDocTheThanhVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocTheThanhVienActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnDocTheThanhVien);
+        btnDocTheThanhVien.setBounds(390, 10, 200, 60);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 600, 90);
@@ -122,6 +141,11 @@ public class pnDKhachHang extends javax.swing.JDialog {
         txtDiaChi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtDiaChiMouseClicked(evt);
+            }
+        });
+        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaChiActionPerformed(evt);
             }
         });
         jPanel1.add(txtDiaChi);
@@ -173,6 +197,18 @@ public class pnDKhachHang extends javax.swing.JDialog {
         jPanel1.add(jLabel42);
         jLabel42.setBounds(40, 200, 140, 24);
 
+        btnLuu_DaMua.setBackground(java.awt.Color.orange);
+        btnLuu_DaMua.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btnLuu_DaMua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnLuu_DaMua.setText("Lưu");
+        btnLuu_DaMua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuu_DaMuaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLuu_DaMua);
+        btnLuu_DaMua.setBounds(330, 570, 200, 70);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,34 +230,71 @@ public class pnDKhachHang extends javax.swing.JDialog {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         ThemKhachHang tkh = new ThemKhachHang();
-        if (tkh.them(txtIDKhachHang.getText(),cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText()
-                , cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
+        if (tkh.them(txtIDKhachHang.getText(), cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText(),
+                 cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
                 txtDiaChi.getText()) == true) {
             this.setVisible(false);
             pnM.setVisible(false);
             PTHoaDon pTHoaDon = new PTHoaDon();
             idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-            pTHoaDon.insertHoaDon(idHoaDon,txtIDKhachHang.getText(), nvs.getIdNhanVien(), 
-                1, "");
-            pnMain pnmain = new pnMain(pnBanHang,new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()),nvs,idHoaDon);
+            pTHoaDon.insertHoaDon(idHoaDon, txtIDKhachHang.getText(), nvs.getIdNhanVien(),
+                    1, "");
+            pnMain pnmain = new pnMain(pnBanHang, new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()), nvs, idHoaDon);
             pnBanHang.removeAll();
             pnmain.setVisible(true);
             pnBanHang.setLayout(new BorderLayout());
             pnBanHang.add(pnmain);
             pnBanHang.validate();
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Thêm Thất Bại Vui Lòng Kiểm Tra Lại Dữ Liệu Nhập Vào");
         }
-        
+
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new pnDDiaChi(new javax.swing.JFrame(),true, nvs, pnM, pnBanHang, txtDiaChi).setVisible(true);
+        new pnDDiaChi(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
     }//GEN-LAST:event_txtDiaChiMouseClicked
 
+    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
+
+    }//GEN-LAST:event_txtDiaChiActionPerformed
+
+    private void btnLuu_DaMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu_DaMuaActionPerformed
+        this.setVisible(false);
+        PTHoaDon pTHoaDon = new PTHoaDon();
+            idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
+            pTHoaDon.insertHoaDon(idHoaDon, txtIDKhachHang.getText(), nvs.getIdNhanVien(),
+                    1, "");
+        pnM.setVisible(false);
+        pnMain pnmain = new pnMain(pnBanHang, new ThemKhachHang().getKhachHang(txtIDKhachHang.getText()), nvs, idHoaDon);
+        pnBanHang.removeAll();
+        pnmain.setVisible(true);
+        pnBanHang.setLayout(new BorderLayout());
+        pnBanHang.add(pnmain);
+        pnBanHang.validate();
+    }//GEN-LAST:event_btnLuu_DaMuaActionPerformed
+
+    private void btnDocTheThanhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocTheThanhVienActionPerformed
+        checkKhachHang = true;
+        idKhachCu = JOptionPane.showInputDialog(rootPane, "Vui Lòng Đưa Thẻ Thành Viên Vào Khe Cắm");
+        txtIDKhachHang.setText(idKhachCu);
+        CheckKhachHang();
+    }//GEN-LAST:event_btnDocTheThanhVienActionPerformed
+    public void CheckKhachHang() {
+        if (checkKhachHang == true) {
+            
+            btnLuu.setVisible(false);
+            btnLuu_DaMua.setVisible(true);
+        } else {
+            txtIDKhachHang.setText(StringUtil.taoID("IDKhachHang", "KhachHang", "KH"));
+            btnLuu.setVisible(true);
+            btnLuu_DaMua.setVisible(false);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDocTheThanhVien;
     private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnLuu_DaMua;
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbGioiTinh;
     private javax.swing.JComboBox<String> cbNhomKhachHang;

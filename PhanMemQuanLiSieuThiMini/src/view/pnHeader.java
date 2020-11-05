@@ -1,19 +1,104 @@
 package view;
 
-import java.awt.Container;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import javax.swing.JDialog;
 import modal.NhanVien;
 import javax.swing.*;
+
 public class pnHeader extends javax.swing.JPanel {
+
     NhanVien nvs;
     JPanel pnHeaderf;
-    public pnHeader(JPanel pn,NhanVien nv) {
+    int i = 0;
+    public pnHeader(JPanel pn, NhanVien nv) {
         initComponents();
         this.nvs = nv;
         this.pnHeaderf = pn;
         lbBoPhan.setText(nvs.getTenBoPhan());
-        lbTenNhanVien.setText(nvs.getHoTen());   
+        lbTenNhanVien.setText(nvs.getHoTen());
+        
+        Timer timmer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                load(time);
+            }
+        });
+        timmer.start();
+    }
+    public String getThuTrongTuan() {
+        String s = "";
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        switch (dayOfWeek) {
+            case 1 : 
+                    s = "Chủ Nhật";
+                    break;
+            case 2 : 
+                    s = "Thứ Hai";
+                    break;
+            case 3 : 
+                    s = "Thứ Ba";
+                    break;                   
+            case 4 : 
+                    s = "Thứ Tư";
+                    break; 
+            case 5 : 
+                    s = "Thứ Năm";
+                    break;                   
+            case 6 : 
+                    s = "Thứ Sáu";
+                    break; 
+            case 7 : 
+                    s = "Thứ Bảy";
+                    break;                     
+        }
+        return s;
+    }
+    public void load(JLabel lb) {
+        String hh;
+        String mm;
+        String ss;
+        try {
+            String thu = getThuTrongTuan();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String[] splitString = dtf.format(now).split(" ");
+            String[] hms = splitString[1].split(":");
+            hh = hms[0];
+            mm = hms[1];
+            ss = hms[2];
+            int s = Integer.parseInt(ss);
+            s++;
+            ss = String.valueOf(s);
+            hh = (Integer.parseInt(hh) < 10) ? hh = "0" + hh : hh;
+            mm = (Integer.parseInt(mm) < 10) ? mm = "" + mm : mm;
+            ss = (Integer.parseInt(ss) < 10) ? ss = "0" + ss : ss;
+            if (Integer.parseInt(ss) > 59) {
+                ss = "00";
+                if (Integer.parseInt(mm) > 59) {
+                    mm = "";
+                    if (Integer.parseInt(hh) > 23) {
+                        hh = "00";
+                        mm = "";
+                    } else {
+                        int h = Integer.parseInt(hh);
+                        h++;
+                        hh = String.valueOf(h);
+                    }
+                } else {
+                    int m = Integer.parseInt(mm);
+                    m++;
+                }
+            }
+            lb.setText(thu + " - " +splitString[0] + " - " + hh + ":" + mm + ":" + ss);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +134,7 @@ public class pnHeader extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        time = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -64,13 +149,13 @@ public class pnHeader extends javax.swing.JPanel {
         lbBoPhan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbBoPhan.setText("Nhân Viên");
         jPanel2.add(lbBoPhan);
-        lbBoPhan.setBounds(300, 10, 470, 30);
+        lbBoPhan.setBounds(280, 10, 460, 30);
 
         lbTenNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbTenNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTenNhanVien.setText("Trà Tấn Hưởng");
         jPanel2.add(lbTenNhanVien);
-        lbTenNhanVien.setBounds(300, 50, 470, 30);
+        lbTenNhanVien.setBounds(300, 50, 440, 30);
 
         bnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -196,14 +281,15 @@ public class pnHeader extends javax.swing.JPanel {
 
         jLabel31.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel31.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.shadow"));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("Version 4.2 - Updated");
         jPanel2.add(jLabel31);
-        jLabel31.setBounds(830, 50, 200, 30);
+        jLabel31.setBounds(740, 50, 320, 30);
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel6.setText("Thứ ba  - 25/09/2020 -  12:30");
-        jPanel2.add(jLabel6);
-        jLabel6.setBounds(800, 10, 260, 30);
+        time.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        time.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(time);
+        time.setBounds(740, 10, 320, 30);
 
         add(jPanel2);
         jPanel2.setBounds(0, 0, 1440, 90);
@@ -211,7 +297,7 @@ public class pnHeader extends javax.swing.JPanel {
 
     private void pnThongTinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnThongTinMouseClicked
         jfBanHang nv = new jfBanHang(nvs);
-        pnDInfo info = new pnDInfo(nv,true,nvs);
+        pnDInfo info = new pnDInfo(nv, true, nvs);
         info.setModalityType(ModalityType.APPLICATION_MODAL);
         info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         info.setVisible(true);
@@ -241,7 +327,6 @@ public class pnHeader extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -255,5 +340,6 @@ public class pnHeader extends javax.swing.JPanel {
     private javax.swing.JLabel lbBoPhan;
     private javax.swing.JLabel lbTenNhanVien;
     private javax.swing.JPanel pnThongTin;
+    private javax.swing.JLabel time;
     // End of variables declaration//GEN-END:variables
 }

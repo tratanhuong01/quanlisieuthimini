@@ -40,16 +40,17 @@ public class DAO {
         }
         return list;
     }
-    public List<SanPham> getSanPhamByNhomSanPham() {
+    public List<SanPham> getSanPhamByNhomSanPham(String tenNhomSP) {
         List<SanPham> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT SanPham.IDSanPham,SanPham.IDNhomSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
                     + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
                     + "BangGia.Giam,KhuVuc.TenKhuVuc FROM SanPham \n"
                     + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                    + "INNER JOIN BangGia ON SanPham.IDSanPham = BangGia.IDSanPham \n"
-                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc";
+                    + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia \n"
+                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc WHERE NhomSanPham.TenNhom = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, tenNhomSP);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPham sp = new SanPham(
