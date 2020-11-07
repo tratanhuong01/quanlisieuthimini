@@ -62,8 +62,8 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         listKhachHang = new javax.swing.JTable();
         btnSuaKhachHang = new javax.swing.JButton();
-        btnXoaKhachHang = new javax.swing.JButton();
-        btnThemNhanVien = new javax.swing.JButton();
+        btnXuatFileExel = new javax.swing.JButton();
+        btnQuanLiDiem = new javax.swing.JButton();
         pnQuanLiKhachHang = new javax.swing.JPanel();
         txtDiaChi = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -73,7 +73,8 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         txtMaKhachHang = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTenKhachHang = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
+        btnXoaKhachHang = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
         setMinimumSize(new java.awt.Dimension(1440, 740));
@@ -113,30 +114,17 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         pn.add(btnSuaKhachHang);
         btnSuaKhachHang.setBounds(1190, 350, 250, 80);
 
-        btnXoaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnXoaKhachHang.setText("Xóa Khách Hàng");
-        pn.add(btnXoaKhachHang);
-        btnXoaKhachHang.setBounds(1190, 500, 250, 80);
+        btnXuatFileExel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXuatFileExel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnXuatFileExel.setText("Xuất Exel");
+        pn.add(btnXuatFileExel);
+        btnXuatFileExel.setBounds(1190, 640, 250, 80);
 
-        btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnThemNhanVien.setText("Quản Lí Điểm ");
-        btnThemNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnThemNhanVienMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnThemNhanVienMouseExited(evt);
-            }
-        });
-        btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemNhanVienActionPerformed(evt);
-            }
-        });
-        pn.add(btnThemNhanVien);
-        btnThemNhanVien.setBounds(1190, 200, 250, 80);
+        btnQuanLiDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnQuanLiDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnQuanLiDiem.setText("Quản Lí Điểm ");
+        pn.add(btnQuanLiDiem);
+        btnQuanLiDiem.setBounds(1190, 200, 250, 80);
 
         pnQuanLiKhachHang.setBackground(java.awt.Color.white);
         pnQuanLiKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quản Lí Khách Hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
@@ -178,14 +166,20 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         pnQuanLiKhachHang.add(txtTenKhachHang);
         txtTenKhachHang.setBounds(170, 40, 280, 50);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        jButton3.setText("Tìm Kiếm");
-        pnQuanLiKhachHang.add(jButton3);
-        jButton3.setBounds(1180, 40, 250, 80);
+        btnTimKiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnTimKiem.setText("Tìm Kiếm");
+        pnQuanLiKhachHang.add(btnTimKiem);
+        btnTimKiem.setBounds(1180, 40, 250, 80);
 
         pn.add(pnQuanLiKhachHang);
         pnQuanLiKhachHang.setBounds(0, 0, 1440, 190);
+
+        btnXoaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnXoaKhachHang.setText("Xóa Khách Hàng");
+        pn.add(btnXoaKhachHang);
+        btnXoaKhachHang.setBounds(1190, 500, 250, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,21 +193,6 @@ public class pnQLKhachHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemNhanVienActionPerformed
-
-    private void btnThemNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhanVienMouseEntered
-        btnThemNhanVien.setBackground(Color.red);
-        btnThemNhanVien.revalidate();
-        btnXoaKhachHang.setText("");
-    }//GEN-LAST:event_btnThemNhanVienMouseEntered
-
-    private void btnThemNhanVienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhanVienMouseExited
-        btnThemNhanVien.setBackground(new Color(240, 240, 240));
-        btnXoaKhachHang.setText("Sửa Nhân Viên");
-    }//GEN-LAST:event_btnThemNhanVienMouseExited
-
     private void listKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listKhachHangMouseClicked
         int row = listKhachHang.getSelectedRow();
         txtMaKhachHang.setText(listKhachHang.getModel().getValueAt(row, 0).toString());
@@ -224,10 +203,11 @@ public class pnQLKhachHang extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuanLiDiem;
     private javax.swing.JButton btnSuaKhachHang;
-    private javax.swing.JButton btnThemNhanVien;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoaKhachHang;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnXuatFileExel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

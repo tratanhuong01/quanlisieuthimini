@@ -9,42 +9,43 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/users.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Kho"/>
+            <Property name="text" type="java.lang.String" value="S&#x1ea3;n Ph&#x1ea9;m"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnThemKhachHang1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/img/users.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u "/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="pnThemKhachHang">
+            <Menu class="javax.swing.JMenu" name="mnThemKhachHang2">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/view/img/add-user.png"/>
+                  <Image iconType="3" name="/view/img/users.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u Nh&#x1ead;p"/>
+                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p H&#xe0;ng"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pnThemKhachHangActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="pnThemKhachHang1">
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="mnThemKhachHang3">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/view/img/add-user.png"/>
+                  <Image iconType="3" name="/view/img/users.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u Xu&#x1ea5;t"/>
+                <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t H&#xe0;ng"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pnThemKhachHang1ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="pnThemKhachHang2">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/view/img/add-user.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="H&#xe0;ng T&#x1ed3;n"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pnThemKhachHang2ActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <Menu class="javax.swing.JMenu" name="mnThemKhachHang4">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/view/img/users.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u "/>
+                  </Properties>
+                </Menu>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -115,7 +116,6 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[1440, 740]"/>
             </Property>
-            <Property name="requestFocusEnabled" type="boolean" value="false"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
