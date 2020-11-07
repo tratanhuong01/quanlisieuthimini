@@ -196,7 +196,7 @@ public class pnQLHoaDon extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Tổng Số Hóa Đơn :");
+        jLabel8.setText("873 Hóa Đơn");
         pnRight.add(jLabel8);
         jLabel8.setBounds(0, 70, 240, 40);
 
@@ -208,13 +208,13 @@ public class pnQLHoaDon extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Tổng Số Tiền ");
+        jLabel10.setText("Tổng Số Tiền :");
         pnRight.add(jLabel10);
         jLabel10.setBounds(0, 200, 240, 40);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Tổng Số Hóa Đơn :");
+        jLabel11.setText("0 VNĐ");
         pnRight.add(jLabel11);
         jLabel11.setBounds(0, 250, 240, 40);
 

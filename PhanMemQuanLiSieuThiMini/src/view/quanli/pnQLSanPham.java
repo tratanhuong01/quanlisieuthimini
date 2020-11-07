@@ -64,11 +64,11 @@ public class pnQLSanPham extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtTenSanPham = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cbDonViTinh = new javax.swing.JComboBox<>();
+        cbNhomSanPham = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtMaSanPham = new javax.swing.JTextField();
+        cbDonViTinh1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         listNhanVien = new javax.swing.JTable();
         btnThemSanPham = new javax.swing.JButton();
@@ -104,18 +104,15 @@ public class pnQLSanPham extends javax.swing.JPanel {
         pnQuanLiKhachHang.add(jLabel2);
         jLabel2.setBounds(10, 120, 150, 50);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        pnQuanLiKhachHang.add(jTextField3);
-        jTextField3.setBounds(770, 120, 410, 50);
-
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setText("Nhóm Sản Phẩm");
         pnQuanLiKhachHang.add(jLabel3);
         jLabel3.setBounds(620, 120, 150, 50);
 
-        cbDonViTinh.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cbDonViTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pnQuanLiKhachHang.add(cbDonViTinh);
-        cbDonViTinh.setBounds(160, 120, 420, 50);
+        cbNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbNhomSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnQuanLiKhachHang.add(cbNhomSanPham);
+        cbNhomSanPham.setBounds(770, 120, 410, 50);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("Mã Sản Phẩm");
@@ -125,6 +122,11 @@ public class pnQLSanPham extends javax.swing.JPanel {
         txtMaSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         pnQuanLiKhachHang.add(txtMaSanPham);
         txtMaSanPham.setBounds(770, 40, 410, 50);
+
+        cbDonViTinh1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbDonViTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnQuanLiKhachHang.add(cbDonViTinh1);
+        cbDonViTinh1.setBounds(160, 120, 420, 50);
 
         jPanel1.add(pnQuanLiKhachHang);
         pnQuanLiKhachHang.setBounds(0, 0, 1190, 190);
@@ -196,14 +198,14 @@ public class pnQLSanPham extends javax.swing.JPanel {
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoaSanPham;
-    private javax.swing.JComboBox<String> cbDonViTinh;
+    private javax.swing.JComboBox<String> cbDonViTinh1;
+    private javax.swing.JComboBox<String> cbNhomSanPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable listNhanVien;
     private javax.swing.JPanel pn;
     private javax.swing.JPanel pnQuanLiKhachHang;
