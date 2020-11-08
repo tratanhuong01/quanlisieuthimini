@@ -78,9 +78,9 @@ public class pnQLNhanVien extends javax.swing.JPanel {
         btnTinhLuong = new javax.swing.JButton();
         btnThemNhanVien = new javax.swing.JButton();
         btnXoaNhanVien = new javax.swing.JButton();
-        btnSuaNhanVien = new javax.swing.JButton();
         btnTaoTaiKhoan = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        btnSuaNhanVien = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1440, 740));
         setMinimumSize(new java.awt.Dimension(1440, 740));
@@ -179,13 +179,7 @@ public class pnQLNhanVien extends javax.swing.JPanel {
         btnXoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnXoaNhanVien.setText("Xóa Nhân Viên");
         pn.add(btnXoaNhanVien);
-        btnXoaNhanVien.setBounds(1210, 310, 220, 90);
-
-        btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnSuaNhanVien.setText("Sửa Nhân Viên");
-        pn.add(btnSuaNhanVien);
-        btnSuaNhanVien.setBounds(1210, 420, 220, 90);
+        btnXoaNhanVien.setBounds(1210, 420, 220, 90);
 
         btnTaoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTaoTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
@@ -198,6 +192,12 @@ public class pnQLNhanVien extends javax.swing.JPanel {
         btnTimKiem.setText("Tìm Kiếm");
         pn.add(btnTimKiem);
         btnTimKiem.setBounds(1210, 50, 220, 80);
+
+        btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
+        btnSuaNhanVien.setText("Sửa Nhân Viên");
+        pn.add(btnSuaNhanVien);
+        btnSuaNhanVien.setBounds(1210, 310, 220, 90);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

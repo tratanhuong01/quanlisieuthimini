@@ -67,7 +67,6 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listKhachHang = new javax.swing.JTable();
-        btnXoaNhanVien = new javax.swing.JButton();
         btnSuaNhanVien = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnThemNhanVien = new javax.swing.JButton();
@@ -144,12 +143,6 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         pn.add(jPanel1);
         jPanel1.setBounds(0, 0, 1170, 740);
 
-        btnXoaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
-        btnXoaNhanVien.setText("Xóa Nhà Cung Cấp");
-        pn.add(btnXoaNhanVien);
-        btnXoaNhanVien.setBounds(1180, 360, 260, 80);
-
         btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnSuaNhanVien.setText("Chọn Nhà Cung Cấp");
@@ -172,7 +165,7 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
         btnSuaNhanVien1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         btnSuaNhanVien1.setText("Sửa Nhà Cung Cấp");
         pn.add(btnSuaNhanVien1);
-        btnSuaNhanVien1.setBounds(1180, 500, 260, 80);
+        btnSuaNhanVien1.setBounds(1180, 390, 260, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -191,7 +184,6 @@ public class pnQLNhaCungCap extends javax.swing.JPanel {
     private javax.swing.JButton btnSuaNhanVien;
     private javax.swing.JButton btnSuaNhanVien1;
     private javax.swing.JButton btnThemNhanVien;
-    private javax.swing.JButton btnXoaNhanVien;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
