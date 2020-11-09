@@ -13,6 +13,7 @@ public class pnQLNhanVien extends javax.swing.JPanel {
 
     public pnQLNhanVien() {
         initComponents();
+        loadTableNhanVien();
     }
 
     public void loadTableNhanVien() {
