@@ -62,7 +62,7 @@ public class jfBanHang extends javax.swing.JFrame {
 
         pnFullGui = new javax.swing.JPanel();
         pnBanHang = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        pnThongBao = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         pnHeaderf = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
@@ -90,18 +90,18 @@ public class jfBanHang extends javax.swing.JFrame {
         pnFullGui.add(pnBanHang);
         pnBanHang.setBounds(0, 150, 1440, 740);
 
-        jPanel3.setBackground(java.awt.Color.gray);
-        jPanel3.setLayout(null);
+        pnThongBao.setBackground(java.awt.Color.gray);
+        pnThongBao.setLayout(null);
 
         jLabel22.setBackground(java.awt.Color.gray);
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel22.setForeground(java.awt.Color.white);
         jLabel22.setText(" Thông Báo : Vừa thanh toán và in hóa đơn cho khách hàng với id là KH0001 - Tổng số tiền vừa thanh toán là 1.459.00 VNNĐ ");
-        jPanel3.add(jLabel22);
+        pnThongBao.add(jLabel22);
         jLabel22.setBounds(0, 0, 1410, 40);
 
-        pnFullGui.add(jPanel3);
-        jPanel3.setBounds(0, 100, 1440, 40);
+        pnFullGui.add(pnThongBao);
+        pnThongBao.setBounds(0, 100, 1440, 40);
 
         pnHeaderf.setLayout(null);
         pnFullGui.add(pnHeaderf);
@@ -183,7 +183,6 @@ public class jfBanHang extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu mnHoaDon;
     private javax.swing.JMenu mnThemKhachHang;
@@ -194,5 +193,6 @@ public class jfBanHang extends javax.swing.JFrame {
     private javax.swing.JPanel pnHeaderf;
     private javax.swing.JMenuItem pnKhachHangThanThien;
     private javax.swing.JMenuItem pnThemKhachHang;
+    private javax.swing.JPanel pnThongBao;
     // End of variables declaration//GEN-END:variables
 }
