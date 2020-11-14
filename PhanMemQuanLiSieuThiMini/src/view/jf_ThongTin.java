@@ -205,7 +205,7 @@ public class jf_ThongTin extends javax.swing.JFrame {
         txtDiaChi.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new jd_DiaChi(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
+                new jd_DiaChi1(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
             }
 
             @Override

@@ -48,6 +48,8 @@ public class jf_ThuKho extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1366, 768));
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());
@@ -125,6 +127,7 @@ public class jf_ThuKho extends javax.swing.JFrame {
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
 
+        pnMain.setPreferredSize(new java.awt.Dimension(1366, 600));
         pnMain.setLayout(new java.awt.BorderLayout());
 
         jLabel5.setBackground(java.awt.Color.white);

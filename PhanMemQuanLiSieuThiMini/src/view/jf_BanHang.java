@@ -69,6 +69,7 @@ public class jf_BanHang extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());
@@ -172,6 +173,8 @@ public class jf_BanHang extends javax.swing.JFrame {
 
         getContentPane().add(pnEnd, java.awt.BorderLayout.PAGE_END);
 
+        pnMain.setMinimumSize(new java.awt.Dimension(1366, 601));
+
         javax.swing.GroupLayout pnMainLayout = new javax.swing.GroupLayout(pnMain);
         pnMain.setLayout(pnMainLayout);
         pnMainLayout.setHorizontalGroup(
@@ -180,7 +183,7 @@ public class jf_BanHang extends javax.swing.JFrame {
         );
         pnMainLayout.setVerticalGroup(
             pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
+            .addGap(0, 606, Short.MAX_VALUE)
         );
 
         getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);

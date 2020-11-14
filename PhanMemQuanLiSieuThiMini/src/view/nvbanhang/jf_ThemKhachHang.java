@@ -11,7 +11,8 @@ import javax.swing.JTextField;
 import model.KhachHang;
 import model.NhanVien;
 import model.StringUtil;
-import view.jd_DiaChi;
+import view.jd_DiaChi1;
+import view.jf_DiaChi;
 
 public class jf_ThemKhachHang extends javax.swing.JFrame {
 
@@ -208,7 +209,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDocTheThanhVienActionPerformed
 
     private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new jd_DiaChi(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
+        new jf_DiaChi(txtDiaChi).setVisible(true);
     }//GEN-LAST:event_txtDiaChiMouseClicked
 
     private void btnVeTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeTrangChuActionPerformed
