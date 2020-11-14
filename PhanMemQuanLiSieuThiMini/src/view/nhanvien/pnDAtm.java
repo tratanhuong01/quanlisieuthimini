@@ -42,7 +42,7 @@ public class pnDAtm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnATM = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -65,10 +65,9 @@ public class pnDAtm extends javax.swing.JDialog {
         setModal(true);
         setSize(new java.awt.Dimension(600, 600));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(600, 600));
-        jPanel1.setMinimumSize(new java.awt.Dimension(600, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(600, 600));
-        jPanel1.setLayout(null);
+        pnATM.setMaximumSize(new java.awt.Dimension(600, 600));
+        pnATM.setMinimumSize(new java.awt.Dimension(600, 600));
+        pnATM.setPreferredSize(new java.awt.Dimension(600, 600));
 
         jPanel2.setBackground(java.awt.Color.orange);
         jPanel2.setLayout(null);
@@ -92,35 +91,22 @@ public class pnDAtm extends javax.swing.JDialog {
         jPanel2.add(btnDocThe);
         btnDocThe.setBounds(450, 10, 120, 60);
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 600, 90);
-
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel37.setText("Loại Thẻ ");
-        jPanel1.add(jLabel37);
-        jLabel37.setBounds(50, 150, 81, 24);
 
         jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel38.setText("Tên Tài Khoản");
-        jPanel1.add(jLabel38);
-        jLabel38.setBounds(50, 370, 150, 24);
 
         txtTenTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtTenTaiKhoan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtTenTaiKhoan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtTenTaiKhoan);
-        txtTenTaiKhoan.setBounds(230, 360, 330, 40);
 
         jLabel40.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel40.setText("Chi Nhánh");
-        jPanel1.add(jLabel40);
-        jLabel40.setBounds(50, 450, 130, 24);
 
         txtChiNhanh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtChiNhanh.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtChiNhanh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtChiNhanh);
-        txtChiNhanh.setBounds(230, 440, 330, 40);
 
         btnLuu.setBackground(java.awt.Color.orange);
         btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -131,35 +117,23 @@ public class pnDAtm extends javax.swing.JDialog {
                 btnLuuActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLuu);
-        btnLuu.setBounds(340, 510, 200, 70);
 
         cbLoaiThe.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         cbLoaiThe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vietcombank", "Vietinbank", "Sacombank", "BIDV", "Agribank", "VP Bank", "ACB", "TP Bank", "Eximbank", "Techcombank", "MB Bank", "LienVietPost", "VietABank" }));
-        jPanel1.add(cbLoaiThe);
-        cbLoaiThe.setBounds(230, 140, 330, 40);
 
         txtSoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtSoTaiKhoan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtSoTaiKhoan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtSoTaiKhoan);
-        txtSoTaiKhoan.setBounds(230, 290, 330, 40);
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel42.setText("Số Tài Khoản");
-        jPanel1.add(jLabel42);
-        jLabel42.setBounds(50, 300, 140, 24);
 
         txtTenNganHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtTenNganHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtTenNganHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(txtTenNganHang);
-        txtTenNganHang.setBounds(230, 220, 330, 40);
 
         jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel43.setText("Tên Ngân Hàng");
-        jPanel1.add(jLabel43);
-        jLabel43.setBounds(50, 230, 140, 24);
 
         btnHuy.setBackground(java.awt.Color.orange);
         btnHuy.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -170,19 +144,93 @@ public class pnDAtm extends javax.swing.JDialog {
                 btnHuyActionPerformed(evt);
             }
         });
-        jPanel1.add(btnHuy);
-        btnHuy.setBounds(60, 510, 200, 70);
+
+        javax.swing.GroupLayout pnATMLayout = new javax.swing.GroupLayout(pnATM);
+        pnATM.setLayout(pnATMLayout);
+        pnATMLayout.setHorizontalGroup(
+            pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel37)
+                .addGap(99, 99, 99)
+                .addComponent(cbLoaiThe, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(txtTenNganHang, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(txtSoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnATMLayout.setVerticalGroup(
+            pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel37))
+                    .addComponent(cbLoaiThe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel43))
+                    .addComponent(txtTenNganHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel42))
+                    .addComponent(txtSoTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel38))
+                    .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel40))
+                    .addComponent(txtChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnATM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnATM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -228,8 +276,8 @@ public class pnDAtm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel pnATM;
     private javax.swing.JTextField txtChiNhanh;
     private javax.swing.JTextField txtSoTaiKhoan;
     private javax.swing.JTextField txtTenNganHang;

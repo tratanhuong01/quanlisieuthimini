@@ -80,12 +80,12 @@ public class pnDSuaKH extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/add-user.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(60, 0, 70, 50);
+        jLabel1.setBounds(60, 10, 70, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel2.setText("Thêm Khách Hàng");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 0, 350, 50);
+        jLabel2.setBounds(160, 20, 350, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 600, 90);

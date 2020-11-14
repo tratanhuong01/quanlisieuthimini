@@ -5,10 +5,14 @@ import controller.ThemKhachHang;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.List;
 import javafx.scene.Parent;
 import javax.swing.*;
+import modal.ConnectDAO;
 import modal.DongHoaDon;
 import modal.HoaDon;
 import modal.KhachHang;
@@ -18,6 +22,7 @@ import modal.StringUtil;
 import view.jfBanHang;
 
 public class pnDSoLuong extends javax.swing.JDialog {
+
     JPanel pnSanPhamDaChon;
     SanPham sp;
     int soLuong = 0;
@@ -31,9 +36,10 @@ public class pnDSoLuong extends javax.swing.JDialog {
     JButton btnTaoHoaDon;
     JTextField tienKhuyenMai;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
-    public pnDSoLuong(java.awt.Frame parent, boolean modal,SanPham sp,NhanVien nv,KhachHang kh,
-            String idHoaDon,JPanel pnSanPhamDaChon,JScrollPane jsc,JPanel pnBanHang,
-            JTextField txtTien,JButton btnTaoHoaDon,JTextField tienKhuyenMai) {
+
+    public pnDSoLuong(java.awt.Frame parent, boolean modal, SanPham sp, NhanVien nv, KhachHang kh,
+            String idHoaDon, JPanel pnSanPhamDaChon, JScrollPane jsc, JPanel pnBanHang,
+            JTextField txtTien, JButton btnTaoHoaDon, JTextField tienKhuyenMai) {
         super(parent, modal);
         initComponents();
         this.sp = sp;
@@ -48,6 +54,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
         this.tienKhuyenMai = tienKhuyenMai;
         load();
     }
+
     public void load() {
         soLuong = Integer.parseInt(txtSoLuong.getText());
         hinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + sp.getUrlSanPham())));
@@ -68,6 +75,7 @@ public class pnDSoLuong extends javax.swing.JDialog {
             }
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -185,9 +193,25 @@ public class pnDSoLuong extends javax.swing.JDialog {
         int sl = Integer.parseInt(txtSoLuong.getText());
         sl--;
         txtSoLuong.setText(String.valueOf(sl));
-        
-    }//GEN-LAST:event_btnGiamActionPerformed
 
+    }//GEN-LAST:event_btnGiamActionPerformed
+    public String check(String idHoaDon, String idSanPham) {
+        String idDongHoaDon = null;
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT IDDongHoaDon FROM DongHoaDon WHERE IDHoaDon = ? AND IDSanPham = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, idHoaDon);
+            ps.setString(2, idSanPham);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                idDongHoaDon = rs.getString(1);
+            }
+            return idDongHoaDon;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return idDongHoaDon;
+    }
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
@@ -195,16 +219,24 @@ public class pnDSoLuong extends javax.swing.JDialog {
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
         this.setVisible(false);
         PTHoaDon pTHoaDon = new PTHoaDon();
-        pTHoaDon.insertDongHoaDon(idHoaDon, sp.getIdSanPham(), sp.getIdDonViTinh(),
-                Integer.parseInt(txtSoLuong.getText()));
-        pTHoaDon.load(pnSanPhamDaChon, sp.getUrlSanPham(), sp.getTenSanPham(), 
-                sp.getDonGia(), idHoaDon,jsc,txtTien,tienKhuyenMai,btnTaoHoaDon);
-        
-        List<DongHoaDon> list = pTHoaDon.getListDongHoaDon(idHoaDon);
-        if (list.size() > 0 ) {
-            btnTaoHoaDon.setEnabled(true);
+        String idDHoaDon_True = check(idHoaDon, sp.getIdSanPham());
+        if (idDHoaDon_True == null) {
+            String idDongHoaDon = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+            pTHoaDon.insertDongHoaDon(idDongHoaDon,idHoaDon, sp.getIdSanPham(), sp.getIdDonViTinh(),
+                    Integer.parseInt(txtSoLuong.getText()));
+            pTHoaDon.load(pnSanPhamDaChon, sp.getUrlSanPham(), sp.getTenSanPham(),
+                    sp.getDonGia(), idHoaDon, jsc, txtTien, tienKhuyenMai, btnTaoHoaDon);
         }
         else {
+            pTHoaDon.updateSanPhamDaThem(pTHoaDon.getSoLuongDongHoaDon(idDHoaDon_True) + Integer.parseInt(txtSoLuong.getText()),
+                    idDHoaDon_True);
+            pTHoaDon.load(pnSanPhamDaChon, sp.getUrlSanPham(), sp.getTenSanPham(),
+                    sp.getDonGia(), idHoaDon, jsc, txtTien, tienKhuyenMai, btnTaoHoaDon);
+        }
+        List<DongHoaDon> list = pTHoaDon.getListDongHoaDon(idHoaDon);
+        if (list.size() > 0) {
+            btnTaoHoaDon.setEnabled(true);
+        } else {
             btnTaoHoaDon.setEnabled(false);
         }
     }//GEN-LAST:event_btnChonActionPerformed

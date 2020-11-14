@@ -30,20 +30,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnATM" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" pref="600" max="-2" attributes="0"/>
+              <Component id="pnATM" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="pnATM">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[600, 600]"/>
@@ -56,8 +56,100 @@
         </Property>
       </Properties>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jPanel2" min="-2" pref="600" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="99" pref="99" max="-2" attributes="0"/>
+                  <Component id="cbLoaiThe" min="-2" pref="330" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="jLabel43" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
+                  <Component id="txtTenNganHang" min="-2" pref="330" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="jLabel42" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
+                  <Component id="txtSoTaiKhoan" min="-2" pref="330" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="jLabel38" min="-2" pref="150" max="-2" attributes="0"/>
+                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                  <Component id="txtTenTaiKhoan" min="-2" pref="330" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="jLabel40" min="-2" pref="130" max="-2" attributes="0"/>
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Component id="txtChiNhanh" min="-2" pref="330" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnHuy" min="-2" pref="200" max="-2" attributes="0"/>
+                  <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
+                  <Component id="btnLuu" min="-2" pref="200" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Component id="jPanel2" min="-2" pref="90" max="-2" attributes="0"/>
+                  <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="cbLoaiThe" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="txtTenNganHang" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="txtSoTaiKhoan" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="txtTenTaiKhoan" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="txtChiNhanh" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnHuy" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="btnLuu" min="-2" pref="70" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -66,11 +158,6 @@
               <Color blue="0" green="c8" id="orange" palette="1" red="ff" type="palette"/>
             </Property>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="600" height="90"/>
-            </Constraint>
-          </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
             <Property name="useNullLayout" type="boolean" value="true"/>
@@ -126,11 +213,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i Th&#x1ebb; "/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="150" width="-1" height="-1"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel38">
           <Properties>
@@ -139,11 +221,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n T&#xe0;i Kho&#x1ea3;n"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="370" width="150" height="-1"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTenTaiKhoan">
           <Properties>
@@ -157,11 +234,6 @@
               </Border>
             </Property>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="360" width="330" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel40">
           <Properties>
@@ -170,11 +242,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Chi Nh&#xe1;nh"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="450" width="130" height="-1"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtChiNhanh">
           <Properties>
@@ -188,11 +255,6 @@
               </Border>
             </Property>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="440" width="330" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JButton" name="btnLuu">
           <Properties>
@@ -210,11 +272,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuActionPerformed"/>
           </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="340" y="510" width="200" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbLoaiThe">
           <Properties>
@@ -242,11 +299,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="140" width="330" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSoTaiKhoan">
           <Properties>
@@ -260,11 +312,6 @@
               </Border>
             </Property>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="290" width="330" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel42">
           <Properties>
@@ -273,11 +320,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1ed1; T&#xe0;i Kho&#x1ea3;n"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="300" width="140" height="-1"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTenNganHang">
           <Properties>
@@ -291,11 +333,6 @@
               </Border>
             </Property>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="220" width="330" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel43">
           <Properties>
@@ -304,11 +341,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n Ng&#xe2;n H&#xe0;ng"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="230" width="140" height="-1"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JButton" name="btnHuy">
           <Properties>
@@ -326,11 +358,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
           </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="510" width="200" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
       </SubComponents>
     </Container>

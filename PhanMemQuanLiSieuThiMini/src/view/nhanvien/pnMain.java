@@ -202,9 +202,9 @@ public class pnMain extends javax.swing.JPanel {
             lbGiaSanPham.setBounds(0, 100, 190, 30);
 
             lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/pay.png"))); // NOI18N
+            lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/"+ list.get(i).getUrlSanPham()))); // NOI18N
             pn.add(lbHinhSanPham);
-            lbHinhSanPham.setBounds(30, 10, 120, 60);
+            lbHinhSanPham.setBounds(30, 10, 120, 80);
 
             pnChonSanPham.add(pn);
             pn.setBounds(left, top, 190, 130);
