@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import modal.ConnectDAO;
-import modal.SanPham;
+import model.ConnectDAO;
+import model.SanPham;
 
 public class TimKiemSanPham {
     public List<SanPham> getSanPhamByNhomSanPham(String tenSanPham) {

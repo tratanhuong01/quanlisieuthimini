@@ -3,9 +3,9 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import modal.ConnectDAO;
-import modal.KhachHang;
-import modal.StringUtil;
+import model.ConnectDAO;
+import model.KhachHang;
+import model.StringUtil;
 
 public class ThemKhachHang {
     String id = StringUtil.taoID("IDKhachHang", "KhachHang", "KH");

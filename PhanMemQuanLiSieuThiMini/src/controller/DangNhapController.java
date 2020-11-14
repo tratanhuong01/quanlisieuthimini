@@ -1,8 +1,8 @@
 package controller;
 
-import modal.ConnectDAO;
+import model.ConnectDAO;
 import java.sql.*;
-import modal.NhanVien;
+import model.NhanVien;
 
 public class DangNhapController {
     public NhanVien getNhanVien(String tenDangNhap,String matKhau,String tenBoPhan,String idNhanVien) {

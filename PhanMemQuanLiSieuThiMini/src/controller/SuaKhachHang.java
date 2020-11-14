@@ -1,7 +1,7 @@
 package controller;
 
 import java.sql.*;
-import modal.ConnectDAO;
+import model.ConnectDAO;
 
 public class SuaKhachHang {
     public boolean Sua(String idKhachHang,String hoTen, String gioiTinh,String soDienThoai,String diaChi) {
