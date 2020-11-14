@@ -136,7 +136,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollHoaDon = new javax.swing.JScrollPane();
         pnHoaDon = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
@@ -157,12 +157,13 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         jLabel58 = new javax.swing.JLabel();
         btnTaoHoaDonVaThanhToan = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(1440, 740));
-        setMinimumSize(new java.awt.Dimension(1440, 740));
+        setMaximumSize(new java.awt.Dimension(1366, 740));
+        setMinimumSize(new java.awt.Dimension(1366, 740));
+        setPreferredSize(new java.awt.Dimension(1366, 740));
 
         jPanel3.setBackground(java.awt.Color.white);
-        jPanel3.setMinimumSize(new java.awt.Dimension(32767, 32767));
-        jPanel3.setLayout(null);
+        jPanel3.setMaximumSize(new java.awt.Dimension(1366, 740));
+        jPanel3.setMinimumSize(new java.awt.Dimension(1366, 740));
 
         pnHoaDon.setBackground(java.awt.Color.white);
         pnHoaDon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -270,10 +271,7 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
         pnHoaDon.add(jLabel58);
         jLabel58.setBounds(280, 200, 90, 20);
 
-        jScrollPane1.setViewportView(pnHoaDon);
-
-        jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(190, 0, 590, 740);
+        scrollHoaDon.setViewportView(pnHoaDon);
 
         btnTaoHoaDonVaThanhToan.setBackground(java.awt.Color.orange);
         btnTaoHoaDonVaThanhToan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -283,20 +281,36 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
                 btnTaoHoaDonVaThanhToanActionPerformed(evt);
             }
         });
-        jPanel3.add(btnTaoHoaDonVaThanhToan);
-        btnTaoHoaDonVaThanhToan.setBounds(940, 300, 300, 70);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(scrollHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160)
+                .addComponent(btnTaoHoaDonVaThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(btnTaoHoaDonVaThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1440, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void printHoaDon(JPanel pn) {
@@ -348,9 +362,9 @@ public class jpnTaoHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbidHoaDon;
     private javax.swing.JPanel pnHoaDon;
+    private javax.swing.JScrollPane scrollHoaDon;
     private javax.swing.JLabel tenPTThanhToan;
     private javax.swing.JLabel txtTenKH;
     private javax.swing.JLabel txtTenNV;

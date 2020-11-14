@@ -28,6 +28,35 @@ public class PTHoaDon {
     public PTHoaDon() {
 
     }
+    public int getSoLuongDongHoaDon(String idDongHoaDon) {
+        int soLuong = 0;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT SoLuong FROM DongHoaDon WHERE IDDongHoaDon = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,idDongHoaDon);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                soLuong = rs.getInt(1);
+            }
+            return soLuong;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return soLuong;
+    }
+    public boolean updateSanPhamDaThem(int soLuong,String idDongHoaDon) {
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "UPDATE DongHoaDon SET SoLuong = ?  WHERE IDDongHoaDon = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,soLuong);
+            ps.setString(2, idDongHoaDon);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public List<DongHoaDon> getListDongHoaDon(String idHoaDon) {
         List<DongHoaDon> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
@@ -77,14 +106,14 @@ public class PTHoaDon {
         return false;
     }
 
-    public boolean insertDongHoaDon(String idHoaDon, String idSanPham, String idDonViTinh,
+    public boolean insertDongHoaDon(String idDongHoaDon,String idHoaDon, String idSanPham, String idDonViTinh,
             int soLuong) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String num = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+            
             String query = "INSERT INTO DongHoaDon(IDDongHoaDon,IDHoaDon,IDSanPham,IDDonViTinh,"
                     + "SoLuong)VALUES (?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, num);
+            ps.setString(1, idDongHoaDon);
             ps.setString(2, idHoaDon);
             ps.setString(3, idSanPham);
             ps.setString(4, idDonViTinh);

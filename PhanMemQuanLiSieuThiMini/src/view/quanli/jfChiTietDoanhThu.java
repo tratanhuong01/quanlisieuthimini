@@ -47,7 +47,7 @@ public class jfChiTietDoanhThu extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setText("Xuất File Excel");
         jPanel1.add(jButton1);
-        jButton1.setBounds(820, 10, 160, 50);
+        jButton1.setBounds(1110, 10, 160, 50);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
