@@ -46,8 +46,8 @@ public class jf_QuanLi extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         lbNgayGio = new javax.swing.JLabel();
         lbPhienBan = new javax.swing.JLabel();
-        pnMain = new javax.swing.JPanel();
         pnEnd = new javax.swing.JPanel();
+        pnMain = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnKhachHang = new javax.swing.JMenu();
         mnHoaDon = new javax.swing.JMenu();
@@ -61,6 +61,9 @@ public class jf_QuanLi extends javax.swing.JFrame {
         mnNhieuHon = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1366, 768));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1366, 768));
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());
@@ -142,15 +145,13 @@ public class jf_QuanLi extends javax.swing.JFrame {
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
 
-        pnMain.setBackground(new java.awt.Color(255, 206, 91));
-        pnMain.setPreferredSize(new java.awt.Dimension(1366, 685));
-        pnMain.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
-
         pnEnd.setBackground(java.awt.Color.white);
         pnEnd.setPreferredSize(new java.awt.Dimension(1366, 30));
         pnEnd.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(pnEnd, java.awt.BorderLayout.PAGE_END);
+
+        pnMain.setPreferredSize(new java.awt.Dimension(1366, 600));
+        getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
 
         mnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-customer-45.png"))); // NOI18N
         mnKhachHang.setText("Khách Hàng");

@@ -58,7 +58,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
 
         jPanel13.setBackground(java.awt.Color.white);
 
-        cboxTenKhachHang.setBackground(null);
         cboxTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         cboxTenKhachHang.setText("Tên Khách Hàng");
         cboxTenKhachHang.setPreferredSize(new java.awt.Dimension(200, 50));
@@ -67,8 +66,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         txtTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtTenKhachHang.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel13.add(txtTenKhachHang);
-
-        jPanel17.setBackground(null);
 
         cboxDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         cboxDiaChi.setText("Địa Chỉ");
@@ -85,7 +82,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
 
         jPanel4.setBackground(java.awt.Color.white);
 
-        cboxMaKhachHang.setBackground(null);
         cboxMaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         cboxMaKhachHang.setText("Mã Khách Hàng");
         cboxMaKhachHang.setPreferredSize(new java.awt.Dimension(200, 50));
@@ -94,8 +90,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         txtMaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtMaKhachHang.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel4.add(txtMaKhachHang);
-
-        jPanel9.setBackground(null);
 
         cboxSoDienThoai.setBackground(java.awt.Color.white);
         cboxSoDienThoai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -145,9 +139,7 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jPanel21.setMinimumSize(new java.awt.Dimension(315, 255));
         jPanel21.setPreferredSize(new java.awt.Dimension(315, 535));
         jPanel21.setRequestFocusEnabled(false);
-        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 23, 23);
-        flowLayout2.setAlignOnBaseline(true);
-        jPanel21.setLayout(flowLayout2);
+        jPanel21.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
 
         btnQuanLiDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnQuanLiDiem.setText("Quản Lí Điểm");

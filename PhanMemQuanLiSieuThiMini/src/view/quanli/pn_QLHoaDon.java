@@ -180,45 +180,45 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Tổng Số Tiền :");
-        jLabel10.setPreferredSize(new java.awt.Dimension(310, 50));
+        jLabel10.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(jLabel10);
 
         lbTien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTien.setText("0 VNĐ");
-        lbTien.setPreferredSize(new java.awt.Dimension(310, 50));
+        lbTien.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(lbTien);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Tổng Số Hóa Đơn :");
-        jLabel9.setPreferredSize(new java.awt.Dimension(310, 50));
+        jLabel9.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(jLabel9);
 
         lbSoHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbSoHoaDon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSoHoaDon.setText("873 Hóa Đơn");
-        lbSoHoaDon.setPreferredSize(new java.awt.Dimension(310, 50));
+        lbSoHoaDon.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(lbSoHoaDon);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Từ");
-        jLabel12.setPreferredSize(new java.awt.Dimension(310, 50));
+        jLabel12.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(jLabel12);
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(19, 1, 10, 1));
-        jDateChooser1.setPreferredSize(new java.awt.Dimension(220, 70));
+        jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 1, 7, 1));
+        jDateChooser1.setPreferredSize(new java.awt.Dimension(220, 50));
         jPanel21.add(jDateChooser1);
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Đến");
-        jLabel13.setPreferredSize(new java.awt.Dimension(310, 50));
+        jLabel13.setPreferredSize(new java.awt.Dimension(310, 40));
         jPanel21.add(jLabel13);
 
-        jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(19, 1, 10, 1));
-        jDateChooser2.setPreferredSize(new java.awt.Dimension(220, 70));
+        jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 1, 15, 1));
+        jDateChooser2.setPreferredSize(new java.awt.Dimension(220, 55));
         jPanel21.add(jDateChooser2);
 
         btnLoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N

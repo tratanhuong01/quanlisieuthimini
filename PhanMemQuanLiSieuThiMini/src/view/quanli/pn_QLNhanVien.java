@@ -160,7 +160,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         jPanel21.setMinimumSize(new java.awt.Dimension(315, 255));
         jPanel21.setPreferredSize(new java.awt.Dimension(315, 535));
         jPanel21.setRequestFocusEnabled(false);
-        jPanel21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 15));
+        jPanel21.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
 
         btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThemNhanVien.setText("Thêm Nhân Viên");

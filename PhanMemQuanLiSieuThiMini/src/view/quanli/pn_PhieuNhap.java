@@ -63,7 +63,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 10, 1));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1366, 350));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1366, 300));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 330));
@@ -76,7 +76,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.EAST);
@@ -122,7 +122,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
         jPanel10.add(jPanel14);
@@ -185,7 +185,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel7.add(jLabel9);
 
         jPanel17.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel17.setLayout(new java.awt.GridLayout());
+        jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setText("Import From File Exel *");
@@ -244,7 +244,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel1.add(jPanel2, java.awt.BorderLayout.NORTH);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel13.setLayout(new java.awt.GridLayout());
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

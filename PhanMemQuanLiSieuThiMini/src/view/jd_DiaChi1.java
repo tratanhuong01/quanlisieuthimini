@@ -21,12 +21,12 @@ import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 import model.NhanVien;
 
-public class jd_DiaChi extends javax.swing.JDialog {
+public class jd_DiaChi1 extends javax.swing.JDialog {
 
     JTextField _txtDiaChi;
     NhanVien nvs;
 
-    public jd_DiaChi(java.awt.Frame parent, boolean modal, JTextField _txtDiaChi) {
+    public jd_DiaChi1(java.awt.Frame parent, boolean modal, JTextField _txtDiaChi) {
         super(parent, modal);
         initComponents();
         this._txtDiaChi = _txtDiaChi;
@@ -88,10 +88,10 @@ public class jd_DiaChi extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         pnF = new javax.swing.JPanel();
+        btnOk = new javax.swing.JButton();
         txtDiaChi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnListTinh = new javax.swing.JPanel();
-        btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -101,6 +101,14 @@ public class jd_DiaChi extends javax.swing.JDialog {
         pnF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 51), 4));
         pnF.setMaximumSize(new java.awt.Dimension(315, 300));
         pnF.setMinimumSize(new java.awt.Dimension(315, 300));
+
+        btnOk.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -119,14 +127,6 @@ public class jd_DiaChi extends javax.swing.JDialog {
         );
 
         jScrollPane1.setViewportView(pnListTinh);
-
-        btnOk.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnOk.setText("OK");
-        btnOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnFLayout = new javax.swing.GroupLayout(pnF);
         pnF.setLayout(pnFLayout);
@@ -161,7 +161,7 @@ public class jd_DiaChi extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -5,7 +5,7 @@ import controller.ThemKhachHang;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.KhachHang;
-import view.jd_DiaChi;
+import view.jd_DiaChi1;
 import static view.nvbanhang.pn_pnMain.txtTenKhachHang;
 
 public class jf_SuaKhachHang extends javax.swing.JFrame {
@@ -177,7 +177,7 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
-        new jd_DiaChi(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
+        new jd_DiaChi1(new javax.swing.JFrame(), true, txtDiaChi).setVisible(true);
     }//GEN-LAST:event_txtDiaChiMouseClicked
 
     private void btnVeTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeTrangChuActionPerformed

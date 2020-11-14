@@ -106,9 +106,12 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         jPanel37 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(1366, 600));
         setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1366, 600));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1366, 600));
         jPanel2.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
 
         pnDoanhThuTrongNgay.setBackground(new java.awt.Color(77, 177, 81));
@@ -626,7 +629,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 118, Short.MAX_VALUE)
+            .addGap(0, 74, Short.MAX_VALUE)
         );
 
         pnDoanhThuNamTruoc1.add(jPanel35, java.awt.BorderLayout.LINE_START);
@@ -641,7 +644,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 118, Short.MAX_VALUE)
+            .addGap(0, 74, Short.MAX_VALUE)
         );
 
         pnDoanhThuNamTruoc1.add(jPanel36, java.awt.BorderLayout.LINE_END);
