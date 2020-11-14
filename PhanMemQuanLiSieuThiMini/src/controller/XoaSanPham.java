@@ -1,7 +1,7 @@
 package controller;
 
 import java.sql.*;
-import modal.ConnectDAO;
+import model.ConnectDAO;
 
 public class XoaSanPham {
     public boolean xoa(String idDongHoaDon) {

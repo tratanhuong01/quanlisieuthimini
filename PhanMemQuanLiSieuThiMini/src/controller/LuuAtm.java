@@ -1,8 +1,8 @@
 package controller;
 
 import java.sql.*;
-import modal.ConnectDAO;
-import modal.StringUtil;
+import model.ConnectDAO;
+import model.StringUtil;
 
 public class LuuAtm {
     String idThongTin;
