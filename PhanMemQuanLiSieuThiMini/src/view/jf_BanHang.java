@@ -69,7 +69,6 @@ public class jf_BanHang extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());

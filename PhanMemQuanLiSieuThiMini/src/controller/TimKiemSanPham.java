@@ -20,8 +20,9 @@ public class TimKiemSanPham {
                     + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
                     + "BangGia.Giam,KhuVuc.TenKhuVuc FROM SanPham \n"
                     + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                    + "INNER JOIN BangGia ON SanPham.IDSanPham = BangGia.IDSanPham \n"
-                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc WHERE SanPham.TenSanPham LIKE N'%" + tenSanPham + "%'";
+                    + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia \n"
+                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc WHERE SanPham.TenSanPham LIKE N'%" + tenSanPham + "%' "
+                    + "OR SanPham.IDSanPham LIKE N'%" + tenSanPham +"%' ";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

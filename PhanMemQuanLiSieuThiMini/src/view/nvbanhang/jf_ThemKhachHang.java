@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import model.KhachHang;
 import model.NhanVien;
 import model.StringUtil;
-import view.jd_DiaChi1;
+import view.jf_DiaChi;
 import view.jf_DiaChi;
 
 public class jf_ThemKhachHang extends javax.swing.JFrame {
