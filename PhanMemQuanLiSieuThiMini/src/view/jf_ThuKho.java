@@ -48,7 +48,6 @@ public class jf_ThuKho extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1366, 768));
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));

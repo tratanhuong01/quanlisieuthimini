@@ -55,7 +55,6 @@ public class jf_DiaChi extends javax.swing.JFrame {
         pnListTinh = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(364, 383));
         setMinimumSize(new java.awt.Dimension(364, 383));
         setUndecorated(true);
         setSize(new java.awt.Dimension(364, 383));

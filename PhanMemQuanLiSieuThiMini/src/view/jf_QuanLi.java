@@ -4,15 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import model.NhanVien;
-import view.quanli.pn_PhieuNhap;
-import view.quanli.pn_PhieuXuat;
-import view.quanli.pn_QLHoaDon;
-import view.quanli.pn_QLKhachHang;
-import view.quanli.pn_QLNhaCungCap;
-import view.quanli.pn_QLNhanVien;
-import view.quanli.pn_QLSanPham;
-import view.quanli.pn_QLSub;
-import view.quanli.pn_QLThongKe;
+import view.quanli.phieu.pn_PhieuNhap;
+import view.quanli.phieu.pn_PhieuXuat;
+import view.quanli.hoadon.pn_QLHoaDon;
+import view.quanli.khachhang.pn_QLKhachHang;
+import view.quanli.nhacungcap.pn_QLNhaCungCap;
+import view.quanli.nhanvien.pn_QLNhanVien;
+import view.quanli.sanpham.pn_QLSanPham;
+import view.quanli.danhmuc.pn_QLSub;
+import view.quanli.thongke.pn_QLThongKe;
 
 public class jf_QuanLi extends javax.swing.JFrame {
     NhanVien nv;
@@ -62,8 +62,6 @@ public class jf_QuanLi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());
@@ -240,7 +238,7 @@ public class jf_QuanLi extends javax.swing.JFrame {
         jMenuBar1.add(mnTaoPhieu);
 
         mnNhieuHon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-more-45.png"))); // NOI18N
-        mnNhieuHon.setText("Nhiều Hơn...");
+        mnNhieuHon.setText("Danh Mục");
         mnNhieuHon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         mnNhieuHon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
