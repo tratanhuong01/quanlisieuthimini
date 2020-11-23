@@ -1,5 +1,6 @@
 package view.quanli.khachhang;
 
+import controller.ThemKhachHang;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.KhachHang;
 import model.StringUtil;
 
 public class pn_QLKhachHang extends javax.swing.JPanel {
@@ -22,15 +24,13 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     String s = "";
     int[] state = {0, 0, 0, 0};
     JCheckBox[] listCheckBox;
-    JTextField[] listJtextField;
-
+    JTextField[] listTextField;
+    KhachHang kh;
     public pn_QLKhachHang() {
         initComponents();
-//        loadTable("");
-        JCheckBox[] listCheckBox = {cboxTenKhachHang, cboxMaKhachHang, cboxDiaChi, cboxSoDienThoai};
-        JTextField[] listTextField = {txtTenKhachHang, txtMaKhachHang, txtDiaChi, txtSoDienThoai};
-//        setCbox(listCheckBox);
-//        setJtextField(listJtextField);
+        loadTable("");
+        listCheckBox = listCheckBox();
+        listTextField = listTextField();
         for (int i = 0; i < listCheckBox.length; i++) {
             int a = i;
             listCheckBox[i].addItemListener(new ItemListener() {
@@ -41,11 +41,23 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
                             state[a] = 1;
                         } else {
                             state[a] = 0;
+                            listTextField[a].setText("");
                         }
                     }
+
                 }
             });
         }
+    }
+
+    public JCheckBox[] listCheckBox() {
+        JCheckBox[] listCheckBox = {cboxTenKhachHang, cboxMaKhachHang, cboxDiaChi, cboxSoDienThoai};
+        return listCheckBox;
+    }
+
+    public JTextField[] listTextField() {
+        JTextField[] listTextField = {txtTenKhachHang, txtMaKhachHang, txtDiaChi, txtSoDienThoai};
+        return listTextField;
     }
 
     public String addQuery(int num, String text) {
@@ -68,18 +80,18 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     }
 
     public void loadTable(String querys) {
-        JCheckBox[] listCheckBox = {cboxTenKhachHang, cboxMaKhachHang, cboxDiaChi, cboxSoDienThoai};
-        JTextField[] listTextField = {txtTenKhachHang, txtMaKhachHang, txtDiaChi, txtSoDienThoai};
-        String query = "SELECT IDKhachHang AS 'ID Khách Hàng' , IDNhomKH AS 'ID Nhóm Khách Hàng',\n"
-                + "HoTen AS 'Họ Tên' , GioiTinh AS 'Giới Tính', SoDienThoai AS 'Số Điện Thoại',\n"
-                + "DiaChi AS 'Địa Chỉ' FROM KhachHang WHERE IDNhomKH = 'NKH00002'" + querys;
+            String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,KhachHang.GioiTinh,\n"
+                    + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
+                    + "KhachHang.TraDK,KhachHang.ThuDK,TichDiem.SoDiem\n"
+                    + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
+                    + "INNER JOIN TichDiem ON KhachHang.IDKhachHang = TichDiem.IDKhachHang " + querys;
         System.out.print(query);
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
             DefaultTableModel tableMode;
-            listKhachHang.getTableHeader().setPreferredSize(new Dimension(WIDTH, 40));
-            listKhachHang.getTableHeader().setFont(new Font("Time New Roman", 1, 18));
+            listKhachHang.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
+            listKhachHang.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
             listKhachHang.getTableHeader().setBackground(Color.WHITE);
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -99,6 +111,11 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
                 vData.add(rs.getString(4));
                 vData.add(rs.getString(5));
                 vData.add(rs.getString(6));
+                vData.add(rs.getString(7));
+                vData.add(rs.getString(8));
+                vData.add(rs.getString(9));
+                vData.add(rs.getString(10));
+                vData.add(rs.getString(11));
                 tableMode.addRow(vData);
             }
             listKhachHang.setModel(tableMode);
@@ -250,11 +267,21 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         btnQuanLiDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnQuanLiDiem.setText("Quản Lí Điểm");
         btnQuanLiDiem.setPreferredSize(new java.awt.Dimension(285, 75));
+        btnQuanLiDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLiDiemActionPerformed(evt);
+            }
+        });
         jPanel21.add(btnQuanLiDiem);
 
         btnSuaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSuaKhachHang.setText("Sửa Khách Hàng");
         btnSuaKhachHang.setPreferredSize(new java.awt.Dimension(285, 75));
+        btnSuaKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaKhachHangActionPerformed(evt);
+            }
+        });
         jPanel21.add(btnSuaKhachHang);
 
         btnXoaKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -263,7 +290,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jPanel21.add(btnXoaKhachHang);
 
         jButton10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton10.setText("Khách Hàng Thân Thiết");
         jButton10.setPreferredSize(new java.awt.Dimension(285, 75));
         jPanel21.add(jButton10);
 
@@ -276,12 +302,14 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listKhachHangMouseClicked
-
+        int row = listKhachHang.getSelectedRow();
+        txtTenKhachHang.setText(listKhachHang.getModel().getValueAt(row, 2).toString());
+        txtMaKhachHang.setText(listKhachHang.getModel().getValueAt(row, 0).toString());
+        txtDiaChi.setText(listKhachHang.getModel().getValueAt(row, 5).toString());
+        txtSoDienThoai.setText(listKhachHang.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_listKhachHangMouseClicked
-    
+
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        JCheckBox[] listCheckBox = {cboxTenKhachHang, cboxMaKhachHang, cboxDiaChi, cboxSoDienThoai};
-        JTextField[] listTextField = {txtTenKhachHang, txtMaKhachHang, txtDiaChi, txtSoDienThoai};
         String query = "";
         for (int i = 0; i < state.length; i++) {
             if (state[i] == 1) {
@@ -291,6 +319,17 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         System.out.println(query);
         loadTable(query);
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnQuanLiDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiDiemActionPerformed
+        pn_QuanLiDiem qld = new pn_QuanLiDiem();
+        qld.setVisible(true);
+    }//GEN-LAST:event_btnQuanLiDiemActionPerformed
+
+    private void btnSuaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaKhachHangActionPerformed
+        kh = new ThemKhachHang().getKhachHang(txtMaKhachHang.getText());
+        pn_SuaKhachHang skh = new pn_SuaKhachHang(kh);
+        skh.setVisible(true);
+    }//GEN-LAST:event_btnSuaKhachHangActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

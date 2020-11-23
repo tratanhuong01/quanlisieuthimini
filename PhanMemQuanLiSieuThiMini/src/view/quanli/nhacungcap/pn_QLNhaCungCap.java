@@ -1,11 +1,66 @@
 package view.quanli.nhacungcap;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.ConnectDAO;
+
 public class pn_QLNhaCungCap extends javax.swing.JPanel {
 
     public pn_QLNhaCungCap() {
         initComponents();
+        loadTable();
     }
-
+    public void loadTable() {
+            String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,KhachHang.GioiTinh,\n"
+                    + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
+                    + "KhachHang.TraDK,KhachHang.ThuDK\n"
+                    + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
+                    + "WHERE NhomKhachHang.IDNhomKH = 'NKH00003' ";
+        System.out.print(query);
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            Vector vTitle = null;
+            Vector vData = null;
+            DefaultTableModel tableMode;
+            listKhachHang.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
+            listKhachHang.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
+            listKhachHang.getTableHeader().setBackground(Color.WHITE);
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            int soCot = rsm.getColumnCount();
+            vTitle = new Vector(soCot);
+            for (int i = 1; i <= soCot; i++) {
+                vTitle.add(rsm.getColumnLabel(i));
+            }
+            tableMode = new DefaultTableModel(vTitle, 0);
+            listKhachHang.removeAll();
+            while (rs.next()) {
+                vData = new Vector();
+                vData.add(rs.getString(1));
+                vData.add(rs.getString(2));
+                vData.add(rs.getString(3));
+                vData.add(rs.getString(4));
+                vData.add(rs.getString(5));
+                vData.add(rs.getString(6));
+                vData.add(rs.getString(7));
+                vData.add(rs.getString(8));
+                vData.add(rs.getString(9));
+                vData.add(rs.getString(10));
+                tableMode.addRow(vData);
+            }
+            listKhachHang.setModel(tableMode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -9,7 +9,7 @@ public class DangNhapController {
         NhanVien nv = null;
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT TaiKhoan.TaiKhoan , TaiKhoan.MatKhau, NhanVien.IDNhanVien,NhanVien.IDBoPhan ,\n"
-                    + "NhanVien.HoTen,NhanVien.GioiTinh,NhanVien.SoDienThoai,Nhanvien.DiaChi,BoPhan.TenBoPhan\n"
+                    + "NhanVien.HoTen,NhanVien.GioiTinh,NhanVien.SoDienThoai,Nhanvien.DiaChi,BoPhan.TenBoPhan,NhanVien.TinhTrang \n"
                     + "FROM NhanVien INNER JOIN BoPhan ON NhanVien.IDBoPhan = BoPhan.IDBoPhan\n"
                     + "INNER JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien \n"
                     + "WHERE TaiKhoan = ? AND MatKhau = ? AND BoPhan.TenBoPhan = ? AND NhanVien.IDNhanVien = ? ";
@@ -21,7 +21,7 @@ public class DangNhapController {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)
-                        , rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9));
+                        , rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
             }
             else {
                 nv = null;

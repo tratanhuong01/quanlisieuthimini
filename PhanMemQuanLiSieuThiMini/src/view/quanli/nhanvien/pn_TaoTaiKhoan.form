@@ -52,19 +52,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtTenNhanVien" min="-2" pref="202" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="155" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" pref="142" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSoDienThoai" min="-2" pref="202" max="-2" attributes="0"/>
+                  <Component id="txtSoDienThoai" min="-2" pref="215" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnTim" min="-2" pref="170" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnThoat" min="-2" pref="170" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="527" pref="527" max="-2" attributes="0"/>
-                  <Component id="txtSoDienThoai1" min="-2" pref="202" max="-2" attributes="0"/>
-                  <EmptySpace min="369" pref="369" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -83,12 +78,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="txtSoDienThoai" alignment="0" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtSoDienThoai1" alignment="0" max="32767" attributes="0"/>
-                      </Group>
                       <Component id="txtTenNhanVien" max="32767" attributes="0"/>
+                      <Component id="txtSoDienThoai" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -139,13 +130,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSoDienThoai">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="18" style="1"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtSoDienThoai1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
@@ -233,13 +217,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtMatKhau" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnCap" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnCap" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -267,7 +251,7 @@
                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtMatKhau" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnCap" min="-2" pref="61" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -348,7 +332,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="C&#x1ea5;p Cho Nh&#xe2;n Vi&#xea;n"/>
+                <Property name="text" type="java.lang.String" value="T&#x1ea1;o"/>
               </Properties>
             </Component>
           </SubComponents>

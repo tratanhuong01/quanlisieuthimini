@@ -1,11 +1,36 @@
 package view.quanli.nhanvien;
 
+import controller.ThemNhanVien;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import model.ConnectDAO;
+import model.StringUtil;
+import view.jf_DiaChi;
+
 public class pn_ThemNhanVien extends javax.swing.JFrame {
 
     public pn_ThemNhanVien() {
         initComponents();
     }
-
+    
+    public String getIDBoPhan(String tenBoPhan) {
+        String s = "";
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT IDBoPhan FROM BoPhan WHERE TenBoPhan = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, tenBoPhan);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                s = rs.getString(1);
+            }
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,6 +52,8 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         cbBoPhan = new javax.swing.JComboBox<>();
         txtIDNhanVien = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        txtTinhTrang = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -87,6 +114,12 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtDiaChi.setEnabled(false);
+        txtDiaChi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDiaChiMouseClicked(evt);
+            }
+        });
         jPanel1.add(txtDiaChi);
         txtDiaChi.setBounds(220, 490, 330, 40);
 
@@ -101,7 +134,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnVeTrangChu);
-        btnVeTrangChu.setBounds(70, 570, 200, 70);
+        btnVeTrangChu.setBounds(60, 630, 200, 70);
 
         cbGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         cbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
@@ -118,7 +151,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLuu);
-        btnLuu.setBounds(330, 570, 200, 70);
+        btnLuu.setBounds(330, 630, 200, 70);
 
         cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         cbBoPhan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
@@ -128,6 +161,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtIDNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtIDNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtIDNhanVien.setEnabled(false);
         jPanel1.add(txtIDNhanVien);
         txtIDNhanVien.setBounds(220, 190, 330, 40);
 
@@ -135,6 +169,19 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         jLabel42.setText("ID Nhân Viên");
         jPanel1.add(jLabel42);
         jLabel42.setBounds(40, 200, 140, 24);
+
+        jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel43.setText("Tình Trạng");
+        jPanel1.add(jLabel43);
+        jLabel43.setBounds(40, 570, 130, 24);
+
+        txtTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtTinhTrang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtTinhTrang.setText("1");
+        txtTinhTrang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTinhTrang.setEnabled(false);
+        jPanel1.add(txtTinhTrang);
+        txtTinhTrang.setBounds(220, 560, 330, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,7 +191,9 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,8 +205,21 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVeTrangChuActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-
+        String idNhanVien = StringUtil.taoID("IDNhanVien", "NhanVien", "NV");
+        if (new ThemNhanVien().them(idNhanVien, getIDBoPhan(cbBoPhan.getSelectedItem().toString()),
+                txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
+                txtDiaChi.getText(), Integer.parseInt(txtTinhTrang.getText())) == true) {
+            JOptionPane.showMessageDialog(rootPane, "Thêm Thành CÔng");
+            this.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Thêm Thất Bại");
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void txtDiaChiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiaChiMouseClicked
+        new jf_DiaChi(txtDiaChi).setVisible(true);
+    }//GEN-LAST:event_txtDiaChiMouseClicked
 
     public static void main(String args[]) {
   
@@ -180,11 +242,13 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtIDNhanVien;
     private javax.swing.JTextField txtSoDienThoai;
+    private javax.swing.JTextField txtTinhTrang;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,17 +8,23 @@ public class KhachHang {
     private String soDienThoai;
     private String diaChi;
     private String tenNhomKhachHang;
+    private String maSoThue;
+    private float traDK;
+    private float thuDK;
+    private int soDiem;
 
-    public KhachHang(String idKhachHang, String idNhomKhachHang, String hoTen, String gioiTinh, String soDienThoai, String diaChi) {
+    public KhachHang(String idKhachHang, String idNhomKhachHang, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenNhomKhachHang, String maSoThue, float traDK, float thuDK, int soDiem) {
         this.idKhachHang = idKhachHang;
         this.idNhomKhachHang = idNhomKhachHang;
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
-    }
-
-    public KhachHang() {
+        this.tenNhomKhachHang = tenNhomKhachHang;
+        this.maSoThue = maSoThue;
+        this.traDK = traDK;
+        this.thuDK = thuDK;
+        this.soDiem = soDiem;
     }
 
     public String getIdKhachHang() {
@@ -75,6 +81,38 @@ public class KhachHang {
 
     public void setTenNhomKhachHang(String tenNhomKhachHang) {
         this.tenNhomKhachHang = tenNhomKhachHang;
+    }
+
+    public String getMaSoThue() {
+        return maSoThue;
+    }
+
+    public void setMaSoThue(String maSoThue) {
+        this.maSoThue = maSoThue;
+    }
+
+    public float getTraDK() {
+        return traDK;
+    }
+
+    public void setTraDK(float traDK) {
+        this.traDK = traDK;
+    }
+
+    public float getThuDK() {
+        return thuDK;
+    }
+
+    public void setThuDK(float thuDK) {
+        this.thuDK = thuDK;
+    }
+
+    public int getSoDiem() {
+        return soDiem;
+    }
+
+    public void setSoDiem(int soDiem) {
+        this.soDiem = soDiem;
     }
     
 }

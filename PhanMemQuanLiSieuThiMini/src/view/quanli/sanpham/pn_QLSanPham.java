@@ -19,10 +19,12 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         loadTable(jTable1);
         loadTable(jTable2);
     }
+
     public void loadTable(JTable jTable) {
-        String query = "SELECT IDSanPham AS 'ID Sản Phẩm' , IDNhomSanPham AS 'IDNhomSanPham',TenSanPham AS 'Tên Sản Phẩm'\n"
-                + ",IDDonViTinh AS 'ID Đơn Vị Tính',NgaySanXuat AS 'Ngày Sản Xuất',HanSuDung AS 'Hạn Sử Dụng'\n"
-                + ",UrlImage AS 'Link Ảnh' , IDBangGia AS 'ID Bảng Giá' FROM SanPham";
+        String query = "SELECT SanPham.IDSanPham , NhomSanPham.TenNhom,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
+                + "SanPham.NgaySanXuat,SanPham.HanSuDung,BangGia.DonGia,SanPham.GiaVonSP,BangGia.Giam\n"
+                + "FROM SanPham INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
+                + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia";
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
@@ -50,6 +52,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
                 vData.add(rs.getString(6));
                 vData.add(rs.getString(7));
                 vData.add(rs.getString(8));
+                vData.add(rs.getString(9));
                 tableMode.addRow(vData);
             }
             jTable.setModel(tableMode);
@@ -57,6 +60,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,6 +94,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -103,6 +108,8 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel20 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -196,7 +203,8 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Chọn Bảng Xuất FIle");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bảng Sản Phẩm", "Bảng Tìm Kiếm" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -227,6 +235,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
+        jTable1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -238,6 +247,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setRowHeight(34);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel8.add(jScrollPane1);
@@ -255,6 +265,11 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         jPanel19.setPreferredSize(new java.awt.Dimension(500, 304));
         jPanel19.setLayout(new java.awt.BorderLayout());
 
+        jScrollPane3.setMaximumSize(new java.awt.Dimension(500, 304));
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(500, 304));
+        jScrollPane3.setName(""); // NOI18N
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(500, 304));
+
         jPanel13.setLayout(new java.awt.GridLayout(1, 3));
 
         jPanel14.setLayout(null);
@@ -262,63 +277,75 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton4.setText("Theo Mã SP");
         jPanel14.add(jButton4);
-        jButton4.setBounds(10, 100, 170, 50);
+        jButton4.setBounds(10, 80, 170, 40);
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton5.setText("SP Thấp => Cao");
         jButton5.setPreferredSize(new java.awt.Dimension(161, 25));
         jPanel14.add(jButton5);
-        jButton5.setBounds(10, 0, 170, 50);
+        jButton5.setBounds(10, 0, 170, 40);
 
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton6.setText("SP Cao => Thấp");
         jPanel14.add(jButton6);
-        jButton6.setBounds(10, 50, 170, 50);
+        jButton6.setBounds(10, 40, 170, 40);
 
         jTextField6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel14.add(jTextField6);
-        jTextField6.setBounds(190, 0, 280, 50);
+        jTextField6.setBounds(190, 0, 280, 40);
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton7.setText("Theo Tên Sản Phẩm");
         jPanel14.add(jButton7);
-        jButton7.setBounds(190, 50, 280, 50);
+        jButton7.setBounds(190, 40, 280, 40);
 
         jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton8.setText("Sản Phẩm Quá Hạn");
         jPanel14.add(jButton8);
-        jButton8.setBounds(10, 210, 460, 50);
+        jButton8.setBounds(10, 160, 460, 40);
 
         jTextField7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel14.add(jTextField7);
-        jTextField7.setBounds(340, 150, 130, 50);
+        jTextField7.setBounds(340, 120, 130, 40);
 
         jTextField8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel14.add(jTextField8);
-        jTextField8.setBounds(190, 150, 120, 50);
+        jTextField8.setBounds(190, 120, 120, 40);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("->");
         jPanel14.add(jLabel6);
-        jLabel6.setBounds(310, 150, 30, 50);
+        jLabel6.setBounds(310, 120, 30, 40);
 
         jTextField9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel14.add(jTextField9);
-        jTextField9.setBounds(190, 100, 280, 50);
+        jTextField9.setBounds(190, 80, 280, 40);
 
         jButton9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton9.setText("Giá Sản Phẩm");
+        jButton9.setText("Theo Nhóm SP");
         jPanel14.add(jButton9);
-        jButton9.setBounds(10, 150, 170, 50);
+        jButton9.setBounds(10, 200, 170, 40);
+
+        jButton11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton11.setText("Giá Sản Phẩm");
+        jPanel14.add(jButton11);
+        jButton11.setBounds(10, 120, 170, 40);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel14.add(jComboBox2);
+        jComboBox2.setBounds(190, 200, 280, 40);
 
         jPanel13.add(jPanel14);
 
-        jPanel19.add(jPanel13, java.awt.BorderLayout.CENTER);
+        jScrollPane3.setViewportView(jPanel13);
+
+        jPanel19.add(jScrollPane3, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.add(jPanel19, java.awt.BorderLayout.LINE_END);
 
         jPanel20.setLayout(new java.awt.GridLayout(1, 0));
 
+        jTable2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -330,6 +357,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable2.setRowHeight(34);
         jScrollPane2.setViewportView(jTable2);
 
         jPanel20.add(jScrollPane2);
@@ -343,6 +371,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -352,6 +381,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -375,6 +405,7 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
