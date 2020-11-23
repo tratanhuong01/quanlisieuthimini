@@ -205,6 +205,10 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         checkKhachHang = true;
         idKhachCu = JOptionPane.showInputDialog(rootPane, "Vui Lòng Đưa Thẻ Thành Viên Vào Khe Cắm");
         txtIDKhachHang.setText(idKhachCu);
+        KhachHang kh = new ThemKhachHang().getKhachHang(idKhachCu);
+        txtSoDienThoai.setText(kh.getSoDienThoai());
+        txtDiaChi.setText(kh.getDiaChi());
+        txtHoTen.setText(kh.getHoTen());
         CheckKhachHang();
     }//GEN-LAST:event_btnDocTheThanhVienActionPerformed
 
@@ -220,10 +224,11 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         ThemKhachHang tkh = new ThemKhachHang();
         if (tkh.them(txtIDKhachHang.getText(), cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText(),
                 cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
-                txtDiaChi.getText()) == true) {
-            this.setVisible(false);
+                txtDiaChi.getText(), "0", 0, 0) == true) {
             KhachHang kh = tkh.getKhachHang(txtIDKhachHang.getText());
+            
             check(pnMain, kh);
+            this.dispose();    
         } else {
             JOptionPane.showMessageDialog(rootPane, "Thêm Thất Bại Vui Lòng Kiểm Tra Lại Dữ Liệu Nhập Vào");
         }
@@ -248,6 +253,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
             lb.setIcon(newImageIcon);
             lb.setHorizontalAlignment((int) CENTER_ALIGNMENT);
             pnMain.add(lb);
+            JOptionPane.showMessageDialog(rootPane, "KH null");
         } else {
             pn_pnMain pnmain = new pn_pnMain(kh, nv, pnMain);
             pn_pnMain.txtTenKhachHang.setText(txtHoTen.getText());
