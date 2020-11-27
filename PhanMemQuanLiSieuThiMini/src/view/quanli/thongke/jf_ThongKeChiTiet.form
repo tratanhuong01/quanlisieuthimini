@@ -278,6 +278,11 @@
             <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JButton" name="jButton3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jButton3"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -299,6 +304,11 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jButton2"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

@@ -1,11 +1,37 @@
 package view.quanli.nhanvien;
 
+import controller.ThemNhanVien;
+import model.NhanVien;
+
 public class pn_SuaNhanVien extends javax.swing.JFrame {
-
-    public pn_SuaNhanVien() {
+    NhanVien nv;
+    public pn_SuaNhanVien(NhanVien nv) {
         initComponents();
+        this.nv = nv;
+        txtIDNhanVien.setText(nv.getHoTen());
+        txtDiaChi.setText(nv.getDiaChi());
+        txtSoDienThoai.setText(nv.getSoDienThoai());
+        cbGioiTinh.setSelectedItem(nv.getGioiTinh());
+        cbTinhTrang.setSelectedItem(get(nv.getTinhTrang()));
     }
-
+    public String get(int a) {
+        String s = "";
+        switch (a) {
+            case 0 : 
+                s = "Nghĩ Việc";
+                break;
+            case 1 : 
+                s = "Đang Làm";
+                break;
+            case 2 : 
+                s = "Nghĩ Phép";
+                break;
+            case 3 : 
+                s = "Đình Chỉ";
+                break;
+        }
+        return s;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,11 +48,13 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         jLabel41 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         btnVeTrangChu = new javax.swing.JButton();
-        cbGioiTinh = new javax.swing.JComboBox<>();
+        cbTinhTrang = new javax.swing.JComboBox<>();
         btnLuu = new javax.swing.JButton();
         cbBoPhan = new javax.swing.JComboBox<>();
         txtIDNhanVien = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        cbGioiTinh = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -87,6 +115,7 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtDiaChi.setEnabled(false);
         jPanel1.add(txtDiaChi);
         txtDiaChi.setBounds(220, 490, 330, 40);
 
@@ -101,12 +130,12 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnVeTrangChu);
-        btnVeTrangChu.setBounds(70, 570, 200, 70);
+        btnVeTrangChu.setBounds(70, 630, 200, 70);
 
-        cbGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
-        jPanel1.add(cbGioiTinh);
-        cbGioiTinh.setBounds(220, 330, 330, 40);
+        cbTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jPanel1.add(cbTinhTrang);
+        cbTinhTrang.setBounds(220, 560, 330, 40);
 
         btnLuu.setBackground(java.awt.Color.orange);
         btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -118,7 +147,7 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLuu);
-        btnLuu.setBounds(330, 570, 200, 70);
+        btnLuu.setBounds(330, 630, 200, 70);
 
         cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         cbBoPhan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
@@ -128,6 +157,7 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtIDNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtIDNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtIDNhanVien.setEnabled(false);
         jPanel1.add(txtIDNhanVien);
         txtIDNhanVien.setBounds(220, 190, 330, 40);
 
@@ -135,6 +165,16 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         jLabel42.setText("ID Nhân Viên");
         jPanel1.add(jLabel42);
         jLabel42.setBounds(40, 200, 140, 24);
+
+        jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel43.setText("Tình Trạng");
+        jPanel1.add(jLabel43);
+        jLabel43.setBounds(40, 570, 130, 24);
+
+        cbGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jPanel1.add(cbGioiTinh);
+        cbGioiTinh.setBounds(220, 330, 330, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,7 +184,9 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,20 +201,21 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    public static void main(String args[]) {
-  
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new pn_SuaNhanVien().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//  
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new pn_SuaNhanVien().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbBoPhan;
     private javax.swing.JComboBox<String> cbGioiTinh;
+    private javax.swing.JComboBox<String> cbTinhTrang;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -180,6 +223,7 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDiaChi;

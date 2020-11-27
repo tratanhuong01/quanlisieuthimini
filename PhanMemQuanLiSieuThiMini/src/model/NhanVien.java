@@ -1,6 +1,7 @@
 package model;
 
 public class NhanVien {
+
     private String tenDangNhap;
     private String matKhau;
     private String idNhanVien;
@@ -10,11 +11,9 @@ public class NhanVien {
     private String soDienThoai;
     private String diaChi;
     private String tenBoPhan;
-    
-    public NhanVien() {
-        
-    }
-    public NhanVien(String tenDangNhap, String matKhau, String idNhanVien, String idBoPhan, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenBoPhan) {
+    private int tinhTrang;
+
+    public NhanVien(String tenDangNhap, String matKhau, String idNhanVien, String idBoPhan, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenBoPhan, int tinhTrang) {
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.idNhanVien = idNhanVien;
@@ -24,6 +23,7 @@ public class NhanVien {
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
         this.tenBoPhan = tenBoPhan;
+        this.tinhTrang = tinhTrang;
     }
 
     public String getTenDangNhap() {
@@ -96,6 +96,14 @@ public class NhanVien {
 
     public void setTenBoPhan(String tenBoPhan) {
         this.tenBoPhan = tenBoPhan;
+    }
+
+    public int getTinhTrang() {
+        return tinhTrang;
+    }
+
+    public void setTinhTrang(int tinhTrang) {
+        this.tinhTrang = tinhTrang;
     }
     
 }

@@ -3,6 +3,7 @@ package view.nvbanhang;
 import controller.CapNhatTienHoaDon;
 import controller.LuuAtm;
 import controller.PTHoaDon;
+import controller.ThemKhachHang;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,12 +12,16 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import model.ConnectDAO;
 import model.DongHoaDon;
 import model.InfoAtm;
 import model.KhachHang;
@@ -24,7 +29,7 @@ import model.NhanVien;
 import model.StringUtil;
 
 public class jf_TaoHoaDon extends javax.swing.JFrame {
-    
+
     List<DongHoaDon> list;
     KhachHang kh;
     NhanVien nv;
@@ -32,8 +37,9 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
     String tenPTThanhToans;
     JPanel pnMain;
     float tienKhuyenMai;
+    float tienCheck = 0;
     public jf_TaoHoaDon(List<DongHoaDon> list, KhachHang kh, NhanVien nv, InfoAtm info, String tenPTThanhToans,
-            float tienKhuyenMai,float tienKhachDua, JPanel pnMain) {
+            float tienKhuyenMai, float tienKhachDua, JPanel pnMain) {
         initComponents();
         this.list = list;
         this.kh = kh;
@@ -142,8 +148,9 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         pnHoaDon.add(camOn);
         pnHoaDon.setPreferredSize(new Dimension(550, a + 380));
         tenPTThanhToan.setText("Phương Thức Thanh Toán : " + tenPTThanhToans);
+        tienCheck = tongTienFull - tienKhuyenMai;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -352,17 +359,50 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
             }
         }
     }
+    public int getDiem(String idKhachHang) {
+        int diem = 0;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT SoDiem FROM TichDiem WHERE IDKhachHang = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, idKhachHang);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) 
+                diem = rs.getInt(1);
+            return diem;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return diem;
+    }
+    public boolean updateDiem(int diem,int isVip,String idKhachHang) {
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "UPDATE TichDiem SET SoDiem = ? ,IsVip = ?  WHERE IDKhachHang = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, diem);
+            ps.setInt(2, isVip);
+            ps.setString(3, idKhachHang);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     private void btnTaoHoaDonVaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonVaThanhToanActionPerformed
         JOptionPane.showMessageDialog(pnHoaDon, "Vui Lòng Nhận Hóa Đơn Tại Máy");
         if (update() == true) {
             printHoaDon(pnHoaDon);
-            this.dispose();
-            pnMain.removeAll();
-            JLabel lb = new JLabel();
-            lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sieu-thi-mini.jpg"))); // NOI18N
-            lb.setHorizontalAlignment((int) CENTER_ALIGNMENT);
-            pnMain.add(lb);
-            pnMain.updateUI();
+            int diem = (int) (getDiem(kh.getIdKhachHang()) + tienCheck/100000);
+            
+            if (updateDiem(diem, diem >= 100 ? 1 : 0 ,kh.getIdKhachHang()) == true) {
+                this.dispose();
+                pnMain.removeAll();
+                JLabel lb = new JLabel();
+                lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sieu-thi-mini.jpg"))); // NOI18N
+                lb.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+                pnMain.add(lb);
+                pnMain.updateUI();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Thất Bại");
         }

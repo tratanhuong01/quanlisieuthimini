@@ -118,7 +118,7 @@ public class jf_DiaChi extends javax.swing.JFrame {
         int count = 0;
         for (int i = 0; i < list.size(); i++) {
             if (txtDiaChi.getText().equals((String) list.get(i))) {
-                this.setVisible(false);
+                this.dispose();
                 _txtDiaChi.setText(txtDiaChi.getText());
             } else {
                 count = 1;

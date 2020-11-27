@@ -69,8 +69,31 @@ public class pn_pnMain extends javax.swing.JPanel {
         loadPTThanhToan();
         cssJScrollPanel();
         loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+        int diem = check(kh.getIdKhachHang());
+        if (diem == 0) {
+            txtSoDiemTich.setText(String.valueOf(0));
+        }
+        else {
+            txtSoDiemTich.setText(String.valueOf(check(kh.getIdKhachHang())));
+        }
     }
-
+    public int check(String idKhachHang) {
+        int diem = 0;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT SoDiem FROM TichDiem WHERE IDKhachHang = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, idKhachHang);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) 
+                diem = rs.getInt(1);
+            else 
+                diem = 0;
+            return diem;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return diem;
+    }
     public void loadSanPhamByNhomSanPham(List<SanPham> list) {
         for (int i = 0; i < list.size(); i++) {
             pn_SanPhamChon pn = new pn_SanPhamChon(list.get(i), listDongHoaDon, pnSanPhamDaChon,
@@ -213,6 +236,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         txtTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtTenKhachHang.setEnabled(false);
         jPanel11.add(txtTenKhachHang);
 
         jPanel10.add(jPanel11);
@@ -220,6 +244,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel12.setLayout(new java.awt.GridLayout(1, 3));
 
         txtSoDiemTich.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtSoDiemTich.setEnabled(false);
         jPanel12.add(txtSoDiemTich);
         jPanel12.add(jLabel5);
 

@@ -64,9 +64,10 @@ public class jf_pnATM extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel2.setText("Thông Tin Thẻ");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(190, 20, 250, 50);
+        jLabel2.setBounds(160, 20, 250, 50);
 
         btnDocThe.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnDocThe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-read-online-45.png"))); // NOI18N
         btnDocThe.setText("Đọc Thẻ");
         btnDocThe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,11 +75,11 @@ public class jf_pnATM extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnDocThe);
-        btnDocThe.setBounds(450, 10, 120, 60);
+        btnDocThe.setBounds(400, 10, 190, 70);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-info-45.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(120, 20, 50, 50);
+        jLabel1.setBounds(90, 20, 50, 50);
 
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel37.setText("Loại Thẻ ");

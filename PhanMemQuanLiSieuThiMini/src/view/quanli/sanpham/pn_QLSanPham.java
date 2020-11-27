@@ -17,7 +17,6 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     public pn_QLSanPham() {
         initComponents();
         loadTable(jTable1);
-        loadTable(jTable2);
     }
     public void loadTable(JTable jTable) {
         String query = "SELECT IDSanPham AS 'ID Sản Phẩm' , IDNhomSanPham AS 'IDNhomSanPham',TenSanPham AS 'Tên Sản Phẩm'\n"
@@ -62,170 +61,163 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jPanel12 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
-        jPanel20 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jButton10 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        setLayout(new java.awt.GridLayout(2, 0));
+        setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 270));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 200));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
-        jPanel3.setPreferredSize(new java.awt.Dimension(400, 350));
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jPanel9.setPreferredSize(new java.awt.Dimension(150, 308));
-        jPanel9.setLayout(new java.awt.GridLayout(6, 1, 10, 10));
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("Mã SP");
-        jPanel9.add(jLabel1);
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Nhóm Sản Phẩm");
-        jPanel9.add(jLabel2);
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setText("Tên Sản Phẩm");
-        jPanel9.add(jLabel3);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel4.setText("Giảm");
-        jPanel9.add(jLabel4);
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel5.setText("Đơn Giá");
-        jPanel9.add(jLabel5);
-
-        jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 10));
-        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel7.setBackground(java.awt.Color.white);
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bộ Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
+        jPanel7.setLayout(null);
+        jPanel7.add(jTextField1);
+        jTextField1.setBounds(200, 60, 120, 44);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setText("Thêm");
-        jPanel11.add(jButton1);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-login-45.png"))); // NOI18N
+        jButton1.setText("OK");
+        jPanel7.add(jButton1);
+        jButton1.setBounds(330, 50, 130, 60);
 
-        jPanel9.add(jPanel11);
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setText("Đến");
+        jPanel7.add(jLabel3);
+        jLabel3.setBounds(160, 60, 40, 40);
 
-        jPanel3.add(jPanel9, java.awt.BorderLayout.LINE_START);
+        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton8.setText("Sản Phẩm Đã Bán");
+        jPanel7.add(jButton8);
+        jButton8.setBounds(240, 130, 220, 50);
+        jPanel7.add(jTextField3);
+        jTextField3.setBounds(40, 60, 110, 44);
 
-        jPanel10.setLayout(new java.awt.GridLayout(6, 1, 10, 10));
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setText("Theo Giá Sản Phẩm");
+        jPanel7.add(jLabel4);
+        jLabel4.setBounds(11, 24, 170, 30);
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel10.add(jTextField1);
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel5.setText("Từ");
+        jPanel7.add(jLabel5);
+        jLabel5.setBounds(10, 60, 30, 40);
+
+        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton9.setText("Sản Phẩm Tồn Kho");
+        jPanel7.add(jButton9);
+        jButton9.setBounds(10, 130, 220, 50);
+
+        jPanel1.add(jPanel7);
+
+        jPanel6.setBackground(java.awt.Color.white);
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
+        jPanel6.setLayout(null);
 
         jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel10.add(jTextField2);
+        jPanel6.add(jTextField2);
+        jTextField2.setBounds(130, 20, 334, 46);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel10.add(jTextField3);
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton4.setText("Tìm");
+        jPanel6.add(jButton4);
+        jButton4.setBounds(341, 77, 120, 44);
 
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel10.add(jTextField4);
+        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jComboBox1);
+        jComboBox1.setBounds(11, 77, 320, 44);
 
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel10.add(jTextField5);
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setText("---------------------------------------------------------------------------");
+        jPanel6.add(jLabel2);
+        jLabel2.setBounds(11, 128, 450, 10);
 
-        jPanel12.setLayout(new java.awt.GridLayout(1, 2, 10, 10));
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton5.setText("Xuất File");
+        jPanel6.add(jButton5);
+        jButton5.setBounds(10, 140, 150, 50);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton6.setText("Sản Phẩm ");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton6);
+        jButton6.setBounds(170, 140, 290, 50);
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel6.setText("Nhập Dữ Liệu");
+        jPanel6.add(jLabel6);
+        jLabel6.setBounds(10, 20, 120, 50);
+
+        jPanel1.add(jPanel6);
+
+        jPanel5.setBackground(java.awt.Color.white);
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sắp Xếp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
+        jPanel5.setLayout(null);
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Sửa");
-        jPanel12.add(jButton2);
+        jButton2.setText("Bán Chạy");
+        jPanel5.add(jButton2);
+        jButton2.setBounds(110, 140, 208, 49);
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setText("Xóa");
-        jPanel12.add(jButton3);
+        jButton3.setText("Theo Hạn Sử Dụng");
+        jPanel5.add(jButton3);
+        jButton3.setBounds(240, 90, 205, 49);
 
-        jPanel10.add(jPanel12);
+        jRadioButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jRadioButton1.setText("Giảm Dần");
+        jPanel5.add(jRadioButton1);
+        jRadioButton1.setBounds(240, 30, 200, 40);
 
-        jPanel3.add(jPanel10, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.LINE_START);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        jPanel6.setPreferredSize(new java.awt.Dimension(250, 350));
+        jRadioButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jRadioButton2.setText("Tăng Dần");
+        jPanel5.add(jRadioButton2);
+        jRadioButton2.setBounds(20, 30, 200, 40);
 
         jButton10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton10.setText("Xuất File");
+        jButton10.setText("Theo Giá");
+        jPanel5.add(jButton10);
+        jButton10.setBounds(10, 90, 208, 49);
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Chọn Bảng Xuất FIle");
+        jPanel1.add(jPanel5);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jPanel6, java.awt.BorderLayout.LINE_END);
-
-        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,104 +232,18 @@ public class pn_QLSanPham extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel8.add(jScrollPane1);
+        jPanel3.add(jScrollPane1);
 
-        jPanel4.add(jPanel8, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
-
-        add(jPanel1);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
-        jPanel2.setLayout(new java.awt.BorderLayout());
-
-        jPanel19.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0));
-        jPanel19.setPreferredSize(new java.awt.Dimension(500, 304));
-        jPanel19.setLayout(new java.awt.BorderLayout());
-
-        jPanel13.setLayout(new java.awt.GridLayout(1, 3));
-
-        jPanel14.setLayout(null);
-
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton4.setText("Theo Mã SP");
-        jPanel14.add(jButton4);
-        jButton4.setBounds(10, 100, 170, 50);
-
-        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton5.setText("SP Thấp => Cao");
-        jButton5.setPreferredSize(new java.awt.Dimension(161, 25));
-        jPanel14.add(jButton5);
-        jButton5.setBounds(10, 0, 170, 50);
-
-        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton6.setText("SP Cao => Thấp");
-        jPanel14.add(jButton6);
-        jButton6.setBounds(10, 50, 170, 50);
-
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel14.add(jTextField6);
-        jTextField6.setBounds(190, 0, 280, 50);
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton7.setText("Theo Tên Sản Phẩm");
-        jPanel14.add(jButton7);
-        jButton7.setBounds(190, 50, 280, 50);
-
-        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton8.setText("Sản Phẩm Quá Hạn");
-        jPanel14.add(jButton8);
-        jButton8.setBounds(10, 210, 460, 50);
-
-        jTextField7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel14.add(jTextField7);
-        jTextField7.setBounds(340, 150, 130, 50);
-
-        jTextField8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel14.add(jTextField8);
-        jTextField8.setBounds(190, 150, 120, 50);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("->");
-        jPanel14.add(jLabel6);
-        jLabel6.setBounds(310, 150, 30, 50);
-
-        jTextField9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel14.add(jTextField9);
-        jTextField9.setBounds(190, 100, 280, 50);
-
-        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton9.setText("Giá Sản Phẩm");
-        jPanel14.add(jButton9);
-        jButton9.setBounds(10, 150, 170, 50);
-
-        jPanel13.add(jPanel14);
-
-        jPanel19.add(jPanel13, java.awt.BorderLayout.CENTER);
-
-        jPanel2.add(jPanel19, java.awt.BorderLayout.LINE_END);
-
-        jPanel20.setLayout(new java.awt.GridLayout(1, 0));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jPanel20.add(jScrollPane2);
-
-        jPanel2.add(jPanel20, java.awt.BorderLayout.CENTER);
-
-        add(jPanel2);
+        add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        new jf_SanPham().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,43 +254,25 @@ public class pn_QLSanPham extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
