@@ -34,6 +34,7 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
@@ -59,10 +60,14 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
         jPanel2.setBackground(java.awt.Color.orange);
         jPanel2.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel2.setText("Sửa Khách Hàng");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        jLabel2.setText("   Sửa Khách Hàng");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 20, 350, 50);
+        jLabel2.setBounds(190, 20, 260, 50);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-info-45.png"))); // NOI18N
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(130, 20, 50, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 600, 90);
@@ -107,6 +112,7 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtDiaChi.setEnabled(false);
         txtDiaChi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtDiaChiMouseClicked(evt);
@@ -117,8 +123,8 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
 
         btnVeTrangChu.setBackground(java.awt.Color.orange);
         btnVeTrangChu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        btnVeTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/home.png"))); // NOI18N
-        btnVeTrangChu.setText("Trang Chủ");
+        btnVeTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
+        btnVeTrangChu.setText("Thoát");
         btnVeTrangChu.setToolTipText("");
         btnVeTrangChu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +141,7 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
 
         btnLuu.setBackground(java.awt.Color.orange);
         btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-login-45.png"))); // NOI18N
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +215,7 @@ public class jf_SuaKhachHang extends javax.swing.JFrame {
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbGioiTinh;
     private javax.swing.JTextField cbNhomKhachHang;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;

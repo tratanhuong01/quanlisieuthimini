@@ -76,5 +76,26 @@ public class ThemKhachHang {
         }
         return kh;
     }
-
+    public KhachHang getNhaCungCap(String id) {
+        KhachHang kh = null;
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT KhachHang.IDKhachHang ,KhachHang.IDNhomKH,KhachHang.HoTen,\n"
+                    + " KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
+                    + " KhachHang.TraDK,KhachHang.ThuDK"
+                    + " FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
+                    + " WHERE KhachHang.IDKhachHang = ? AND NhomKhachHang.IDNhomKH = 'NKH00003' ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                kh = new KhachHang(rs.getString(1), rs.getString(2), "",
+                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getFloat(8), rs.getFloat(9), 0);
+            }
+            return kh;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return kh;
+    }
 }

@@ -236,6 +236,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         txtTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtTenKhachHang.setEnabled(false);
         jPanel11.add(txtTenKhachHang);
 
         jPanel10.add(jPanel11);
@@ -243,6 +244,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel12.setLayout(new java.awt.GridLayout(1, 3));
 
         txtSoDiemTich.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtSoDiemTich.setEnabled(false);
         jPanel12.add(txtSoDiemTich);
         jPanel12.add(jLabel5);
 

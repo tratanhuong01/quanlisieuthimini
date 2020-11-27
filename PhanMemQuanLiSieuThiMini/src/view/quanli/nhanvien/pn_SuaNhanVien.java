@@ -4,11 +4,10 @@ import controller.ThemNhanVien;
 import model.NhanVien;
 
 public class pn_SuaNhanVien extends javax.swing.JFrame {
-    String idNhanVien;
-    public pn_SuaNhanVien(String idNhanVien) {
+    NhanVien nv;
+    public pn_SuaNhanVien(NhanVien nv) {
         initComponents();
-        this.idNhanVien = idNhanVien;
-        NhanVien nv = new ThemNhanVien().getNhanVien(idNhanVien);
+        this.nv = nv;
         txtIDNhanVien.setText(nv.getHoTen());
         txtDiaChi.setText(nv.getDiaChi());
         txtSoDienThoai.setText(nv.getSoDienThoai());

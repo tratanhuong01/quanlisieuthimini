@@ -32,9 +32,11 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listNhanVien = new javax.swing.JTable();
@@ -137,12 +139,18 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jPanel4.setMinimumSize(new java.awt.Dimension(100, 60));
         jPanel4.setPreferredSize(new java.awt.Dimension(1366, 50));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButton3.setText("jButton3");
+        jPanel4.add(jButton3);
         jPanel4.add(jLabel4);
 
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(jComboBox1);
         jPanel4.add(jLabel5);
+
+        jButton2.setText("jButton2");
+        jPanel4.add(jButton2);
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
@@ -190,6 +198,8 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;

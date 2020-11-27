@@ -1,5 +1,6 @@
 package view.quanli.nhanvien;
 
+import controller.ThemNhanVien;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,72 +17,41 @@ import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
 
 public class pn_QLNhanVien extends javax.swing.JPanel {
-    JTextField[] listTextField;
-    JCheckBox[] listCheckBox;
-    String s = "";
-    int[] state = {0, 0, 0, 0,0,0};
+    
+    String id = "";
+    
     public pn_QLNhanVien() {
         initComponents();
         loadTable("");
-        listCheckBox = listCheckBox();
-        listTextField = listTextField();
-        for (int i = 0; i < listCheckBox.length; i++) {
-            int a = i;
-            listCheckBox[i].addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    for (int j = 0; j < listCheckBox.length; j++) {
-                        if (e.getStateChange() == 1) {
-                            state[a] = 1;
-                        } else {
-                            state[a] = 0;
-                            listTextField[a].setText("");
-                        }
-                    }
-
-                }
-            });
+        
+    }
+    public String switchs(String chon,String value) {
+        String text = "";
+        switch (chon) {
+            case "Theo Họ Tên":
+                text = "  WHERE NhanVien.HoTen LIKE N'%" + value + "%' ";
+                break;
+            case "Theo Số Điện Thoại":
+                text = " WHERE NhanVien.SoDienThoai LIKE N'%" + value + "%' ";
+                break;
+            case "Theo Địa Chỉ":
+                text = " WHERE NhanVien.DiaChi LIKE N'%" + value + "%'  ";
+                break;       
+            case "Theo Mã Nhân Viên":
+                text = " WHERE NhanVien.IDNhanVien LIKE N'%" + value + "%' ";
+                break;   
+            case "Theo Giới Tính":
+                text = " WHERE NhanVien.GioiTinh LIKE N'%" + value + "%' ";
+                break;   
         }
+        return text;
     }
-    public String addQuery(int num, String text) {
-        String s = "";
-        switch (num) {
-            case 0:
-                s = " NhanVien.HoTen LIKE N'%" + text + "%' ";
-                break;
-            case 1:
-                s = " NhanVien.DiaChi LIKE N'%" + text + "%' ";
-                break;
-            case 2:
-                s = " NhanVien.SoDienThoai LIKE N'%" + text + "%' ";
-                break;
-            case 3:
-                s = " NhanVien.BoPhan LIKE N'%" + text + "%' ";
-                break;
-            case 4 :
-                s = " NhanVien.IDNhanVien LIKE N'%" + text + "%' ";
-                break;
-            case 5 :
-                s = " TaiKhoan.TaiKhoan LIKE N'%" + text + "%' ";
-                break;
-                
-        }
-        return s;
-    }
-    public JCheckBox[] listCheckBox() {
-        JCheckBox[] listCheckBox = {cboxTenNhanVien,cboxDiaChi,cboxSoDienThoai,cboxBoPhan,cboxMaNhanVien,cboxTenTaiKhoan};
-        return listCheckBox;
-    }
-    public JTextField[] listTextField() {
-        JTextField[] listTextField = {txtTenNhanVien,txtDiaChi,txtSoDienThoai,txtBoPhan,txtMaNhanVien,txtTenTaiKhoan};
-        return listTextField;
-    }
-    public void loadTable(String querys) {
-        String query = "SELECT NhanVien.IDNhanVien AS 'ID Nhân Viên' , NhanVien.IDBoPhan AS 'ID Bộ Phận',\n"
+    public void loadTable(String text) {
+        String query = "SELECT NhanVien.IDNhanVien AS 'ID Nhân Viên' , BoPhan.TenBoPhan AS 'Tên Bộ Phận',\n"
                 + "HoTen AS 'Họ Tên' , GioiTinh AS 'Giới Tính', SoDienThoai AS 'Số Điện Thoại',\n"
                 + "DiaChi AS 'Địa Chỉ' ,TaiKhoan.TaiKhoan AS 'Tài Khoản',TaiKhoan.MatKhau \n"
-                + "AS 'Mật Khẩu' FROM NhanVien INNER JOIN TaiKhoan\n"
-                + "ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien " + querys;
+                + "AS 'Mật Khẩu' FROM NhanVien INNER JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien "
+                + "INNER JOIN BoPhan ON NhanVien.IDBoPhan = BoPhan.IDBoPhan " + text;
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
@@ -121,272 +91,234 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        btnTimKiem = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        cboxTenNhanVien = new javax.swing.JCheckBox();
-        txtTenNhanVien = new javax.swing.JTextField();
-        cboxBoPhan = new javax.swing.JCheckBox();
-        txtBoPhan = new javax.swing.JTextField();
-        jPanel13 = new javax.swing.JPanel();
-        cboxDiaChi = new javax.swing.JCheckBox();
-        txtDiaChi = new javax.swing.JTextField();
-        cboxMaNhanVien = new javax.swing.JCheckBox();
-        txtMaNhanVien = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        cboxSoDienThoai = new javax.swing.JCheckBox();
-        txtSoDienThoai = new javax.swing.JTextField();
-        cboxTenTaiKhoan = new javax.swing.JCheckBox();
-        txtTenTaiKhoan = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listNhanVien = new javax.swing.JTable();
-        jPanel21 = new javax.swing.JPanel();
-        btnThemNhanVien = new javax.swing.JButton();
-        btnXoaNhanVien = new javax.swing.JButton();
-        btnSuaNhanVien = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        txtInput = new javax.swing.JTextField();
+        btnTim = new javax.swing.JButton();
+        cbChon = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnTaoTaiKhoan = new javax.swing.JButton();
+        btnCaLam = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         btnTinhLuong = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listNhanVien = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(java.awt.Color.white);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quản Lí Nhân Viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 200));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel6.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(35, 20, 35, 20));
-        jPanel3.setPreferredSize(new java.awt.Dimension(230, 119));
-        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(350, 100));
 
-        btnTimKiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnTimKiem.setText("Tìm Kiếm");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setPreferredSize(new java.awt.Dimension(335, 598));
+        jPanel1.setLayout(null);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 338, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 307, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel5);
+        jPanel5.setBounds(0, 261, 350, 340);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
+
+        txtInput.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                btnTimActionPerformed(evt);
             }
         });
-        jPanel3.add(btnTimKiem);
 
-        jPanel1.add(jPanel3, java.awt.BorderLayout.LINE_END);
+        cbChon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo Họ Tên", "Theo Số Điện Thoại", "Theo Mã Khách Hàng", "Theo Địa Chỉ", "Theo Giới Tính" }));
 
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtInput, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(7, 7, 7)
+                    .addComponent(cbChon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(7, 7, 7)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(80, 80, 80)
+                    .addComponent(cbChon, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(81, Short.MAX_VALUE)))
+        );
 
-        jPanel22.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.Y_AXIS));
+        jPanel1.add(jPanel7);
+        jPanel7.setBounds(2, 10, 340, 240);
 
-        cboxTenNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxTenNhanVien.setText("Tên Nhân Viên");
-        cboxTenNhanVien.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel22.add(cboxTenNhanVien);
+        jScrollPane1.setViewportView(jPanel1);
 
-        txtTenNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtTenNhanVien.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel22.add(txtTenNhanVien);
+        jPanel6.add(jScrollPane1, java.awt.BorderLayout.LINE_START);
 
-        cboxBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxBoPhan.setText("Bộ Phận");
-        cboxBoPhan.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel22.add(cboxBoPhan);
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        txtBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtBoPhan.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel22.add(txtBoPhan);
+        jPanel3.setPreferredSize(new java.awt.Dimension(101, 100));
+        jPanel3.setLayout(null);
 
-        jPanel2.add(jPanel22);
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.Y_AXIS));
-
-        cboxDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxDiaChi.setText("Địa Chỉ");
-        cboxDiaChi.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel13.add(cboxDiaChi);
-
-        txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtDiaChi.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel13.add(txtDiaChi);
-
-        cboxMaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxMaNhanVien.setText("Mã Nhân Viên");
-        cboxMaNhanVien.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel13.add(cboxMaNhanVien);
-
-        txtMaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtMaNhanVien.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel13.add(txtMaNhanVien);
-
-        jPanel2.add(jPanel13);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
-
-        cboxSoDienThoai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxSoDienThoai.setText("Số Điện Thoại");
-        cboxSoDienThoai.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel4.add(cboxSoDienThoai);
-
-        txtSoDienThoai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtSoDienThoai.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel4.add(txtSoDienThoai);
-
-        cboxTenTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cboxTenTaiKhoan.setText("Tên Tài Khoản");
-        cboxTenTaiKhoan.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel4.add(cboxTenTaiKhoan);
-
-        txtTenTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtTenTaiKhoan.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel4.add(txtTenTaiKhoan);
-
-        jPanel2.add(jPanel4);
-
-        jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
-
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
-
-        jPanel5.setPreferredSize(new java.awt.Dimension(1050, 535));
-        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
-
-        listNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        listNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ));
-        listNhanVien.setRowHeight(40);
-        listNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listNhanVienMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listNhanVien);
-
-        jPanel5.add(jScrollPane1);
-
-        add(jPanel5, java.awt.BorderLayout.CENTER);
-
-        jPanel21.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 10, 10, 4));
-        jPanel21.setMaximumSize(new java.awt.Dimension(315, 32767));
-        jPanel21.setMinimumSize(new java.awt.Dimension(315, 255));
-        jPanel21.setPreferredSize(new java.awt.Dimension(315, 535));
-        jPanel21.setRequestFocusEnabled(false);
-        jPanel21.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
-
-        btnThemNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemNhanVien.setText("Thêm Nhân Viên");
-        btnThemNhanVien.setPreferredSize(new java.awt.Dimension(285, 75));
-        btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemNhanVienActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
-        jPanel21.add(btnThemNhanVien);
+        jPanel3.add(btnSua);
+        btnSua.setBounds(180, 20, 141, 63);
 
-        btnXoaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoaNhanVien.setText("Xóa Nhân Viên");
-        btnXoaNhanVien.setPreferredSize(new java.awt.Dimension(285, 75));
-        btnXoaNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaNhanVienActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnXoaNhanVien);
-
-        btnSuaNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnSuaNhanVien.setText("Sửa Nhân Viên");
-        btnSuaNhanVien.setPreferredSize(new java.awt.Dimension(285, 75));
-        btnSuaNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaNhanVienActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnSuaNhanVien);
+        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        jPanel3.add(btnXoa);
+        btnXoa.setBounds(330, 20, 141, 63);
 
         btnTaoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTaoTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         btnTaoTaiKhoan.setText("Tạo Tài Khoản");
-        btnTaoTaiKhoan.setPreferredSize(new java.awt.Dimension(285, 75));
         btnTaoTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTaoTaiKhoanActionPerformed(evt);
             }
         });
-        jPanel21.add(btnTaoTaiKhoan);
+        jPanel3.add(btnTaoTaiKhoan);
+        btnTaoTaiKhoan.setBounds(490, 20, 200, 63);
+
+        btnCaLam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaLam.setText("Ca Làm");
+        jPanel3.add(btnCaLam);
+        btnCaLam.setBounds(870, 20, 141, 63);
+
+        btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-plus-45.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnThem);
+        btnThem.setBounds(10, 20, 158, 63);
 
         btnTinhLuong.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTinhLuong.setText("Tính Lương");
-        btnTinhLuong.setPreferredSize(new java.awt.Dimension(285, 75));
-        jPanel21.add(btnTinhLuong);
+        jPanel3.add(btnTinhLuong);
+        btnTinhLuong.setBounds(710, 20, 141, 63);
 
-        add(jPanel21, java.awt.BorderLayout.EAST);
-    }// </editor-fold>//GEN-END:initComponents
+        jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-    private void listNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNhanVienMouseClicked
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-    }//GEN-LAST:event_listNhanVienMouseClicked
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        String query = "";
-        for (int i = 0; i < state.length; i++) {
-            if (state[i] == 1) {
-                query += "AND" + addQuery(i, listTextField[i].getText());
+        listNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        }
-        System.out.println(query);
-        loadTable(query);
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+        ));
+        listNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listNhanVienMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listNhanVien);
 
-    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
-        new pn_ThemNhanVien().setVisible(true);
-        
-    }//GEN-LAST:event_btnThemNhanVienActionPerformed
+        jPanel4.add(jScrollPane2);
 
-    private void btnXoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNhanVienActionPerformed
-        
-    }//GEN-LAST:event_btnXoaNhanVienActionPerformed
+        jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
-    private void btnSuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNhanVienActionPerformed
-        new pn_SuaNhanVien(txtMaNhanVien.getText()).setVisible(true);
-    }//GEN-LAST:event_btnSuaNhanVienActionPerformed
+        jPanel6.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        add(jPanel6, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
 
     private void btnTaoTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoTaiKhoanActionPerformed
         new pn_TaoTaiKhoan().setVisible(true);
     }//GEN-LAST:event_btnTaoTaiKhoanActionPerformed
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        new pn_ThemNhanVien().setVisible(true);
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        new pn_SuaNhanVien(new ThemNhanVien().getNhanVien(id)).setVisible(true);
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void listNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNhanVienMouseClicked
+        int index = listNhanVien.getSelectedRow();
+        id = listNhanVien.getModel().getValueAt(index, 0).toString();
+    }//GEN-LAST:event_listNhanVienMouseClicked
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        listNhanVien.removeAll();
+        loadTable(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()));
+    }//GEN-LAST:event_btnTimActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSuaNhanVien;
+    private javax.swing.JButton btnCaLam;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoTaiKhoan;
-    private javax.swing.JButton btnThemNhanVien;
-    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTim;
     private javax.swing.JButton btnTinhLuong;
-    private javax.swing.JButton btnXoaNhanVien;
-    private javax.swing.JCheckBox cboxBoPhan;
-    private javax.swing.JCheckBox cboxDiaChi;
-    private javax.swing.JCheckBox cboxMaNhanVien;
-    private javax.swing.JCheckBox cboxSoDienThoai;
-    private javax.swing.JCheckBox cboxTenNhanVien;
-    private javax.swing.JCheckBox cboxTenTaiKhoan;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cbChon;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listNhanVien;
-    private javax.swing.JTextField txtBoPhan;
-    private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtMaNhanVien;
-    private javax.swing.JTextField txtSoDienThoai;
-    private javax.swing.JTextField txtTenNhanVien;
-    private javax.swing.JTextField txtTenTaiKhoan;
+    private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 }

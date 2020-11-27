@@ -120,6 +120,7 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
         jPanel1.setBackground(java.awt.Color.white);
 
         btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
         btnTim.setText("Tìm");
         btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

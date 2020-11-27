@@ -12,7 +12,6 @@ public class KhachHang {
     private float traDK;
     private float thuDK;
     private int soDiem;
-
     public KhachHang(String idKhachHang, String idNhomKhachHang, String hoTen, String gioiTinh, String soDienThoai, String diaChi, String tenNhomKhachHang, String maSoThue, float traDK, float thuDK, int soDiem) {
         this.idKhachHang = idKhachHang;
         this.idNhomKhachHang = idNhomKhachHang;

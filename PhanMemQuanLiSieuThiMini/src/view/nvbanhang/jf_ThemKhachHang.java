@@ -84,12 +84,13 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         jPanel2.setBackground(java.awt.Color.orange);
         jPanel2.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         jLabel2.setText("Thêm Khách Hàng");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(80, 20, 300, 50);
+        jLabel2.setBounds(60, 20, 260, 50);
 
         btnDocTheThanhVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnDocTheThanhVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-read-online-45.png"))); // NOI18N
         btnDocTheThanhVien.setText("Đọc Thẻ Thành Viên");
         btnDocTheThanhVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,11 +98,11 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnDocTheThanhVien);
-        btnDocTheThanhVien.setBounds(390, 10, 200, 60);
+        btnDocTheThanhVien.setBounds(330, 10, 260, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-info-45.png"))); // NOI18N
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(20, 20, 50, 50);
+        jLabel1.setBounds(10, 20, 50, 50);
 
         bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 90));
 
@@ -195,7 +196,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         });
         bg.add(btnLuu_DaMua, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 200, 70));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 700));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 670));
 
         pack();
         setLocationRelativeTo(null);
