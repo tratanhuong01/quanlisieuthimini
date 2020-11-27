@@ -1,0 +1,24 @@
+Các tác nhân 
+
+- khách hàng
++ đối tác
++ khách hàng thông thường
+- admin
+- quản lí
+- nhân viên kho
+- nhân viên thu ngân
+- 
+
+Chức năng
+- đăng nhập
+- nhập hàng
+- xuất hàng
+- bán hàng
+- thống kê
+- thanh toan 
++ atm
++ tiền mặt
++ thẻ ghi nợ
+- quản lí nhân viên
+- cập nhật giá bán và khuyến mãi
+- in hóa đơn
