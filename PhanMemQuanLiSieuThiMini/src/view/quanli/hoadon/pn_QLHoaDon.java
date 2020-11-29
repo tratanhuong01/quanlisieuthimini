@@ -62,11 +62,11 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jDateChooser4 = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
@@ -90,8 +90,6 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
         jPanel5.setLayout(null);
-        jPanel5.add(jDateChooser1);
-        jDateChooser1.setBounds(60, 30, 270, 40);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -104,14 +102,16 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         jLabel2.setText("Đến");
         jPanel5.add(jLabel2);
         jLabel2.setBounds(0, 90, 60, 40);
-        jPanel5.add(jDateChooser2);
-        jDateChooser2.setBounds(60, 90, 270, 40);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
         jButton1.setText("Lọc");
         jPanel5.add(jButton1);
         jButton1.setBounds(120, 160, 130, 60);
+        jPanel5.add(jDateChooser3);
+        jDateChooser3.setBounds(80, 100, 250, 30);
+        jPanel5.add(jDateChooser4);
+        jDateChooser4.setBounds(80, 40, 250, 30);
 
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 191, 350, 410);
@@ -209,8 +209,8 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private com.toedter.calendar.JDateChooser jDateChooser4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

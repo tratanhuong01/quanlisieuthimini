@@ -1,5 +1,6 @@
 package view.quanli.nhanvien;
 
+import controller.SuaNhanVien;
 import controller.ThemNhanVien;
 import model.NhanVien;
 
@@ -133,7 +134,7 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         btnVeTrangChu.setBounds(70, 630, 200, 70);
 
         cbTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nghĩ Việc", "Nghĩ Phép", "Đang Làm" }));
         jPanel1.add(cbTinhTrang);
         cbTinhTrang.setBounds(220, 560, 330, 40);
 
@@ -198,7 +199,8 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVeTrangChuActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-
+        new SuaNhanVien().Sua(txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(), 
+                txtSoDienThoai.getText(), txtDiaChi.getText(), txtIDNhanVien.getText());
     }//GEN-LAST:event_btnLuuActionPerformed
 
 //    public static void main(String args[]) {
