@@ -108,7 +108,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnXuatFile = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         btnQuanLiDiem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -227,10 +226,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jPanel3.add(btnXuatFile);
         btnXuatFile.setBounds(670, 20, 141, 63);
 
-        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel3.add(jButton5);
-        jButton5.setBounds(850, 20, 141, 63);
-
         btnQuanLiDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnQuanLiDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-supplier-45.png"))); // NOI18N
         btnQuanLiDiem.setText("Quản Lí Điểm");
@@ -300,7 +295,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbChon;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
