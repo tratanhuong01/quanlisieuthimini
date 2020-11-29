@@ -1,7 +1,22 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import model.NhanVien;
+import view.kho.pn_KiemKe;
+import view.kho.pn_KiemKeTK;
+import view.kho.pn_NhapHangTK;
+import view.kho.pn_XuatHangTK;
+import view.quanli.phieu.pn_PhieuNhap;
+import view.quanli.phieu.pn_PhieuXuat;
+import view.quanli.hoadon.pn_QLHoaDon;
+import view.quanli.khachhang.pn_QLKhachHang;
+import view.quanli.nhacungcap.pn_QLNhaCungCap;
+import view.quanli.nhanvien.pn_QLNhanVien;
+import view.quanli.sanpham.pn_QLSanPham;
+import view.quanli.danhmuc.pn_QLSub;
+import view.quanli.thongke.pn_QLThongKe;
 
 public class jf_ThuKho extends javax.swing.JFrame {
     NhanVien nv;
@@ -35,20 +50,17 @@ public class jf_ThuKho extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         lbNgayGio = new javax.swing.JLabel();
         lbPhienBan = new javax.swing.JLabel();
-        pnMain = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         pnEnd = new javax.swing.JPanel();
+        pnMain = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
+        mnTaoPhieu = new javax.swing.JMenu();
+        mnNhapHang = new javax.swing.JMenuItem();
+        mnXuatHang = new javax.swing.JMenuItem();
+        mbKiemKe = new javax.swing.JMenuItem();
+        mnNhieuHon = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1366, 768));
 
         pnHeader.setPreferredSize(new java.awt.Dimension(1366, 90));
         pnHeader.setLayout(new java.awt.BorderLayout());
@@ -67,7 +79,9 @@ public class jf_ThuKho extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(400, 100));
         jPanel5.setLayout(null);
 
+        btnDangXuat.setBackground(java.awt.SystemColor.controlHighlight);
         btnDangXuat.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
+        btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-shutdown-45.png"))); // NOI18N
         btnDangXuat.setText("Đăng Xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +91,9 @@ public class jf_ThuKho extends javax.swing.JFrame {
         jPanel5.add(btnDangXuat);
         btnDangXuat.setBounds(210, 10, 190, 70);
 
+        btnThongTin.setBackground(java.awt.SystemColor.controlHighlight);
         btnThongTin.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
+        btnThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-info-45.png"))); // NOI18N
         btnThongTin.setText("Thông Tin");
         btnThongTin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,41 +142,59 @@ public class jf_ThuKho extends javax.swing.JFrame {
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
 
-        pnMain.setPreferredSize(new java.awt.Dimension(1366, 600));
-        pnMain.setLayout(new java.awt.BorderLayout());
-
-        jLabel5.setBackground(java.awt.Color.white);
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/adminImg.jpg"))); // NOI18N
-        pnMain.add(jLabel5, java.awt.BorderLayout.PAGE_START);
-
-        getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
-
         pnEnd.setBackground(java.awt.Color.white);
         pnEnd.setPreferredSize(new java.awt.Dimension(1366, 30));
         pnEnd.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(pnEnd, java.awt.BorderLayout.PAGE_END);
 
-        jMenu1.setText("Khách Hàng");
-        jMenuBar1.add(jMenu1);
+        pnMain.setPreferredSize(new java.awt.Dimension(1366, 600));
+        getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
 
-        jMenu3.setText("Hóa Đơn");
-        jMenuBar1.add(jMenu3);
+        mnTaoPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-elections-45.png"))); // NOI18N
+        mnTaoPhieu.setText("Sản Phẩm");
+        mnTaoPhieu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
-        jMenu2.setText("Nhân Viên");
-        jMenuBar1.add(jMenu2);
+        mnNhapHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        mnNhapHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-elections-45.png"))); // NOI18N
+        mnNhapHang.setText("Nhập Hàng");
+        mnNhapHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnNhapHangActionPerformed(evt);
+            }
+        });
+        mnTaoPhieu.add(mnNhapHang);
 
-        jMenu4.setText("Nhà Cung Cấp");
-        jMenuBar1.add(jMenu4);
+        mnXuatHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        mnXuatHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-elections-45.png"))); // NOI18N
+        mnXuatHang.setText("Xuất Hàng");
+        mnXuatHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnXuatHangActionPerformed(evt);
+            }
+        });
+        mnTaoPhieu.add(mnXuatHang);
 
-        jMenu5.setText("Sản Phẩm");
-        jMenuBar1.add(jMenu5);
+        mbKiemKe.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        mbKiemKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-elections-45.png"))); // NOI18N
+        mbKiemKe.setText("Kiểm Kê");
+        mbKiemKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mbKiemKeActionPerformed(evt);
+            }
+        });
+        mnTaoPhieu.add(mbKiemKe);
 
-        jMenu6.setText("Thống Kê");
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(mnTaoPhieu);
 
-        jMenu7.setText("Tạo Phiếu");
-        jMenuBar1.add(jMenu7);
+        mnNhieuHon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-more-45.png"))); // NOI18N
+        mnNhieuHon.setText("Danh Mục");
+        mnNhieuHon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        mnNhieuHon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnNhieuHonMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mnNhieuHon);
 
         setJMenuBar(jMenuBar1);
 
@@ -172,11 +206,34 @@ public class jf_ThuKho extends javax.swing.JFrame {
         this.dispose();
         new jf_DangNhap().setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
-
+    
     private void btnThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinActionPerformed
         new jf_ThongTin(nv).setVisible(true);
     }//GEN-LAST:event_btnThongTinActionPerformed
+    public void load(Component comp) {
+        pnMain.removeAll();
+        pnMain.setLayout(new BorderLayout());
+        comp.setVisible(true);
+        pnMain.add(comp);
+        pnMain.validate();
+        pnMain.updateUI();
+    }
+    private void mnNhieuHonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnNhieuHonMouseClicked
+        
+    }//GEN-LAST:event_mnNhieuHonMouseClicked
 
+    private void mnXuatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnXuatHangActionPerformed
+        load(new pn_XuatHangTK());
+    }//GEN-LAST:event_mnXuatHangActionPerformed
+
+    private void mnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnNhapHangActionPerformed
+        load(new pn_NhapHangTK());
+    }//GEN-LAST:event_mnNhapHangActionPerformed
+
+    private void mbKiemKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbKiemKeActionPerformed
+        load(new pn_KiemKeTK());
+    }//GEN-LAST:event_mbKiemKeActionPerformed
+    
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -189,15 +246,7 @@ public class jf_ThuKho extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnThongTin;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -206,6 +255,11 @@ public class jf_ThuKho extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lbNgayGio;
     private javax.swing.JLabel lbPhienBan;
+    private javax.swing.JMenuItem mbKiemKe;
+    private javax.swing.JMenuItem mnNhapHang;
+    private javax.swing.JMenu mnNhieuHon;
+    private javax.swing.JMenu mnTaoPhieu;
+    private javax.swing.JMenuItem mnXuatHang;
     private javax.swing.JPanel pnEnd;
     private javax.swing.JPanel pnHeader;
     private javax.swing.JPanel pnMain;
