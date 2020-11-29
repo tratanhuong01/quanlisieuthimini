@@ -14,7 +14,24 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
     public pn_ThemNhanVien() {
         initComponents();
     }
-    
+    public int get(String a) {
+        int s = -1;
+        switch (a) {
+            case "Nghĩ Việc" : 
+                s = 0;
+                break;
+            case "Đang Làm" : 
+                s = 1;
+                break;
+            case "Nghĩ Phép" : 
+                s = 2;
+                break;
+            case "Đình Chỉ" : 
+                s = 3;
+                break;
+        }
+        return s;
+    }
     public String getIDBoPhan(String tenBoPhan) {
         String s = "";
         try (Connection conn = new ConnectDAO().getConnection()){
@@ -53,7 +70,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         txtIDNhanVien = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
-        txtTinhTrang = new javax.swing.JTextField();
+        cbTinhTrang = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 700));
@@ -175,13 +192,11 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         jPanel1.add(jLabel43);
         jLabel43.setBounds(40, 570, 130, 24);
 
-        txtTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtTinhTrang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtTinhTrang.setText("1");
-        txtTinhTrang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtTinhTrang.setEnabled(false);
-        jPanel1.add(txtTinhTrang);
-        txtTinhTrang.setBounds(220, 560, 330, 40);
+        cbTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang Làm", "Nghĩ Việc", "Nghĩ Phép" }));
+        cbTinhTrang.setEnabled(false);
+        jPanel1.add(cbTinhTrang);
+        cbTinhTrang.setBounds(220, 560, 330, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,7 +223,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
         String idNhanVien = StringUtil.taoID("IDNhanVien", "NhanVien", "NV");
         if (new ThemNhanVien().them(idNhanVien, getIDBoPhan(cbBoPhan.getSelectedItem().toString()),
                 txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
-                txtDiaChi.getText(), Integer.parseInt(txtTinhTrang.getText())) == true) {
+                txtDiaChi.getText(), get(cbTinhTrang.getSelectedItem().toString())) == true) {
             JOptionPane.showMessageDialog(rootPane, "Thêm Thành CÔng");
             this.dispose();
         }
@@ -235,6 +250,7 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbBoPhan;
     private javax.swing.JComboBox<String> cbGioiTinh;
+    private javax.swing.JComboBox<String> cbTinhTrang;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -249,6 +265,5 @@ public class pn_ThemNhanVien extends javax.swing.JFrame {
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtIDNhanVien;
     private javax.swing.JTextField txtSoDienThoai;
-    private javax.swing.JTextField txtTinhTrang;
     // End of variables declaration//GEN-END:variables
 }
