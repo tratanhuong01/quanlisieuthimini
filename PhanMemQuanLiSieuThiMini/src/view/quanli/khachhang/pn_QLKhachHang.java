@@ -1,5 +1,6 @@
 package view.quanli.khachhang;
 
+import controller.LoadTable;
 import controller.ThemKhachHang;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,9 +14,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.FormatScroll;
 import model.KhachHang;
 import model.StringUtil;
 
@@ -25,7 +28,9 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     
     public pn_QLKhachHang() {
         initComponents();
-        loadTable("");
+        FormatScroll.format(jScrollPane1);
+        FormatScroll.format(jScrollPane2);
+        new LoadTable().KhachHang("", listKhachHang);
     }
     public String switchs(String chon,String value) {
         String text = "";
@@ -48,49 +53,7 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         }
         return text;
     }
-    public void loadTable(String text) {
-        String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,KhachHang.GioiTinh,\n"
-                + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
-                + "KhachHang.TraDK,KhachHang.ThuDK,TichDiem.SoDiem\n"
-                + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
-                + "INNER JOIN TichDiem ON KhachHang.IDKhachHang = TichDiem.IDKhachHang " + text;
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode;
-            listKhachHang.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            listKhachHang.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            listKhachHang.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listKhachHang.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
-                vData.add(rs.getString(10));
-                vData.add(rs.getString(11));
-                tableMode.addRow(vData);
-            }
-            listKhachHang.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -241,8 +204,8 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jScrollPane2.setBackground(java.awt.Color.white);
-
+        listKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         listKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -253,7 +216,16 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listKhachHang.setRowHeight(25);
         listKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listKhachHangMouseClicked(evt);
@@ -270,7 +242,7 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         listKhachHang.removeAll();
-        loadTable(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()));
+        new LoadTable().KhachHang(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()), listKhachHang);
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnQuanLiDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiDiemActionPerformed
@@ -278,13 +250,15 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuanLiDiemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        new pn_SuaKhachHang(new ThemKhachHang().getKhachHang(id)).setVisible(true);
+        if (id.equals("")) 
+            JOptionPane.showMessageDialog(this, "Vui Lòng Chọn Khách Hàng !!");
+        else 
+            new pn_SuaKhachHang(new ThemKhachHang().getKhachHang(id),listKhachHang).setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void listKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listKhachHangMouseClicked
         int index = listKhachHang.getSelectedRow();
         id = listKhachHang.getModel().getValueAt(index, 0).toString();
-        new InfoKhachHang(new ThemKhachHang().getKhachHang(id)).setVisible(true);
     }//GEN-LAST:event_listKhachHangMouseClicked
 
 

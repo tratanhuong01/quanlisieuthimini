@@ -87,20 +87,21 @@ public class PTHoaDon {
         return list;
     }
 
-    public boolean insertHoaDon(String idHoaDon, String idKhachHang, String idNhanVien,
-            int trangThai, String ptThanhToan) {
+    public boolean insertHoaDon(String idHoaDon,String ngayTao, String idKhachHang, String idNhanVien,
+            int trangThai, int loaiHoaDon,float ThueVAT) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai)"
-                    + "VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO HoaDon(IDHoaDon,NgayTao,IDKhachHang,IDNhanVien,TrangThai,LoaiHoaDon,ThueVAT)"
+                    + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idHoaDon);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Calendar cal = Calendar.getInstance();
-            ps.setString(2, dateFormat.format(cal.getTime()));
+            ps.setString(2, ngayTao);
             ps.setString(3, idKhachHang);
             ps.setString(4, idNhanVien);
             ps.setInt(5, trangThai);
+            ps.setInt(6, loaiHoaDon);
+            ps.setFloat(7, ThueVAT);
             ps.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

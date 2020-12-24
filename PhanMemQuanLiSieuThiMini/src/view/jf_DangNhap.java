@@ -19,7 +19,8 @@ public class jf_DangNhap extends javax.swing.JFrame {
     public void loadBoPhan() {
         ArrayList list = new DAO().getBoPhan();
         for (int i = 0; i < list.size(); i++) {
-            cbBoPhan.addItem((String) list.get(i));
+            String[] s = (String[]) list.get(i);
+            cbBoPhan.addItem(s[1]);
         }
     }
 
@@ -27,18 +28,20 @@ public class jf_DangNhap extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtTaiKhoan = new javax.swing.JTextField();
-        cbBoPhan = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        btnThoat = new javax.swing.JButton();
-        btnDangNhap = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cbBoPhan = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtTaiKhoan = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         txtMatKhau = new javax.swing.JPasswordField();
+        btnThoat = new javax.swing.JButton();
+        btnDangNhap = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(java.awt.Color.white);
         setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         setMaximumSize(new java.awt.Dimension(770, 605));
         setMinimumSize(new java.awt.Dimension(770, 605));
@@ -46,25 +49,44 @@ public class jf_DangNhap extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(770, 605));
         setResizable(false);
         setSize(new java.awt.Dimension(770, 642));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabel1.setText("Quản Lí Siêu Thị Mini");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(150, 50, 470, 70);
+
+        jLabel3.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/pngtree-supermarket-big-promotion-cute-cartoon-banner-image_196194.jpg"))); // NOI18N
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(0, 0, 770, 150);
+
+        cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jPanel2.add(cbBoPhan);
+        cbBoPhan.setBounds(320, 210, 268, 48);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel2.setText("Chọn");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel4.setText("Mật khẩu");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, -1, -1));
-
-        txtTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        getContentPane().add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 268, 49));
-
-        cbBoPhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        getContentPane().add(cbBoPhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 268, 48));
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(230, 220, 44, 24);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel5.setText("Tài khoản");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(190, 300, 84, 24);
+
+        txtTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jPanel2.add(txtTaiKhoan);
+        txtTaiKhoan.setBounds(320, 290, 268, 49);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel4.setText("Mật khẩu");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(200, 370, 81, 24);
+        jPanel2.add(txtMatKhau);
+        txtMatKhau.setBounds(320, 360, 270, 50);
 
         btnThoat.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         btnThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-shutdown-45.png"))); // NOI18N
@@ -74,7 +96,8 @@ public class jf_DangNhap extends javax.swing.JFrame {
                 btnThoatActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 460, 160, 60));
+        jPanel2.add(btnThoat);
+        btnThoat.setBounds(214, 460, 160, 60);
 
         btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-login-45.png"))); // NOI18N
@@ -84,19 +107,48 @@ public class jf_DangNhap extends javax.swing.JFrame {
                 btnDangNhapActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 460, 190, 60));
+        jPanel2.add(btnDangNhap);
+        btnDangNhap.setBounds(400, 460, 190, 60);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        jLabel1.setText("Quản Lí Siêu Thị Mini");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 470, 70));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/pngtree-supermarket-big-promotion-cute-cartoon-banner-image_196194.jpg"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 150));
-        getContentPane().add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 270, 50));
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+        NhanVien nv = new DangNhapController().getNhanVien(txtTaiKhoan.getText(),
+            txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString(), checkTaiKhoan(txtTaiKhoan.getText()));
+        switch (cbBoPhan.getSelectedItem().toString()) {
+            case "Quản Lí":
+            if (nv != null) {
+                this.dispose();
+                new jf_QuanLi(nv).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+            }
+            break;
+            case "Nhân Viên Bán Hàng":
+            if (nv != null) {
+                this.dispose();
+                new jf_BanHang(nv).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+            }
+            break;
+            case "Thủ Kho":
+            if (nv != null) {
+                this.dispose();
+                new jf_ThuKho(nv).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
+            }
+        }
+    }//GEN-LAST:event_btnDangNhapActionPerformed
     public String checkTaiKhoan(String taikhoan) {
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT IDNhanVien FROM TaiKhoan WHERE TaiKhoan = ? ";
@@ -111,40 +163,6 @@ public class jf_DangNhap extends javax.swing.JFrame {
         }
         return null;
     }
-    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        NhanVien nv = new DangNhapController().getNhanVien(txtTaiKhoan.getText(),
-                txtMatKhau.getText(), cbBoPhan.getSelectedItem().toString(), checkTaiKhoan(txtTaiKhoan.getText()));
-        switch (cbBoPhan.getSelectedItem().toString()) {
-            case "Quản Lí":
-                if (nv != null) {
-                    this.dispose();
-                    new jf_QuanLi(nv).setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-                }
-                break;
-            case "Nhân Viên Bán Hàng":
-                if (nv != null) {
-                    this.dispose();
-                    new jf_BanHang(nv).setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-                }
-                break;
-            case "Thủ Kho":
-                if (nv != null) {
-                    this.dispose();
-                    new jf_ThuKho(nv).setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Sai Tên Đăng Nhập Hoặc Mật Khẩu");
-                }
-        }
-    }//GEN-LAST:event_btnDangNhapActionPerformed
-
-    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnThoatActionPerformed
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -163,6 +181,7 @@ public class jf_DangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables

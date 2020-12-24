@@ -1,5 +1,6 @@
 package view.quanli.nhacungcap;
 
+import controller.LoadTable;
 import controller.ThemKhachHang;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,57 +11,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.FormatScroll;
 
 public class pn_QLNhaCungCap extends javax.swing.JPanel {
     String id = "";
+    LoadTable loadTable = new LoadTable();
     public pn_QLNhaCungCap() {
         initComponents();
-        loadTable("");
-    }
-    public void loadTable(String text) {
-            String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,KhachHang.GioiTinh,\n"
-                    + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
-                    + "KhachHang.TraDK,KhachHang.ThuDK\n"
-                    + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
-                    + "WHERE NhomKhachHang.IDNhomKH = 'NKH00003' " + text;
-        System.out.print(query);
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode;
-            listNhaCungCap.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            listNhaCungCap.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            listNhaCungCap.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listNhaCungCap.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
-                vData.add(rs.getString(10));
-                tableMode.addRow(vData);
-            }
-            listNhaCungCap.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        FormatScroll.format(jScrollPane1);
+        loadTable.NhaCungCap("", listNhaCungCap);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -90,9 +52,11 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(350, 100));
 
+        jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setPreferredSize(new java.awt.Dimension(335, 598));
         jPanel1.setLayout(null);
 
+        jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -109,6 +73,7 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 291, 350, 310);
 
+        jPanel7.setBackground(java.awt.Color.white);
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
 
         txtInput.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -167,12 +132,18 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(101, 100));
         jPanel3.setLayout(null);
 
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnSua);
         btnSua.setBounds(234, 13, 141, 63);
 
@@ -202,6 +173,8 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
+        listNhaCungCap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listNhaCungCap.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         listNhaCungCap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -212,7 +185,16 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listNhaCungCap.setRowHeight(25);
         listNhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listNhaCungCapMouseClicked(evt);
@@ -246,19 +228,26 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
         }
         return text;
     }
+
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         listNhaCungCap.removeAll();
-        loadTable(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()));
+        loadTable.NhaCungCap(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()), listNhaCungCap);
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        new pn_ThemNhaCungCap().setVisible(true);
+        new pn_ThemNhaCungCap(listNhaCungCap).setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        if (id.equals("")) 
+            JOptionPane.showMessageDialog(this, "Vui Lòng Chọn Nhà Cung Cấp !!");
+        else 
+            new pn_SuaNhaCungCap(new ThemKhachHang().getNhaCungCap(id),listNhaCungCap).setVisible(true);
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void listNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNhaCungCapMouseClicked
         int index = listNhaCungCap.getSelectedRow();
         id = listNhaCungCap.getModel().getValueAt(index, 0).toString();
-        new InfoNhaCungCap(new ThemKhachHang().getNhaCungCap(id)).setVisible(true);
     }//GEN-LAST:event_listNhaCungCapMouseClicked
 
 

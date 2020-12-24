@@ -13,6 +13,8 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
     public pn_TaoTaiKhoan() {
         initComponents();
         load("", 1, "");
+        txtIDNhanVien.setEditable(false);
+        tenNhanVien.setEditable(false);
         btnTao.setVisible(false);
         btnDoi.setVisible(false);
     }
@@ -112,6 +114,8 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1095, 600));
         setUndecorated(true);
 
+        jPanel1.setBackground(java.awt.Color.white);
+
         btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
         btnTim.setText("Tìm");
@@ -166,7 +170,10 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setLayout(null);
+
+        jPanel3.setBackground(java.awt.Color.white);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Tài Khoản");
@@ -182,7 +189,6 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         jLabel5.setText("ID Nhân Viên");
 
         txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtIDNhanVien.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setText("*******************************************");
@@ -191,8 +197,8 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         jLabel7.setText("Nhân Viên");
 
         tenNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tenNhanVien.setEnabled(false);
 
+        jPanel4.setBackground(java.awt.Color.white);
         jPanel4.setMaximumSize(new java.awt.Dimension(130, 100));
         jPanel4.setMinimumSize(new java.awt.Dimension(130, 100));
         jPanel4.setLayout(null);
@@ -298,7 +304,6 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         jPanel2.add(btnLoc);
         btnLoc.setBounds(280, 30, 120, 50);
 
-        jList1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         jList1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Bạn cần chọn chế độ chưa có tài khoản", "sau đó bấm nút lọc và chọn vào nhân ", "viên sau đó tiến hành cấp tài khoản cho", "nhân viên" };
@@ -310,6 +315,10 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(410, 10, 320, 100);
 
+        jScrollPane3.setBackground(java.awt.Color.white);
+
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        table.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -320,7 +329,16 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.setRowHeight(25);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
@@ -329,7 +347,7 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         jScrollPane3.setViewportView(table);
 
         jPanel2.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 120, 720, 390);
+        jScrollPane3.setBounds(10, 122, 720, 390);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -374,25 +392,6 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
         load(txtInput.getText(), 1, "");
     }//GEN-LAST:event_btnTimActionPerformed
 
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        int index = table.getSelectedRow();
-        txtIDNhanVien.setText(table.getModel().getValueAt(index, 0).toString());
-        tenNhanVien.setText(table.getModel().getValueAt(index, 1).toString());
-        idBoPhan = table.getModel().getValueAt(index, 2).toString();
-        if (check(table.getModel().getValueAt(index, 0).toString()) == true) {
-            btnDoi.setVisible(true);
-            btnTao.setVisible(false);
-            txtTaiKhoan.setText(table.getModel().getValueAt(index, 4).toString());
-            txtMatKhau.setText(table.getModel().getValueAt(index, 5).toString());
-
-        } else {
-            btnTao.setVisible(true);
-            btnDoi.setVisible(false);
-            txtTaiKhoan.setText("");
-            txtMatKhau.setText("");
-        }
-    }//GEN-LAST:event_tableMouseClicked
-
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         if (cbChon.getSelectedIndex() == 0) {
             load("", 0, " WHERE TaiKhoan.TaiKhoan IS NULL OR TaiKhoan.MatKhau IS NULL ");
@@ -414,6 +413,25 @@ public class pn_TaoTaiKhoan extends javax.swing.JFrame {
             load("", 1, "");
         }
     }//GEN-LAST:event_btnDoiActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int index = table.getSelectedRow();
+        txtIDNhanVien.setText(table.getModel().getValueAt(index, 0).toString());
+        tenNhanVien.setText(table.getModel().getValueAt(index, 1).toString());
+        idBoPhan = table.getModel().getValueAt(index, 2).toString();
+        if (check(table.getModel().getValueAt(index, 0).toString()) == true) {
+            btnDoi.setVisible(true);
+            btnTao.setVisible(false);
+            txtTaiKhoan.setText(table.getModel().getValueAt(index, 4).toString());
+            txtMatKhau.setText(table.getModel().getValueAt(index, 5).toString());
+
+        } else {
+            btnTao.setVisible(true);
+            btnDoi.setVisible(false);
+            txtTaiKhoan.setText("");
+            txtMatKhau.setText("");
+        }
+    }//GEN-LAST:event_tableMouseClicked
 
     public static void main(String args[]) {
 

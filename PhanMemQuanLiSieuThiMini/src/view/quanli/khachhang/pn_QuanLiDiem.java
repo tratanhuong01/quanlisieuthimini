@@ -1,5 +1,7 @@
 package view.quanli.khachhang;
 
+import controller.LoadTable;
+import controller.SuaDiemTieuDung;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,83 +10,90 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.FormatScroll;
 
 public class pn_QuanLiDiem extends javax.swing.JFrame {
-
+    LoadTable loadTable = new LoadTable();
     public pn_QuanLiDiem() {
         initComponents();
-        loadTable("");
-        txtDiemHienTai.setText(String.valueOf(getDiemHienTai()));
+        loadTable.DiemTieuDung("", table1);
+        FormatScroll.format(jScrollPane2);
+        txtDiemHienTai.setText(new DecimalFormat("###,###,###").format(new SuaDiemTieuDung().getDiemHienTai()[0]));
+        txtTienQuyDoi.setText(new DecimalFormat("###,###,###").format(new SuaDiemTieuDung().getDiemHienTai()[1]));
+        txtSoDiem.setEditable(false);
+        txtTen.setEditable(false);
+        txtIDKhachHang.setEditable(false);
+        format();
     }
-
-    public boolean suaDiemHienTai(String diem) {
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "UPDATE TichDiem SET QuyDiemDiem = ? ";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, diem);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public int getDiemHienTai() {
-        int diem = 0;
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT QuyDiemDiem FROM TichDiem";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                diem = rs.getInt(1);
+    public void format() {
+        DecimalFormat deFormat1 = new DecimalFormat("###,###,###");
+        txtTienQuyDoi.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return diem;
-    }
 
-    public void loadTable(String text) {
-        String query = "SELECT KhachHang.IDKhachHang ,KhachHang.HoTen,TichDiem.SoDiem ,TichDiem.QuyDiemDiem FROM KhachHang\n"
-                + "INNER JOIN TichDiem ON KhachHang.IDKhachHang = TichDiem.IDKhachHang \n"
-                + "WHERE KhachHang.IDKhachHang LIKE N'%" + text + "%' OR KhachHang.HoTen LIKE N'%" + text + "%' ";
-        System.out.print(query);
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode;
-            table1.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            table1.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            table1.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
+            public void removeUpdate(DocumentEvent e) {
+               
             }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            table1.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                tableMode.addRow(vData);
-            }
-            table1.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (txtTienQuyDoi.getText().length() <= 0) {
+
+                        } else {
+                            long money = Long.parseLong(txtTienQuyDoi.getText().replace(",", ""));
+                            txtTienQuyDoi.setText(deFormat1.format(money));
+                        }
+                    }
+
+                };
+                SwingUtilities.invokeLater(runnable);
+            }
+        });
+        txtDiemHienTai.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+               
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (txtDiemHienTai.getText().length() <= 0) {
+
+                        } else {
+                            long money = Long.parseLong(txtDiemHienTai.getText().replace(",", ""));
+                            txtDiemHienTai.setText(deFormat1.format(money));
+                        }
+                    }
+
+                };
+                SwingUtilities.invokeLater(runnable);
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,15 +115,19 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtTen = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnThayDoi = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         txtSoDiem = new javax.swing.JTextField();
+        txtTienQuyDoi = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1095, 600));
         setUndecorated(true);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
+        jPanel6.setBackground(java.awt.Color.white);
         jPanel6.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 3, true));
 
         jPanel1.setBackground(java.awt.Color.white);
@@ -173,6 +186,7 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         table1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -199,11 +213,12 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Giá Quy Đổi Điểm Hiện Tại");
         jPanel4.add(jLabel4);
-        jLabel4.setBounds(10, 270, 332, 53);
+        jLabel4.setBounds(0, 250, 332, 53);
 
         txtDiemHienTai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtDiemHienTai.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel4.add(txtDiemHienTai);
-        txtDiemHienTai.setBounds(90, 320, 177, 53);
+        txtDiemHienTai.setBounds(150, 310, 177, 53);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel8.setText("ID Khách Hàng");
@@ -228,24 +243,40 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
         jPanel4.add(txtTen);
         txtTen.setBounds(140, 80, 190, 53);
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setText("Thay Đổi");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnThayDoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThayDoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
+        btnThayDoi.setText("Thay Đổi");
+        btnThayDoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnThayDoiActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1);
-        jButton1.setBounds(120, 390, 110, 50);
+        jPanel4.add(btnThayDoi);
+        btnThayDoi.setBounds(100, 450, 160, 53);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel11.setText("Số Điểm");
+        jLabel11.setText("Tiền Quy Đổi");
         jPanel4.add(jLabel11);
-        jLabel11.setBounds(10, 160, 100, 53);
+        jLabel11.setBounds(10, 380, 140, 53);
 
         txtSoDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel4.add(txtSoDiem);
         txtSoDiem.setBounds(140, 160, 190, 53);
+
+        txtTienQuyDoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtTienQuyDoi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel4.add(txtTienQuyDoi);
+        txtTienQuyDoi.setBounds(150, 380, 177, 53);
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel12.setText("Số Điểm");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(10, 160, 100, 53);
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel13.setText("Điểm Quy Đổi");
+        jPanel4.add(jLabel13);
+        jLabel13.setBounds(10, 310, 140, 53);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -296,17 +327,18 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
     }//GEN-LAST:event_table1tableMouseClicked
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        loadTable(txtInput.getText());
+        loadTable.DiemTieuDung(txtInput.getText(),table1);
     }//GEN-LAST:event_btnTimActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (suaDiemHienTai(txtDiemHienTai.getText())) {
+    private void btnThayDoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThayDoiActionPerformed
+        if (new SuaDiemTieuDung().suaDiemHienTai(Integer.parseInt(txtDiemHienTai.getText().replace(",", "")),
+                                                Float.parseFloat(txtTienQuyDoi.getText().replace(",", "")))) {
             JOptionPane.showMessageDialog(rootPane, "Sửa Thành Công");
-            loadTable("");
+            loadTable.DiemTieuDung(txtInput.getText(),table1);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Sửa Thất Bại");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnThayDoiActionPerformed
 
     public static void main(String args[]) {
 
@@ -318,11 +350,13 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnThayDoi;
     private javax.swing.JButton btnThoat;
     private javax.swing.JButton btnTim;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
@@ -338,5 +372,6 @@ public class pn_QuanLiDiem extends javax.swing.JFrame {
     private javax.swing.JTextField txtInput;
     private javax.swing.JTextField txtSoDiem;
     private javax.swing.JTextField txtTen;
+    private javax.swing.JTextField txtTienQuyDoi;
     // End of variables declaration//GEN-END:variables
 }

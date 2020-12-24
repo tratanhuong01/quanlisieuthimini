@@ -11,10 +11,6 @@ import model.NhanVien;
 
 public class jf_ThongTin extends javax.swing.JFrame {
 
-    public jf_ThongTin() {
-        initComponents();
-    }
-    
     public jf_ThongTin(NhanVien nv) {
         initComponents();
         nv = new ThemNhanVien().getNhanVien(nv.getIdNhanVien());
@@ -22,7 +18,7 @@ public class jf_ThongTin extends javax.swing.JFrame {
         txtMaNhanVien.setEditable(false);
         txtTenBoPhan.setEditable(false);
         txtHoTen.setEditable(false);
-        cbGioiTinh.setEnabled(false);
+        cbGioiTinh.setEditable(false);
         txtDiaChi.setEditable(false);
         txtSoDienThoai.setEditable(false);
         txtTinhTrang.setEditable(false);
@@ -32,8 +28,26 @@ public class jf_ThongTin extends javax.swing.JFrame {
         cbGioiTinh.setSelectedItem(nv.getGioiTinh());
         txtDiaChi.setText(nv.getDiaChi());
         txtSoDienThoai.setText(nv.getSoDienThoai());
+        txtTinhTrang.setText(get(nv.getTinhTrang()));
     }
-    
+    public String get(int a) {
+        String s = "";
+        switch (a) {
+            case 0 : 
+                s = "Nghĩ Việc";
+                break;
+            case 1 : 
+                s = "Đang Làm";
+                break;
+            case 2: 
+                s = "Nghĩ Phép" ;
+                break;
+            case 3 : 
+                s = "Đình Chỉ";
+                break;
+        }
+        return s;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,11 +77,14 @@ public class jf_ThongTin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        bg.setBackground(java.awt.Color.white);
+        bg.setBorder(new javax.swing.border.MatteBorder(null));
         bg.setMaximumSize(new java.awt.Dimension(600, 700));
         bg.setMinimumSize(new java.awt.Dimension(600, 700));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(java.awt.Color.orange);
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -132,7 +149,7 @@ public class jf_ThongTin extends javax.swing.JFrame {
 
         btnThoat.setBackground(java.awt.Color.orange);
         btnThoat.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        btnThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/exit.png"))); // NOI18N
+        btnThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         btnThoat.setText("Thoát");
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +160,7 @@ public class jf_ThongTin extends javax.swing.JFrame {
 
         btnSua.setBackground(java.awt.Color.orange);
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/exit.png"))); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-login-45.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +216,7 @@ public class jf_ThongTin extends javax.swing.JFrame {
         txtHoTen.setEditable(true);
         cbGioiTinh.setEditable(true);
         txtSoDienThoai.setEditable(true);
-        cbGioiTinh.setEnabled(true);
+        cbGioiTinh.setEditable(true);
         btnSua.setVisible(false);
         btnOk.setVisible(true);
         txtDiaChi.addMouseListener(new MouseListener() {
@@ -234,10 +251,11 @@ public class jf_ThongTin extends javax.swing.JFrame {
         txtHoTen.setEditable(false);
         cbGioiTinh.setEnabled(false);
         txtSoDienThoai.setEditable(false);
+        txtTenBoPhan.setEditable(false);
         btnSua.setVisible(true);
         btnOk.setVisible(false);
         if (new SuaNhanVien().Sua(txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(),
-                txtSoDienThoai.getText(), txtDiaChi.getText(), txtMaNhanVien.getText()) == true) {
+                txtSoDienThoai.getText(), txtDiaChi.getText(), txtMaNhanVien.getText(),1) == true) {
             this.dispose();
             switch(txtTenBoPhan.getText()) {
                     case "Nhân Viên Bán Hàng" :
@@ -259,15 +277,6 @@ public class jf_ThongTin extends javax.swing.JFrame {
             btnOk.setVisible(true);
         }
     }//GEN-LAST:event_btnOkActionPerformed
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jf_ThongTin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;

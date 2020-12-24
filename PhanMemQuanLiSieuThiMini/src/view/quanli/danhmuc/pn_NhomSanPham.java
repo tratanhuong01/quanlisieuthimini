@@ -17,6 +17,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
 
     public pn_NhomSanPham() {
         initComponents();
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         loadTable();
     }
 
@@ -129,6 +130,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         jPanel1.setLayout(null);
 
         btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,9 +138,10 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnXoa);
-        btnXoa.setBounds(530, 100, 110, 50);
+        btnXoa.setBounds(500, 90, 130, 60);
 
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,9 +149,10 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnSua);
-        btnSua.setBounds(530, 190, 110, 50);
+        btnSua.setBounds(500, 180, 130, 60);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +160,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnThem);
-        btnThem.setBounds(530, 10, 110, 50);
+        btnThem.setBounds(500, 0, 130, 60);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("ID Nhóm Sản Phẩm");
@@ -165,11 +169,11 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
 
         txtIDNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(txtIDNhomSanPham);
-        txtIDNhomSanPham.setBounds(210, 10, 300, 50);
+        txtIDNhomSanPham.setBounds(210, 10, 260, 50);
 
         txtTenNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(txtTenNhomSanPham);
-        txtTenNhomSanPham.setBounds(210, 70, 300, 50);
+        txtTenNhomSanPham.setBounds(210, 70, 260, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Tên Nhóm Sản Phẩm");
@@ -178,7 +182,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
 
         txtLoai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(txtLoai);
-        txtLoai.setBounds(210, 130, 300, 50);
+        txtLoai.setBounds(210, 130, 260, 50);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Loại");
@@ -187,7 +191,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
 
         txtIDKhuVuc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(txtIDKhuVuc);
-        txtIDKhuVuc.setBounds(210, 190, 300, 50);
+        txtIDKhuVuc.setBounds(210, 190, 260, 50);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(jLabel4);

@@ -1,9 +1,62 @@
 package view.quanli.thongke;
 
+import controller.ThongKe;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import model.ConnectDAO;
+
 public class pn_QLThongKe extends javax.swing.JPanel {
 
     public pn_QLThongKe() {
         initComponents();
+        JPanel[] pn = {pnNgay, pnNgayTruoc, pnTuan, pnTuanTruoc, pnThang, pnThangTruoc};
+        JButton[] btn = {btnNgay, btnNgayTruoc, btnTuan, btnTuanTruoc, btnThang, btnThangTruoc};
+        for (int i = 0; i < pn.length; i++) {
+            try {
+                addLabel("Hóa Đơn : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchHoaDon(i + 1))
+                        + " Cái"), pn[i]);
+                addLabel("Sản Phẩm : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchSanPham(i + 1))
+                        + " SP"), pn[i]);
+                addLabel("Doanh Thu : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchTien(i + 1))
+                        + "  VNĐ"), pn[i]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            btn[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    new jf_ThongKeChiTiet().setVisible(true);
+                }
+            });
+        }
+    }
+
+    public void addLabel(String text, JPanel pn) {
+        JLabel lb = new JLabel(text);
+        lb.setFont(new java.awt.Font("Times New Roman", 2, 19)); // NOI18N
+        pn.add(lb);
+    }
+
+    public List<JLabel> tim(JPanel pn) {
+        List<JLabel> listLb = new ArrayList<>();
+        for (Component comp : pn.getComponents()) {
+            JLabel lb = (JLabel) comp;
+            listLb.add(lb);
+        }
+        return listLb;
     }
 
     @SuppressWarnings("unchecked")
@@ -15,96 +68,72 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnNgay = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        pnNgay = new javax.swing.JPanel();
         pnDoanhThuTrongTuan = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnNgayTruoc = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        pnNgayTruoc = new javax.swing.JPanel();
         pnDoanhThuNgayTruoc = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnTuan = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        pnTuan = new javax.swing.JPanel();
         pnDoanhThuTuanTruoc = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnTuanTruoc = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        pnTuanTruoc = new javax.swing.JPanel();
         pnDoanhThuTrongThang = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnThang = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
+        pnThang = new javax.swing.JPanel();
         pnDoanhThuThangTruoc = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnThangTruoc = new javax.swing.JButton();
         jPanel25 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jPanel26 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        pnThangTruoc = new javax.swing.JPanel();
         pnDoanhThuTrongNam = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
+        btnNam = new javax.swing.JButton();
         jPanel29 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jPanel30 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
         pnDoanhThuNamTruoc = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
+        btnNamTruoc = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jPanel34 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
         pnDoanhThuNamTruoc1 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel35 = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
         jPanel37 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
+        btnXemChiTiet = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1366, 600));
         setLayout(new java.awt.BorderLayout());
@@ -114,13 +143,13 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(1366, 600));
         jPanel2.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
 
-        pnDoanhThuTrongNgay.setBackground(new java.awt.Color(77, 177, 81));
+        pnDoanhThuTrongNgay.setBackground(new java.awt.Color(204, 255, 204));
         pnDoanhThuTrongNgay.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuTrongNgay.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongNgay.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongNgay.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBackground(new java.awt.Color(77, 177, 81));
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
         jPanel3.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel3.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0));
@@ -128,24 +157,23 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(77, 177, 81));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Thống Kê Theo Ngày");
+        jLabel1.setText("Thống Kê Trong Ngày");
         jPanel3.add(jLabel1);
 
         pnDoanhThuTrongNgay.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-        jPanel4.setBackground(new java.awt.Color(77, 177, 81));
+        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel4.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setBackground(new java.awt.Color(77, 177, 81));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setText("Thông Tin Chi Tiết");
-        jPanel4.add(jButton1);
+        btnNgay.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNgay.setText("Thông Tin Chi Tiết");
+        jPanel4.add(btnNgay);
 
         pnDoanhThuTrongNgay.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
-        jPanel6.setBackground(new java.awt.Color(77, 177, 81));
+        jPanel6.setBackground(new java.awt.Color(204, 255, 204));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -158,55 +186,43 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTrongNgay.add(jPanel6, java.awt.BorderLayout.LINE_START);
 
-        jPanel5.setBackground(new java.awt.Color(77, 177, 81));
-        jPanel5.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel6.setText("jLabel6");
-        jPanel5.add(jLabel6);
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel9.setText("jLabel9");
-        jPanel5.add(jLabel9);
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setText("jLabel3");
-        jPanel5.add(jLabel3);
-
-        pnDoanhThuTrongNgay.add(jPanel5, java.awt.BorderLayout.CENTER);
+        pnNgay.setBackground(new java.awt.Color(204, 255, 204));
+        pnNgay.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnNgay.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuTrongNgay.add(pnNgay, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTrongNgay);
 
-        pnDoanhThuTrongTuan.setBackground(new java.awt.Color(109, 108, 103));
+        pnDoanhThuTrongTuan.setBackground(new java.awt.Color(204, 204, 204));
         pnDoanhThuTrongTuan.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuTrongTuan.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongTuan.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongTuan.setLayout(new java.awt.BorderLayout());
 
-        jPanel7.setBackground(new java.awt.Color(109, 108, 103));
+        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
         jPanel7.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel7.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Thống Kê Theo Ngày");
+        jLabel4.setText("Thống Kê Ngày Trước");
         jPanel7.add(jLabel4);
 
         pnDoanhThuTrongTuan.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
-        jPanel8.setBackground(new java.awt.Color(109, 108, 103));
+        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
         jPanel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel8.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Thông Tin Chi Tiết");
-        jPanel8.add(jButton2);
+        btnNgayTruoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNgayTruoc.setText("Thông Tin Chi Tiết");
+        jPanel8.add(btnNgayTruoc);
 
         pnDoanhThuTrongTuan.add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
-        jPanel9.setBackground(new java.awt.Color(109, 108, 103));
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
         jPanel9.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -218,55 +234,43 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTrongTuan.add(jPanel9, java.awt.BorderLayout.LINE_START);
 
-        jPanel10.setBackground(new java.awt.Color(109, 108, 103));
-        jPanel10.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel12.setText("jLabel6");
-        jPanel10.add(jLabel12);
-
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel15.setText("jLabel9");
-        jPanel10.add(jLabel15);
-
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel18.setText("jLabel3");
-        jPanel10.add(jLabel18);
-
-        pnDoanhThuTrongTuan.add(jPanel10, java.awt.BorderLayout.CENTER);
+        pnNgayTruoc.setBackground(new java.awt.Color(204, 204, 204));
+        pnNgayTruoc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnNgayTruoc.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuTrongTuan.add(pnNgayTruoc, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTrongTuan);
 
-        pnDoanhThuNgayTruoc.setBackground(new java.awt.Color(255, 151, 0));
+        pnDoanhThuNgayTruoc.setBackground(new java.awt.Color(255, 255, 102));
         pnDoanhThuNgayTruoc.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuNgayTruoc.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuNgayTruoc.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuNgayTruoc.setLayout(new java.awt.BorderLayout());
 
-        jPanel11.setBackground(new java.awt.Color(255, 151, 0));
+        jPanel11.setBackground(new java.awt.Color(255, 255, 102));
         jPanel11.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel11.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Thống Kê Theo Ngày");
+        jLabel7.setText("Thống Kê Trong Tuần");
         jPanel11.add(jLabel7);
 
         pnDoanhThuNgayTruoc.add(jPanel11, java.awt.BorderLayout.PAGE_START);
 
-        jPanel12.setBackground(new java.awt.Color(255, 151, 0));
+        jPanel12.setBackground(new java.awt.Color(255, 255, 102));
         jPanel12.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel12.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setText("Thông Tin Chi Tiết");
-        jPanel12.add(jButton3);
+        btnTuan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTuan.setText("Thông Tin Chi Tiết");
+        jPanel12.add(btnTuan);
 
         pnDoanhThuNgayTruoc.add(jPanel12, java.awt.BorderLayout.PAGE_END);
 
-        jPanel13.setBackground(new java.awt.Color(255, 151, 0));
+        jPanel13.setBackground(new java.awt.Color(255, 255, 102));
         jPanel13.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -278,55 +282,43 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuNgayTruoc.add(jPanel13, java.awt.BorderLayout.LINE_START);
 
-        jPanel14.setBackground(new java.awt.Color(255, 151, 0));
-        jPanel14.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel21.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel21.setText("jLabel6");
-        jPanel14.add(jLabel21);
-
-        jLabel24.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel24.setText("jLabel9");
-        jPanel14.add(jLabel24);
-
-        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel27.setText("jLabel3");
-        jPanel14.add(jLabel27);
-
-        pnDoanhThuNgayTruoc.add(jPanel14, java.awt.BorderLayout.CENTER);
+        pnTuan.setBackground(new java.awt.Color(255, 255, 102));
+        pnTuan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnTuan.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuNgayTruoc.add(pnTuan, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuNgayTruoc);
 
-        pnDoanhThuTuanTruoc.setBackground(new java.awt.Color(25, 112, 132));
+        pnDoanhThuTuanTruoc.setBackground(new java.awt.Color(102, 204, 255));
         pnDoanhThuTuanTruoc.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuTuanTruoc.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTuanTruoc.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTuanTruoc.setLayout(new java.awt.BorderLayout());
 
-        jPanel15.setBackground(new java.awt.Color(25, 112, 132));
+        jPanel15.setBackground(new java.awt.Color(102, 204, 255));
         jPanel15.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel15.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel15.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Thống Kê Theo Ngày");
+        jLabel10.setText("Thống Kê Tuần Trước");
         jPanel15.add(jLabel10);
 
         pnDoanhThuTuanTruoc.add(jPanel15, java.awt.BorderLayout.PAGE_START);
 
-        jPanel16.setBackground(new java.awt.Color(25, 112, 132));
+        jPanel16.setBackground(new java.awt.Color(102, 204, 255));
         jPanel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel16.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel16.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton4.setText("Thông Tin Chi Tiết");
-        jPanel16.add(jButton4);
+        btnTuanTruoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTuanTruoc.setText("Thông Tin Chi Tiết");
+        jPanel16.add(btnTuanTruoc);
 
         pnDoanhThuTuanTruoc.add(jPanel16, java.awt.BorderLayout.PAGE_END);
 
-        jPanel17.setBackground(new java.awt.Color(25, 112, 132));
+        jPanel17.setBackground(new java.awt.Color(102, 204, 255));
         jPanel17.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -338,55 +330,43 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTuanTruoc.add(jPanel17, java.awt.BorderLayout.LINE_START);
 
-        jPanel18.setBackground(new java.awt.Color(25, 112, 132));
-        jPanel18.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel28.setText("jLabel6");
-        jPanel18.add(jLabel28);
-
-        jLabel29.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel29.setText("jLabel9");
-        jPanel18.add(jLabel29);
-
-        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel30.setText("jLabel3");
-        jPanel18.add(jLabel30);
-
-        pnDoanhThuTuanTruoc.add(jPanel18, java.awt.BorderLayout.CENTER);
+        pnTuanTruoc.setBackground(new java.awt.Color(102, 204, 255));
+        pnTuanTruoc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnTuanTruoc.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuTuanTruoc.add(pnTuanTruoc, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTuanTruoc);
 
-        pnDoanhThuTrongThang.setBackground(new java.awt.Color(30, 149, 244));
+        pnDoanhThuTrongThang.setBackground(new java.awt.Color(153, 153, 255));
         pnDoanhThuTrongThang.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuTrongThang.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongThang.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongThang.setLayout(new java.awt.BorderLayout());
 
-        jPanel19.setBackground(new java.awt.Color(30, 149, 244));
+        jPanel19.setBackground(new java.awt.Color(153, 153, 255));
         jPanel19.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel19.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel19.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Thống Kê Theo Ngày");
+        jLabel13.setText("Thống Kê Trong Tháng");
         jPanel19.add(jLabel13);
 
         pnDoanhThuTrongThang.add(jPanel19, java.awt.BorderLayout.PAGE_START);
 
-        jPanel20.setBackground(new java.awt.Color(30, 149, 244));
+        jPanel20.setBackground(new java.awt.Color(153, 153, 255));
         jPanel20.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel20.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel20.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton5.setText("Thông Tin Chi Tiết");
-        jPanel20.add(jButton5);
+        btnThang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThang.setText("Thông Tin Chi Tiết");
+        jPanel20.add(btnThang);
 
         pnDoanhThuTrongThang.add(jPanel20, java.awt.BorderLayout.PAGE_END);
 
-        jPanel21.setBackground(new java.awt.Color(30, 149, 244));
+        jPanel21.setBackground(new java.awt.Color(153, 153, 255));
         jPanel21.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel21.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -398,55 +378,43 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTrongThang.add(jPanel21, java.awt.BorderLayout.LINE_START);
 
-        jPanel22.setBackground(new java.awt.Color(30, 149, 244));
-        jPanel22.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel31.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel31.setText("jLabel6");
-        jPanel22.add(jLabel31);
-
-        jLabel32.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel32.setText("jLabel9");
-        jPanel22.add(jLabel32);
-
-        jLabel33.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel33.setText("jLabel3");
-        jPanel22.add(jLabel33);
-
-        pnDoanhThuTrongThang.add(jPanel22, java.awt.BorderLayout.CENTER);
+        pnThang.setBackground(new java.awt.Color(153, 153, 255));
+        pnThang.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnThang.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuTrongThang.add(pnThang, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTrongThang);
 
-        pnDoanhThuThangTruoc.setBackground(new java.awt.Color(96, 125, 139));
+        pnDoanhThuThangTruoc.setBackground(new java.awt.Color(204, 204, 255));
         pnDoanhThuThangTruoc.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuThangTruoc.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuThangTruoc.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuThangTruoc.setLayout(new java.awt.BorderLayout());
 
-        jPanel23.setBackground(new java.awt.Color(96, 125, 139));
+        jPanel23.setBackground(new java.awt.Color(204, 204, 255));
         jPanel23.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel23.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel23.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Thống Kê Theo Ngày");
+        jLabel16.setText("Thống Kê Tháng Trước");
         jPanel23.add(jLabel16);
 
         pnDoanhThuThangTruoc.add(jPanel23, java.awt.BorderLayout.PAGE_START);
 
-        jPanel24.setBackground(new java.awt.Color(96, 125, 139));
+        jPanel24.setBackground(new java.awt.Color(204, 204, 255));
         jPanel24.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel24.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel24.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton6.setText("Thông Tin Chi Tiết");
-        jPanel24.add(jButton6);
+        btnThangTruoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThangTruoc.setText("Thông Tin Chi Tiết");
+        jPanel24.add(btnThangTruoc);
 
         pnDoanhThuThangTruoc.add(jPanel24, java.awt.BorderLayout.PAGE_END);
 
-        jPanel25.setBackground(new java.awt.Color(96, 125, 139));
+        jPanel25.setBackground(new java.awt.Color(204, 204, 255));
         jPanel25.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel25.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -458,55 +426,42 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuThangTruoc.add(jPanel25, java.awt.BorderLayout.LINE_START);
 
-        jPanel26.setBackground(new java.awt.Color(96, 125, 139));
-        jPanel26.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel34.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel34.setText("jLabel6");
-        jPanel26.add(jLabel34);
-
-        jLabel35.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel35.setText("jLabel9");
-        jPanel26.add(jLabel35);
-
-        jLabel36.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel36.setText("jLabel3");
-        jPanel26.add(jLabel36);
-
-        pnDoanhThuThangTruoc.add(jPanel26, java.awt.BorderLayout.CENTER);
+        pnThangTruoc.setBackground(new java.awt.Color(204, 204, 255));
+        pnThangTruoc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnThangTruoc.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuThangTruoc.add(pnThangTruoc, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuThangTruoc);
 
-        pnDoanhThuTrongNam.setBackground(new java.awt.Color(222, 77, 58));
+        pnDoanhThuTrongNam.setBackground(new java.awt.Color(255, 204, 204));
         pnDoanhThuTrongNam.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuTrongNam.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongNam.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuTrongNam.setLayout(new java.awt.BorderLayout());
 
-        jPanel27.setBackground(new java.awt.Color(222, 77, 58));
+        jPanel27.setBackground(new java.awt.Color(255, 204, 204));
         jPanel27.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel27.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel27.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Thống Kê Theo Ngày");
         jPanel27.add(jLabel19);
 
         pnDoanhThuTrongNam.add(jPanel27, java.awt.BorderLayout.PAGE_START);
 
-        jPanel28.setBackground(new java.awt.Color(222, 77, 58));
+        jPanel28.setBackground(new java.awt.Color(255, 204, 204));
         jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel28.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel28.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton7.setText("Thông Tin Chi Tiết");
-        jPanel28.add(jButton7);
+        btnNam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNam.setText("Thông Tin Chi Tiết");
+        jPanel28.add(btnNam);
 
         pnDoanhThuTrongNam.add(jPanel28, java.awt.BorderLayout.PAGE_END);
 
-        jPanel29.setBackground(new java.awt.Color(222, 77, 58));
+        jPanel29.setBackground(new java.awt.Color(255, 204, 204));
         jPanel29.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel29.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -518,55 +473,42 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTrongNam.add(jPanel29, java.awt.BorderLayout.LINE_START);
 
-        jPanel30.setBackground(new java.awt.Color(222, 77, 58));
+        jPanel30.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel30.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jPanel30.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel37.setText("jLabel6");
-        jPanel30.add(jLabel37);
-
-        jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel38.setText("jLabel9");
-        jPanel30.add(jLabel38);
-
-        jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel39.setText("jLabel3");
-        jPanel30.add(jLabel39);
-
         pnDoanhThuTrongNam.add(jPanel30, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTrongNam);
 
-        pnDoanhThuNamTruoc.setBackground(new java.awt.Color(122, 66, 65));
+        pnDoanhThuNamTruoc.setBackground(new java.awt.Color(153, 255, 204));
         pnDoanhThuNamTruoc.setBorder(new javax.swing.border.MatteBorder(null));
         pnDoanhThuNamTruoc.setMaximumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuNamTruoc.setMinimumSize(new java.awt.Dimension(420, 220));
         pnDoanhThuNamTruoc.setLayout(new java.awt.BorderLayout());
 
-        jPanel31.setBackground(new java.awt.Color(122, 66, 65));
+        jPanel31.setBackground(new java.awt.Color(153, 255, 204));
         jPanel31.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel31.setPreferredSize(new java.awt.Dimension(440, 35));
         jPanel31.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Thống Kê Theo Ngày");
         jPanel31.add(jLabel22);
 
         pnDoanhThuNamTruoc.add(jPanel31, java.awt.BorderLayout.PAGE_START);
 
-        jPanel32.setBackground(new java.awt.Color(122, 66, 65));
+        jPanel32.setBackground(new java.awt.Color(153, 255, 204));
         jPanel32.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel32.setPreferredSize(new java.awt.Dimension(440, 60));
         jPanel32.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton8.setText("Thông Tin Chi Tiết");
-        jPanel32.add(jButton8);
+        btnNamTruoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnNamTruoc.setText("Thông Tin Chi Tiết");
+        jPanel32.add(btnNamTruoc);
 
         pnDoanhThuNamTruoc.add(jPanel32, java.awt.BorderLayout.PAGE_END);
 
-        jPanel33.setBackground(new java.awt.Color(122, 66, 65));
+        jPanel33.setBackground(new java.awt.Color(153, 255, 204));
         jPanel33.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel33.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -578,21 +520,9 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuNamTruoc.add(jPanel33, java.awt.BorderLayout.LINE_START);
 
-        jPanel34.setBackground(new java.awt.Color(122, 66, 65));
+        jPanel34.setBackground(new java.awt.Color(153, 255, 204));
+        jPanel34.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jPanel34.setLayout(new java.awt.GridLayout(3, 0));
-
-        jLabel40.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel40.setText("jLabel6");
-        jPanel34.add(jLabel40);
-
-        jLabel41.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel41.setText("jLabel9");
-        jPanel34.add(jLabel41);
-
-        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel42.setText("jLabel3");
-        jPanel34.add(jLabel42);
-
         pnDoanhThuNamTruoc.add(jPanel34, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuNamTruoc);
@@ -664,85 +594,65 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuNamTruoc1.add(jPanel37, java.awt.BorderLayout.PAGE_END);
 
-        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton9.setText("Xem Chi Tiết");
-        pnDoanhThuNamTruoc1.add(jButton9, java.awt.BorderLayout.CENTER);
+        btnXemChiTiet.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXemChiTiet.setText("Xem Chi Tiết");
+        btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemChiTietActionPerformed(evt);
+            }
+        });
+        pnDoanhThuNamTruoc1.add(btnXemChiTiet, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuNamTruoc1);
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
+        new jf_ThongKeChiTiet().setVisible(true);
+    }//GEN-LAST:event_btnXemChiTietActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btnNam;
+    private javax.swing.JButton btnNamTruoc;
+    private javax.swing.JButton btnNgay;
+    private javax.swing.JButton btnNgayTruoc;
+    private javax.swing.JButton btnThang;
+    private javax.swing.JButton btnThangTruoc;
+    private javax.swing.JButton btnTuan;
+    private javax.swing.JButton btnTuanTruoc;
+    private javax.swing.JButton btnXemChiTiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
@@ -756,7 +666,6 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -770,5 +679,11 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel pnDoanhThuTrongThang;
     private javax.swing.JPanel pnDoanhThuTrongTuan;
     private javax.swing.JPanel pnDoanhThuTuanTruoc;
+    private javax.swing.JPanel pnNgay;
+    private javax.swing.JPanel pnNgayTruoc;
+    private javax.swing.JPanel pnThang;
+    private javax.swing.JPanel pnThangTruoc;
+    private javax.swing.JPanel pnTuan;
+    private javax.swing.JPanel pnTuanTruoc;
     // End of variables declaration//GEN-END:variables
 }

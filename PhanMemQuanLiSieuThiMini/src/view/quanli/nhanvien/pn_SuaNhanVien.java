@@ -1,38 +1,63 @@
 package view.quanli.nhanvien;
 
+import controller.LoadBoPhan;
+import controller.LoadTable;
 import controller.SuaNhanVien;
 import controller.ThemNhanVien;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import model.NhanVien;
 
 public class pn_SuaNhanVien extends javax.swing.JFrame {
-    NhanVien nv;
-    public pn_SuaNhanVien(NhanVien nv) {
+
+    JTable listNhanVien;
+
+    public pn_SuaNhanVien(NhanVien nv, JTable listNhanVien) {
         initComponents();
-        this.nv = nv;
-        txtIDNhanVien.setText(nv.getHoTen());
+        new LoadBoPhan().load(cbBoPhan);
+        this.listNhanVien = listNhanVien;
+        txtDiaChi.setEditable(false);
+        txtIDNhanVien.setEditable(false);
+        txtIDNhanVien.setText(nv.getIdNhanVien());
+        txtHoTen.setText(nv.getHoTen());
         txtDiaChi.setText(nv.getDiaChi());
         txtSoDienThoai.setText(nv.getSoDienThoai());
         cbGioiTinh.setSelectedItem(nv.getGioiTinh());
         cbTinhTrang.setSelectedItem(get(nv.getTinhTrang()));
     }
+
     public String get(int a) {
         String s = "";
         switch (a) {
-            case 0 : 
+            case 0:
                 s = "Nghĩ Việc";
                 break;
-            case 1 : 
+            case 1 :
                 s = "Đang Làm";
                 break;
-            case 2 : 
+            case 2 :
                 s = "Nghĩ Phép";
-                break;
-            case 3 : 
-                s = "Đình Chỉ";
                 break;
         }
         return s;
     }
+
+    public int getStatus(String a) {
+        int s = -1;
+        switch (a) {
+            case "Nghĩ Việc":
+                s = 0;
+                break;
+            case "Đang Làm":
+                s = 1;
+                break;
+            case "Nghĩ Phép":
+                s = 2;
+                break;
+        }
+        return s;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,11 +86,12 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(600, 700));
         setUndecorated(true);
 
+        jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 700));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 700));
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(java.awt.Color.orange);
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -116,7 +142,6 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtDiaChi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDiaChi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtDiaChi.setEnabled(false);
         jPanel1.add(txtDiaChi);
         txtDiaChi.setBounds(220, 490, 330, 40);
 
@@ -158,7 +183,6 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
         txtIDNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtIDNhanVien.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtIDNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtIDNhanVien.setEnabled(false);
         jPanel1.add(txtIDNhanVien);
         txtIDNhanVien.setBounds(220, 190, 330, 40);
 
@@ -199,18 +223,16 @@ public class pn_SuaNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVeTrangChuActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        new SuaNhanVien().Sua(txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(), 
-                txtSoDienThoai.getText(), txtDiaChi.getText(), txtIDNhanVien.getText());
+        if (new SuaNhanVien().Sua(txtHoTen.getText(), cbGioiTinh.getSelectedItem().toString(),
+                txtSoDienThoai.getText(), txtDiaChi.getText(), txtIDNhanVien.getText()
+                ,getStatus(cbTinhTrang.getSelectedItem().toString())) == true) {
+            new LoadTable().NhanVien("", listNhanVien);
+            JOptionPane.showMessageDialog(this, "Cập Nhật Thành Công");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập Nhật Thất Bại");
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
-
-//    public static void main(String args[]) {
-//  
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new pn_SuaNhanVien().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;

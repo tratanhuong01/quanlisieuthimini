@@ -12,7 +12,7 @@ public class DangNhapController {
                     + "NhanVien.HoTen,NhanVien.GioiTinh,NhanVien.SoDienThoai,Nhanvien.DiaChi,BoPhan.TenBoPhan,NhanVien.TinhTrang \n"
                     + "FROM NhanVien INNER JOIN BoPhan ON NhanVien.IDBoPhan = BoPhan.IDBoPhan\n"
                     + "INNER JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien \n"
-                    + "WHERE TaiKhoan = ? AND MatKhau = ? AND BoPhan.TenBoPhan = ? AND NhanVien.IDNhanVien = ? ";
+                    + "WHERE TaiKhoan = ? AND MatKhau = ? AND BoPhan.TenBoPhan = ? AND NhanVien.IDNhanVien = ? AND NhanVien.TinhTrang = '1' ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, tenDangNhap);
             ps.setString(2, matKhau);

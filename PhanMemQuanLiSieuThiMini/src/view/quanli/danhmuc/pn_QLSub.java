@@ -1,9 +1,12 @@
 package view.quanli.danhmuc;
 
+import java.awt.Dimension;
+
 public class pn_QLSub extends javax.swing.JPanel {
 
     public pn_QLSub() {
         initComponents();
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         pn_NhomKhachHang pn1 = new pn_NhomKhachHang();
         pn1.setVisible(true);
         pn_PTThanhToan pn5 = new pn_PTThanhToan();

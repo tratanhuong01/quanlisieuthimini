@@ -15,8 +15,10 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 import javafx.stage.Screen;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
@@ -24,6 +26,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.ConnectDAO;
 import model.DAO;
 import model.DongHoaDon;
@@ -35,33 +40,40 @@ import model.SanPham;
 import view.jf_QuanLi;
 
 public class pn_pnMain extends javax.swing.JPanel {
-
+    int count = 0;
     KhachHang kh;
     NhanVien nv;
     List<DongHoaDon> listDongHoaDon = new ArrayList<>();
     JPanel pnMains;
+
     public pn_pnMain(NhanVien nv) {
         initComponents();
         this.nv = nv;
+        txtTenKhachHang.setEditable(false);
+        txtSoDiemTich.setEditable(false);
         JLabel lb = new JLabel();
         lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sieu-thi-mini.jpg")));
         pnMain.removeAll();
         pnMain.setLayout(new GridLayout());
         pnMain.add(lb);
     }
-    
+
     public pn_pnMain(KhachHang kh, NhanVien nv) {
         initComponents();
         this.kh = kh;
         this.nv = nv;
+        txtTenKhachHang.setEditable(false);
+        txtSoDiemTich.setEditable(false);
         loadNhomSanPham();
         loadPTThanhToan();
         cssJScrollPanel();
         loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
     }
-    
-    public pn_pnMain(KhachHang kh, NhanVien nv,JPanel pnMains) {
+
+    public pn_pnMain(KhachHang kh, NhanVien nv, JPanel pnMains) {
         initComponents();
+        txtTenKhachHang.setEditable(false);
+        txtSoDiemTich.setEditable(false);
         this.kh = kh;
         this.nv = nv;
         this.pnMains = pnMains;
@@ -72,32 +84,35 @@ public class pn_pnMain extends javax.swing.JPanel {
         int diem = check(kh.getIdKhachHang());
         if (diem == 0) {
             txtSoDiemTich.setText(String.valueOf(0));
-        }
-        else {
+        } else {
             txtSoDiemTich.setText(String.valueOf(check(kh.getIdKhachHang())));
         }
+        format();
     }
+
     public int check(String idKhachHang) {
         int diem = 0;
-        try (Connection conn = new ConnectDAO().getConnection()){
+        try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT SoDiem FROM TichDiem WHERE IDKhachHang = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idKhachHang);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) 
+            if (rs.next()) {
                 diem = rs.getInt(1);
-            else 
+            } else {
                 diem = 0;
+            }
             return diem;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return diem;
     }
+
     public void loadSanPhamByNhomSanPham(List<SanPham> list) {
         for (int i = 0; i < list.size(); i++) {
             pn_SanPhamChon pn = new pn_SanPhamChon(list.get(i), listDongHoaDon, pnSanPhamDaChon,
-                     kh, nv, jScrollPane1, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
+                    kh, nv, jScrollPane1, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
             int numComponent = pnChonSanPham.getComponentCount();
             pnChonSanPham.setPreferredSize(new Dimension(6 * 210, numComponent * 253));
             jScrollPane1.getViewport().revalidate();
@@ -111,7 +126,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         for (int i = 0; i < list.size(); i++) {
             int numComponent = pnChonSanPham.getComponentCount();
             pn_SanPhamChon pn = new pn_SanPhamChon(list.get(i), listDongHoaDon, pnSanPhamDaChon, kh,
-                     nv, jScrollPane1, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
+                    nv, jScrollPane1, txtTongTien, btnTaoHoaDon, txtTienKhuyenMai);
             pnChonSanPham.setPreferredSize(new Dimension(6 * 210, numComponent * 253));
             jScrollPane1.getViewport().revalidate();
             pnChonSanPham.add(pn);
@@ -178,7 +193,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         txtTenKhachHang = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         txtSoDiemTich = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        btnDungDiem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -236,7 +251,6 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         txtTenKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtTenKhachHang.setEnabled(false);
         jPanel11.add(txtTenKhachHang);
 
         jPanel10.add(jPanel11);
@@ -244,11 +258,24 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel12.setLayout(new java.awt.GridLayout(1, 3));
 
         txtSoDiemTich.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        txtSoDiemTich.setEnabled(false);
         jPanel12.add(txtSoDiemTich);
-        jPanel12.add(jLabel5);
 
+        btnDungDiem.setBackground(java.awt.Color.white);
+        btnDungDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnDungDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/tich_diem_doi_qua.png"))); // NOI18N
+        btnDungDiem.setText("Điểm");
+        btnDungDiem.setEnabled(false);
+        btnDungDiem.setPreferredSize(new java.awt.Dimension(150, 31));
+        btnDungDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDungDiemActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btnDungDiem);
+
+        btnSua.setBackground(java.awt.Color.white);
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -484,38 +511,84 @@ public class pn_pnMain extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTongTienActionPerformed
 
     private void btnTaoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonActionPerformed
-
-        float tongTien = 0;
-        float tienKhuyenMai = 0;
-        for (int i = 0; i < listDongHoaDon.size(); i++) {
-            tongTien += (listDongHoaDon.get(i).getDonGia() * listDongHoaDon.get(i).getSoLuong());
-            tienKhuyenMai += (listDongHoaDon.get(i).getDonGia() * (listDongHoaDon.get(i).getGiam() / 100)) * listDongHoaDon.get(i).getSoLuong();
+        count++;
+        if (count > 1) {
+            TaoHoaDon();
         }
-        if (Float.parseFloat(txtTienKhachTra.getText()) < (tongTien - tienKhuyenMai)) {
-
-        } else {
-            int result = JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Chắn Là Muốn Tạo Hóa Đơn Không?");
-            if (result == JOptionPane.YES_OPTION) {
-                if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
-                    jf_pnATM pnAtm = new jf_pnATM(ptThanhToan.getSelectedItem().toString(), listDongHoaDon, kh, nv
-                    ,Float.parseFloat(txtTienKhachTra.getText()),tienKhuyenMai,pnMains);
-                    pnAtm.setVisible(true);
-
-                } else {
-                    InfoAtm info = null;
-                    new jf_TaoHoaDon(listDongHoaDon, kh, nv, info, ptThanhToan.getSelectedItem().toString()
-                            ,tienKhuyenMai, Float.parseFloat(txtTienKhachTra.getText()),pnMains).setVisible(true);
-                }
+        else {
+            int i = JOptionPane.showConfirmDialog(this, "Có Sử Dụng Điểm ? ");
+            if (i == JOptionPane.YES_OPTION) {
+                btnDungDiem.setEnabled(true);
             }
         }
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
+    public void TaoHoaDon() {
+        if (Float.parseFloat(txtTienKhachTra.getText().replace(",", "")) < (Integer.parseInt(txtTongTien.getText().replace(",", "").replace(" VNĐ", "")))) {
 
+        } else {
+
+            int result = JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Chắn Là Muốn Tạo Hóa Đơn Không?");
+            if (result == JOptionPane.YES_OPTION) {
+                if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
+                    new jf_pnATM(ptThanhToan.getSelectedItem().toString(), listDongHoaDon, kh, nv,
+                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), pnMains,
+                            Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
+                } else {
+                    InfoAtm info = null;
+                    new jf_TaoHoaDon(listDongHoaDon, kh, nv, info, ptThanhToan.getSelectedItem().toString(),
+                            Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "").replace(" VNĐ", "")),
+                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "").replace(" VNĐ", "")), pnMains,
+                            Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
+                }
+            }
+        }
+    }
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         new jf_SuaKhachHang(kh).setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnDungDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDungDiemActionPerformed
+        if (Integer.parseInt(txtSoDiemTich.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Số Điêm Không Đủ Để Quy Đổi");
+        } else {
+            new jf_DungDiem(txtSoDiemTich, txtTienKhuyenMai, txtTongTien).setVisible(true);
+        }
+    }//GEN-LAST:event_btnDungDiemActionPerformed
+    public void format() {
+        DecimalFormat deFormat1 = new DecimalFormat("###,###,###");
+        txtTienKhachTra.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (txtTienKhachTra.getText().length() <= 0) {
+
+                        } else {
+                            long money = Long.parseLong(txtTienKhachTra.getText().replace(",", ""));
+                            txtTienKhachTra.setText(deFormat1.format(money));
+                        }
+                    }
+
+                };
+                SwingUtilities.invokeLater(runnable);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDungDiem;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoHoaDon;
     private javax.swing.JComboBox<String> cbNhomSanPham;
@@ -527,7 +600,6 @@ public class pn_pnMain extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -550,7 +622,7 @@ public class pn_pnMain extends javax.swing.JPanel {
     private javax.swing.JPanel pnSanPhamDaChon;
     private javax.swing.JComboBox<String> ptThanhToan;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtSoDiemTich;
+    public static javax.swing.JTextField txtSoDiemTich;
     public static javax.swing.JTextField txtTenKhachHang;
     private javax.swing.JTextField txtTienKhachTra;
     private javax.swing.JTextField txtTienKhuyenMai;

@@ -13,23 +13,42 @@ import model.ConnectDAO;
 import model.SanPham;
 
 public class TimKiemSanPham {
+    public String getAllNhomSanPham(String tenNhom) {
+        String s = null;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT IDNhomSanPham FROM NhomSanPham WHERE TenNhom = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, tenNhom);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) 
+                s = rs.getString(1);
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
     public List<SanPham> getSanPhamByNhomSanPham(String tenSanPham) {
         List<SanPham> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT SanPham.IDSanPham,SanPham.IDNhomSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
                     + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
-                    + "BangGia.Giam,KhuVuc.TenKhuVuc FROM SanPham \n"
+                    + "BangGia.Giam,BangGia.GiaVonSP,SanPham.IDKhachHang,KhachHang.HoTen , \n"
+                    + "SanPham.TinhTrang , SanPham.SKU,Kho.NgayNhap,Kho.NgayXuat FROM SanPham "
                     + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
+                    + "INNER JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
+                    + "FULL JOIN Kho ON SanPham.SKU = Kho.SKU\n"
                     + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia \n"
-                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc WHERE SanPham.TenSanPham LIKE N'%" + tenSanPham + "%' "
-                    + "OR SanPham.IDSanPham LIKE N'%" + tenSanPham +"%' ";
+                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc ";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPham sp = new SanPham(
-                        rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
-                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getFloat(9), rs.getFloat(10), rs.getString(11));
+                    rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+                    rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
+                    rs.getFloat(9), rs.getFloat(10), rs.getFloat(11),rs.getString(12),
+                    rs.getString(13),rs.getInt(14),rs.getString(15),rs.getString(16),
+                    rs.getString(17));
                 list.add(sp);
             }
             return list;

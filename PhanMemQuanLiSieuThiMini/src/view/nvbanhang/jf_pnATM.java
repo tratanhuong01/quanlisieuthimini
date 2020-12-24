@@ -19,8 +19,9 @@ public class jf_pnATM extends javax.swing.JFrame {
     float tienKhuyenMai;
     float tienKhachTra;
     JPanel pnMain;
+    float tongTienFull;
     public jf_pnATM(String tenPTThanhToan,List<DongHoaDon> list,KhachHang kh,NhanVien nv,
-            float tienKhuyenMai,float tienKhachTra,JPanel pnMain) {
+            float tienKhuyenMai,float tienKhachTra,JPanel pnMain,float tongTienFull) {
         initComponents();
         this.tenPTThanhToan = tenPTThanhToan;
         this.list = list;
@@ -29,6 +30,7 @@ public class jf_pnATM extends javax.swing.JFrame {
         this.tienKhachTra = tienKhachTra;
         this.tienKhuyenMai = tienKhuyenMai;
         this.pnMain = pnMain;
+        this.tongTienFull = tongTienFull;
     }
 
     @SuppressWarnings("unchecked")
@@ -229,7 +231,7 @@ public class jf_pnATM extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         InfoAtm info = new InfoAtm("", new LuuAtm().getIDByTen(tenPTThanhToan), cbLoaiThe.getSelectedItem().toString(),
                  txtSoTaiKhoan.getText(), txtTenTaiKhoan.getText(), txtChiNhanh.getText(), txtTenNganHang.getText());
-        jf_TaoHoaDon tdh = new jf_TaoHoaDon(list,kh,nv,info,tenPTThanhToan,tienKhachTra,tienKhuyenMai,pnMain);
+        jf_TaoHoaDon tdh = new jf_TaoHoaDon(list,kh,nv,info,tenPTThanhToan,tienKhachTra,tienKhuyenMai,pnMain,tongTienFull);
         this.dispose();
         tdh.setVisible(true);
 //        

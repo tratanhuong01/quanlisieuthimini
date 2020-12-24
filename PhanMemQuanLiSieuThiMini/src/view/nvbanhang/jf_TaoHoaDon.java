@@ -1,8 +1,10 @@
 package view.nvbanhang;
 
 import controller.CapNhatTienHoaDon;
+import controller.DrawBill;
 import controller.LuuAtm;
 import controller.PTHoaDon;
+import controller.SuaDiemTieuDung;
 import controller.ThemKhachHang;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,9 +15,11 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,8 +42,57 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
     JPanel pnMain;
     float tienKhuyenMai;
     float tienCheck = 0;
+    String idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
+    String time = "";
+    float tongTienFull;
+    public void zl(float tienKhachDua) {
+                DecimalFormat formatter = new DecimalFormat("###,###,###");
+        int[] arr = new DrawBill().drawData(pnHoaDon, list);
+        int a = arr[0];
+        float tongTienFull = Float.parseFloat(String.valueOf(arr[1]));
+        JLabel br = new JLabel("------------------------------------------------"
+                + "---------------------------------------------------------------"
+                + "--------------------------");
+        JLabel br1 = new JLabel("------------------------------------------------"
+                + "---------------------------------------------------------------"
+                + "--------------------------");
+        JLabel tongTienF = new JLabel("Tổng Tiền Phải Thanh Toán :  " + formatter.format(tongTienFull - tienKhuyenMai) + " VNĐ");
+        JLabel tienDaGiam = new JLabel("Tiền Đã Giảm :  :   " + formatter.format(tienKhuyenMai) + " VNĐ");
+        JLabel tongSl = new JLabel("Tiền Khách Trả  :   " + formatter.format(tienKhachDua) + " VNĐ");
+        JLabel tienTl = new JLabel("Tiền Trả Lại :  " + formatter.format((tienKhachDua - (tongTienFull - tienKhuyenMai))) + " VNĐ");
+        JLabel camOn = new JLabel("CenterLeft", SwingConstants.CENTER);
+        camOn.setText("Cảm Ơn Quý Khách - Hẹn Gặp Lại!!");
+        br.setForeground(Color.blue);
+        br1.setForeground(Color.blue);
+        camOn.setForeground(Color.blue);
+        tienDaGiam.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        tienDaGiam.setForeground(java.awt.Color.blue);
+        tongTienF.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        tongTienF.setForeground(java.awt.Color.blue);
+        tongSl.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        tongSl.setForeground(java.awt.Color.blue);
+        tienTl.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        tienTl.setForeground(java.awt.Color.blue);
+        br.setBounds(10, a + 50, 590, 25);
+        tongTienF.setBounds(10, a + 100, 590, 25);
+        tienDaGiam.setBounds(10, a + 150, 590, 25);
+        tongSl.setBounds(10, a + 200, 590, 25);
+        tienTl.setBounds(10, a + 250, 590, 25);
+        br1.setBounds(10, a + 300, 590, 25);
+        camOn.setBounds(10, a + 350, 590, 25);
+        pnHoaDon.add(tienDaGiam);
+        pnHoaDon.add(br);
+        pnHoaDon.add(tongTienF);
+        pnHoaDon.add(tongSl);
+        pnHoaDon.add(tienTl);
+        pnHoaDon.add(br1);
+        pnHoaDon.add(camOn);
+        pnHoaDon.setPreferredSize(new Dimension(550, a + 380));
+        tenPTThanhToan.setText("Phương Thức Thanh Toán : " + tenPTThanhToans);
+        tienCheck = tongTienFull - tienKhuyenMai;
+    }
     public jf_TaoHoaDon(List<DongHoaDon> list, KhachHang kh, NhanVien nv, InfoAtm info, String tenPTThanhToans,
-            float tienKhuyenMai, float tienKhachDua, JPanel pnMain) {
+            float tienKhuyenMai, float tienKhachDua, JPanel pnMain,float tongTienFull) {
         initComponents();
         this.list = list;
         this.kh = kh;
@@ -48,9 +101,13 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         this.pnMain = pnMain;
         this.tenPTThanhToans = tenPTThanhToans;
         this.tienKhuyenMai = tienKhuyenMai;
+        this.tongTienFull = tongTienFull;
+        lbidHoaDon.setText(idHoaDon);
+        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        time = formatTime.format(new Date(System.currentTimeMillis()));
+        datetimeHoaDon.setText(time);
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         int a = 300;
-        float tongTienFull = 0;
         JLabel tenSPTitle = new JLabel();
         JLabel donGiaTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
         JLabel soLuongTitle = new JLabel("CenterLeft", SwingConstants.CENTER);
@@ -76,8 +133,6 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         pnHoaDon.add(soLuongTitle);
         pnHoaDon.add(tongTienTitle);
         for (int i = 0; i < list.size(); i++) {
-            lbidHoaDon.setText(list.get(i).getIdHoaDon());
-            datetimeHoaDon.setText(list.get(i).getNgayTao());
             JLabel tenSP = new JLabel();
             JLabel donGia = new JLabel("CenterLeft", SwingConstants.CENTER);
             JLabel soLuong = new JLabel("CenterLeft", SwingConstants.CENTER);
@@ -107,7 +162,6 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
             pnHoaDon.add(soLuong);
             pnHoaDon.add(tongTien);
             pnHoaDon.setPreferredSize(new Dimension(550, a));
-            tongTienFull += (list.get(i).getDonGia() * list.get(i).getSoLuong());
         }
         JLabel br = new JLabel("------------------------------------------------"
                 + "---------------------------------------------------------------"
@@ -115,10 +169,10 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         JLabel br1 = new JLabel("------------------------------------------------"
                 + "---------------------------------------------------------------"
                 + "--------------------------");
-        JLabel tongTienF = new JLabel("Tổng Tiền Phải Thanh Toán :  " + formatter.format(tongTienFull - tienKhuyenMai) + " VNĐ");
+        JLabel tongTienF = new JLabel("Tổng Tiền Phải Thanh Toán :  " + formatter.format(tongTienFull) + " VNĐ");
         JLabel tienDaGiam = new JLabel("Tiền Đã Giảm :  :   " + formatter.format(tienKhuyenMai) + " VNĐ");
         JLabel tongSl = new JLabel("Tiền Khách Trả  :   " + formatter.format(tienKhachDua) + " VNĐ");
-        JLabel tienTl = new JLabel("Tiền Trả Lại :  " + formatter.format((tienKhachDua - (tongTienFull - tienKhuyenMai))) + " VNĐ");
+        JLabel tienTl = new JLabel("Tiền Trả Lại :  " + formatter.format((tienKhachDua - tongTienFull)) + " VNĐ");
         JLabel camOn = new JLabel("CenterLeft", SwingConstants.CENTER);
         camOn.setText("Cảm Ơn Quý Khách - Hẹn Gặp Lại!!");
         br.setForeground(Color.blue);
@@ -389,11 +443,10 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         return false;
     }
     private void btnTaoHoaDonVaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonVaThanhToanActionPerformed
-        JOptionPane.showMessageDialog(pnHoaDon, "Vui Lòng Nhận Hóa Đơn Tại Máy");
         if (update() == true) {
+            JOptionPane.showMessageDialog(pnHoaDon, "Vui Lòng Nhận Hóa Đơn Tại Máy");
             printHoaDon(pnHoaDon);
-            int diem = (int) (getDiem(kh.getIdKhachHang()) + tienCheck/100000);
-            
+            int diem = (int) (Integer.parseInt(pn_pnMain.txtSoDiemTich.getText()) + tienCheck/100000);
             if (updateDiem(diem, diem >= 100 ? 1 : 0 ,kh.getIdKhachHang()) == true) {
                 this.dispose();
                 pnMain.removeAll();
@@ -403,6 +456,7 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
                 pnMain.add(lb);
                 pnMain.updateUI();
             }
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Thất Bại");
         }
@@ -410,10 +464,10 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
     public boolean update() {
         try {
             int tongTien = 0;
-            String idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
+            
             PTHoaDon pTHoaDon = new PTHoaDon();
-            pTHoaDon.insertHoaDon(idHoaDon, kh.getIdKhachHang(), nv.getIdNhanVien(),
-                    1, "");
+            pTHoaDon.insertHoaDon(idHoaDon,time, kh.getIdKhachHang(), nv.getIdNhanVien(),
+                    1, 0,0);
             if (info != null) {
                 String idThongTin = StringUtil.taoID("IDThongTin", "ThongTinThanhToan", "TTTT");
                 LuuAtm luuatm = new LuuAtm();
@@ -427,21 +481,14 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
                 tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
             }
             new CapNhatTienHoaDon().CapNhat(tongTien - tienKhuyenMai, idHoaDon);
+//            new ThemKhachHang().
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-//    public static void main(String args[]) {
-//
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new jf_TaoHoaDon().setVisible(true);
-//            }
-//        });
-//    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTaoHoaDonVaThanhToan;
     private javax.swing.JLabel datetimeHoaDon;

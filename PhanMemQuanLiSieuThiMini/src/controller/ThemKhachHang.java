@@ -3,6 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.ConnectDAO;
 import model.KhachHang;
@@ -29,7 +31,8 @@ public class ThemKhachHang {
             ps.setFloat(8, traDK);
             ps.setFloat(9, thuDK);
             ps.executeUpdate();
-            themTichDiem(id, 0, 0);
+            int[] arr = new SuaDiemTieuDung().getDiemHienTai();
+            themTichDiem(id, 0, 0,arr[0],(float)arr[1]);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,14 +40,16 @@ public class ThemKhachHang {
         return false;
     }
 
-    public boolean themTichDiem(String idKhachHang, int SoDiem, int isVip) {
+    public boolean themTichDiem(String idKhachHang, int SoDiem, int isVip,int quyDoiDiem,float tienQuyDoi) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO TichDiem(IDKhachHang,SoDiem,IsVip)VALUES "
-                    + "(?,?,?)";
+            String query = "INSERT INTO TichDiem(IDKhachHang,SoDiem,IsVip,QuyDoiDiem,TienQuyDoi)VALUES "
+                    + "(?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idKhachHang);
             ps.setInt(2, SoDiem);
             ps.setInt(3, isVip);
+            ps.setInt(4, quyDoiDiem);
+            ps.setFloat(5, tienQuyDoi);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -83,13 +88,13 @@ public class ThemKhachHang {
                     + " KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
                     + " KhachHang.TraDK,KhachHang.ThuDK"
                     + " FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
-                    + " WHERE KhachHang.IDKhachHang = ? AND NhomKhachHang.IDNhomKH = 'NKH00003' ";
+                    + " WHERE KhachHang.IDKhachHang = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                kh = new KhachHang(rs.getString(1), rs.getString(2), "",
-                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3),
+                        "", rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getFloat(8), rs.getFloat(9), 0);
             }
             return kh;
@@ -97,5 +102,27 @@ public class ThemKhachHang {
             e.printStackTrace();
         }
         return kh;
+    }
+    public List<KhachHang> getAllNhaCungCap() {
+        List<KhachHang> list = new ArrayList<>();
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,\n"
+                + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
+                + "KhachHang.TraDK,KhachHang.ThuDK\n"
+                + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
+                + "WHERE NhomKhachHang.IDNhomKH = 'NKH10003' ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3),
+                        "", rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getFloat(8), rs.getFloat(9), 0);
+                list.add(kh);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

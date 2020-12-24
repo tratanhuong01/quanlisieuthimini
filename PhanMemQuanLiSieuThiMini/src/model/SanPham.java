@@ -1,6 +1,7 @@
 package model;
 
 public class SanPham {
+
     private String idSanPham;
     private String idNhomSanPham;
     private String tenSanPham;
@@ -11,11 +12,15 @@ public class SanPham {
     private String tenNhom;
     private float donGia;
     private float giam;
-    private String tenKhuVuc;
+    private float giaVonSP;
+    private String idNhaCungCap;
+    private String tenNhaCungCap;
+    private int tinhTrang;
+    private String SKU;
+    private String ngayNhap;
+    private String ngayXuat;
 
-    public SanPham(String idSanPham, String idNhomSanPham, String tenSanPham, 
-            String idDonViTinh, String ngaySanXuat, String hanSuDung, String urlSanPham,
-            String tenNhom, float donGia, float giam, String tenKhuVuc) {
+    public SanPham(String idSanPham, String idNhomSanPham, String tenSanPham, String idDonViTinh, String ngaySanXuat, String hanSuDung, String urlSanPham, String tenNhom, float donGia, float giam, float giaVonSP, String idNhaCungCap, String tenNhaCungCap, int tinhTrang, String SKU, String ngayNhap, String ngayXuat) {
         this.idSanPham = idSanPham;
         this.idNhomSanPham = idNhomSanPham;
         this.tenSanPham = tenSanPham;
@@ -26,7 +31,13 @@ public class SanPham {
         this.tenNhom = tenNhom;
         this.donGia = donGia;
         this.giam = giam;
-        this.tenKhuVuc = tenKhuVuc;
+        this.giaVonSP = giaVonSP;
+        this.idNhaCungCap = idNhaCungCap;
+        this.tenNhaCungCap = tenNhaCungCap;
+        this.tinhTrang = tinhTrang;
+        this.SKU = SKU;
+        this.ngayNhap = ngayNhap;
+        this.ngayXuat = ngayXuat;
     }
 
     public String getIdSanPham() {
@@ -109,12 +120,60 @@ public class SanPham {
         this.giam = giam;
     }
 
-    public String getTenKhuVuc() {
-        return tenKhuVuc;
+    public float getGiaVonSP() {
+        return giaVonSP;
     }
 
-    public void setTenKhuVuc(String tenKhuVuc) {
-        this.tenKhuVuc = tenKhuVuc;
+    public void setGiaVonSP(float giaVonSP) {
+        this.giaVonSP = giaVonSP;
+    }
+
+    public String getIdNhaCungCap() {
+        return idNhaCungCap;
+    }
+
+    public void setIdNhaCungCap(String idNhaCungCap) {
+        this.idNhaCungCap = idNhaCungCap;
+    }
+
+    public String getTenNhaCungCap() {
+        return tenNhaCungCap;
+    }
+
+    public void setTenNhaCungCap(String tenNhaCungCap) {
+        this.tenNhaCungCap = tenNhaCungCap;
+    }
+
+    public int getTinhTrang() {
+        return tinhTrang;
+    }
+
+    public void setTinhTrang(int tinhTrang) {
+        this.tinhTrang = tinhTrang;
+    }
+
+    public String getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(String SKU) {
+        this.SKU = SKU;
+    }
+
+    public String getNgayNhap() {
+        return ngayNhap;
+    }
+
+    public void setNgayNhap(String ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
+
+    public String getNgayXuat() {
+        return ngayXuat;
+    }
+
+    public void setNgayXuat(String ngayXuat) {
+        this.ngayXuat = ngayXuat;
     }
     
 }

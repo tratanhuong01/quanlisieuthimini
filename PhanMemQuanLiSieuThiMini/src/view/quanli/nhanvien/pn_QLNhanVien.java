@@ -1,5 +1,6 @@
 package view.quanli.nhanvien;
 
+import controller.LoadTable;
 import controller.ThemNhanVien;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,18 +13,21 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.FormatScroll;
 
 public class pn_QLNhanVien extends javax.swing.JPanel {
     
     String id = "";
+    LoadTable loadTable = new LoadTable();
     
     public pn_QLNhanVien() {
-        initComponents();
-        loadTable("");
-        
+        initComponents();    
+        FormatScroll.format(jScrollPane1);
+        loadTable.NhanVien("", listNhanVien);
     }
     public String switchs(String chon,String value) {
         String text = "";
@@ -46,47 +50,6 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         }
         return text;
     }
-    public void loadTable(String text) {
-        String query = "SELECT NhanVien.IDNhanVien AS 'ID Nhân Viên' , BoPhan.TenBoPhan AS 'Tên Bộ Phận',\n"
-                + "HoTen AS 'Họ Tên' , GioiTinh AS 'Giới Tính', SoDienThoai AS 'Số Điện Thoại',\n"
-                + "DiaChi AS 'Địa Chỉ' ,TaiKhoan.TaiKhoan AS 'Tài Khoản',TaiKhoan.MatKhau \n"
-                + "AS 'Mật Khẩu' FROM NhanVien INNER JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien "
-                + "INNER JOIN BoPhan ON NhanVien.IDBoPhan = BoPhan.IDBoPhan " + text;
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode;
-            listNhanVien.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            listNhanVien.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            listNhanVien.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listNhanVien.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                tableMode.addRow(vData);
-            }
-            listNhanVien.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,7 +65,6 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
         btnTaoTaiKhoan = new javax.swing.JButton();
         btnCaLam = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
@@ -113,13 +75,16 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel6.setBackground(java.awt.Color.white);
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(350, 100));
 
+        jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setPreferredSize(new java.awt.Dimension(335, 598));
         jPanel1.setLayout(null);
 
+        jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -136,6 +101,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 261, 350, 340);
 
+        jPanel7.setBackground(java.awt.Color.white);
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
 
         txtInput.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -192,8 +158,10 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
 
         jPanel6.add(jScrollPane1, java.awt.BorderLayout.LINE_START);
 
+        jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(101, 100));
         jPanel3.setLayout(null);
 
@@ -206,13 +174,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnSua);
-        btnSua.setBounds(180, 20, 141, 63);
-
-        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
-        btnXoa.setText("Xóa");
-        jPanel3.add(btnXoa);
-        btnXoa.setBounds(330, 20, 141, 63);
+        btnSua.setBounds(210, 20, 141, 63);
 
         btnTaoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTaoTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
@@ -223,7 +185,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnTaoTaiKhoan);
-        btnTaoTaiKhoan.setBounds(490, 20, 200, 63);
+        btnTaoTaiKhoan.setBounds(400, 20, 220, 63);
 
         btnCaLam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnCaLam.setText("Ca Làm");
@@ -244,12 +206,16 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         btnTinhLuong.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTinhLuong.setText("Tính Lương");
         jPanel3.add(btnTinhLuong);
-        btnTinhLuong.setBounds(710, 20, 141, 63);
+        btnTinhLuong.setBounds(680, 20, 141, 63);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
+        jScrollPane2.setBackground(java.awt.Color.white);
+
+        listNhanVien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         listNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -260,7 +226,16 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listNhanVien.setRowHeight(25);
         listNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listNhanVienMouseClicked(evt);
@@ -282,22 +257,22 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTaoTaiKhoanActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        new pn_ThemNhanVien().setVisible(true);
+        new pn_ThemNhanVien(listNhanVien).setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        new pn_SuaNhanVien(new ThemNhanVien().getNhanVien(id)).setVisible(true);
+        new pn_SuaNhanVien(new ThemNhanVien().getNhanVien(id),listNhanVien).setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        listNhanVien.removeAll();
+        loadTable.NhanVien(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()),listNhanVien);
+    }//GEN-LAST:event_btnTimActionPerformed
 
     private void listNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNhanVienMouseClicked
         int index = listNhanVien.getSelectedRow();
         id = listNhanVien.getModel().getValueAt(index, 0).toString();
     }//GEN-LAST:event_listNhanVienMouseClicked
-
-    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        listNhanVien.removeAll();
-        loadTable(switchs(cbChon.getSelectedItem().toString(), txtInput.getText()));
-    }//GEN-LAST:event_btnTimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -307,7 +282,6 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnTinhLuong;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbChon;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

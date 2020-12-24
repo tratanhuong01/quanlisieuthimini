@@ -8,7 +8,7 @@ public class ThemNhanVien {
     public boolean them(String idNhanVien,String idBoPhan,String hoTen,String gioiTinh,
             String soDienThoai,String diaChi , int tinhTrang) {
         try (Connection conn = new ConnectDAO().getConnection()){
-            String query = "INSERT INTO (IDNhanVien,IDBoPhan,HoTen,GioiTinh,SoDienThoai,DiaChi,TinhTrang)VALUES "
+            String query = "INSERT INTO NhanVien(IDNhanVien,IDBoPhan,HoTen,GioiTinh,SoDienThoai,DiaChi,TinhTrang)VALUES "
                     + "(?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhanVien);
@@ -32,7 +32,7 @@ public class ThemNhanVien {
             String query = "SELECT TaiKhoan.TaiKhoan , TaiKhoan.MatKhau, NhanVien.IDNhanVien,NhanVien.IDBoPhan ,\n"
                     + "NhanVien.HoTen,NhanVien.GioiTinh,NhanVien.SoDienThoai,Nhanvien.DiaChi,BoPhan.TenBoPhan,NhanVien.TinhTrang \n"
                     + "FROM NhanVien INNER JOIN BoPhan ON NhanVien.IDBoPhan = BoPhan.IDBoPhan\n"
-                    + "INNER JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien \n"
+                    + "FULL JOIN TaiKhoan ON NhanVien.IDNhanVien = TaiKhoan.IDNhanVien \n"
                     + "WHERE NhanVien.IDNhanVien = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1,idNhanVien);

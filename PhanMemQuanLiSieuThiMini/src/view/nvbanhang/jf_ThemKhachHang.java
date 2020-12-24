@@ -3,11 +3,13 @@ package view.nvbanhang;
 import controller.PTHoaDon;
 import controller.ThemKhachHang;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.DAO;
 import model.KhachHang;
 import model.NhanVien;
 import model.StringUtil;
@@ -23,21 +25,21 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
     KhachHang kh;
     JPanel pnMain;
 
-    public jf_ThemKhachHang() {
-        initComponents();
-    }
-
     public jf_ThemKhachHang(NhanVien nv, JPanel pnMain) {
         initComponents();
         this.nv = nv;
         this.pnMain = pnMain;
+        txtNhomKhachHang.setEditable(false);
+        txtIDKhachHang.setEditable(false);
+        txtDiaChi.setEditable(false);
         txtIDKhachHang.setText(StringUtil.taoID("IDKhachHang", "KhachHang", "KH"));
+        txtNhomKhachHang.setText("Khách Defa");
         btnLuu.setVisible(false);
         txtDiaChi.setEditable(false);
         btnLuu_DaMua.setVisible(false);
         CheckKhachHang();
     }
-
+    
     public void CheckKhachHang() {
         if (checkKhachHang == true) {
             btnLuu.setVisible(false);
@@ -48,7 +50,14 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
             btnLuu_DaMua.setVisible(false);
         }
     }
-
+    public String switchs(String text) {
+        String s = "";
+        switch (text) {
+            case "Khách Defa":
+                s = "NKH10002";
+        }
+        return s;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,19 +78,20 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         btnVeTrangChu = new javax.swing.JButton();
         cbGioiTinh = new javax.swing.JComboBox<>();
         btnLuu = new javax.swing.JButton();
-        cbNhomKhachHang = new javax.swing.JComboBox<>();
-        txtIDKhachHang = new javax.swing.JTextField();
+        txtNhomKhachHang = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         btnLuu_DaMua = new javax.swing.JButton();
+        txtIDKhachHang = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        bg.setBackground(java.awt.Color.white);
         bg.setMaximumSize(new java.awt.Dimension(600, 700));
         bg.setMinimumSize(new java.awt.Dimension(600, 700));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(java.awt.Color.orange);
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
@@ -89,6 +99,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         jPanel2.add(jLabel2);
         jLabel2.setBounds(60, 20, 260, 50);
 
+        btnDocTheThanhVien.setBackground(java.awt.Color.white);
         btnDocTheThanhVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnDocTheThanhVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-read-online-45.png"))); // NOI18N
         btnDocTheThanhVien.setText("Đọc Thẻ Thành Viên");
@@ -173,14 +184,10 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         });
         bg.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 200, 70));
 
-        cbNhomKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbNhomKhachHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NKH00002", "Item 2", "Item 3", "Item 4" }));
-        bg.add(cbNhomKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 330, 40));
-
-        txtIDKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtIDKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtIDKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        bg.add(txtIDKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 330, 40));
+        txtNhomKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtNhomKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNhomKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bg.add(txtNhomKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 330, 40));
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel42.setText("IDKhachHang");
@@ -195,6 +202,11 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
             }
         });
         bg.add(btnLuu_DaMua, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 200, 70));
+
+        txtIDKhachHang.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtIDKhachHang.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtIDKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bg.add(txtIDKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 330, 40));
 
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 670));
 
@@ -223,11 +235,10 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         ThemKhachHang tkh = new ThemKhachHang();
-        if (tkh.them(txtIDKhachHang.getText(), cbNhomKhachHang.getSelectedItem().toString(), txtHoTen.getText(),
+        if (tkh.them(txtIDKhachHang.getText(),switchs(txtNhomKhachHang.getText()), txtHoTen.getText(),
                 cbGioiTinh.getSelectedItem().toString(), txtSoDienThoai.getText(),
                 txtDiaChi.getText(), "0", 0, 0) == true) {
             KhachHang kh = tkh.getKhachHang(txtIDKhachHang.getText());
-            
             check(pnMain, kh);
             this.dispose();    
         } else {
@@ -237,10 +248,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
 
     private void btnLuu_DaMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu_DaMuaActionPerformed
         this.setVisible(false);
-        PTHoaDon pTHoaDon = new PTHoaDon();
         idHoaDon = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-        pTHoaDon.insertHoaDon(idHoaDon, txtIDKhachHang.getText(), nv.getIdNhanVien(),
-                1, "");
         KhachHang kh = new ThemKhachHang().getKhachHang(txtIDKhachHang.getText());
         check(pnMain, kh);
     }//GEN-LAST:event_btnLuu_DaMuaActionPerformed
@@ -266,15 +274,6 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
         }
     }
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jf_ThemKhachHang().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnDocTheThanhVien;
@@ -282,7 +281,6 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
     private javax.swing.JButton btnLuu_DaMua;
     private javax.swing.JButton btnVeTrangChu;
     private javax.swing.JComboBox<String> cbGioiTinh;
-    private javax.swing.JComboBox<String> cbNhomKhachHang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
@@ -295,6 +293,7 @@ public class jf_ThemKhachHang extends javax.swing.JFrame {
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtIDKhachHang;
+    private javax.swing.JTextField txtNhomKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

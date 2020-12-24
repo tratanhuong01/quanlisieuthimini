@@ -12,6 +12,7 @@ import view.quanli.nhacungcap.pn_QLNhaCungCap;
 import view.quanli.nhanvien.pn_QLNhanVien;
 import view.quanli.sanpham.pn_QLSanPham;
 import view.quanli.danhmuc.pn_QLSub;
+import view.quanli.phieu.pn_PhieuXuat;
 import view.quanli.thongke.pn_QLThongKe;
 
 public class jf_QuanLi extends javax.swing.JFrame {
@@ -148,6 +149,7 @@ public class jf_QuanLi extends javax.swing.JFrame {
         pnEnd.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(pnEnd, java.awt.BorderLayout.PAGE_END);
 
+        pnMain.setBackground(new java.awt.Color(255, 255, 255));
         pnMain.setPreferredSize(new java.awt.Dimension(1366, 600));
         getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
 
@@ -298,11 +300,11 @@ public class jf_QuanLi extends javax.swing.JFrame {
     }//GEN-LAST:event_mnNhieuHonMouseClicked
 
     private void mnPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPhieuNhapActionPerformed
-        load(new pn_PhieuNhap());
+        load(new pn_PhieuNhap(nv));
     }//GEN-LAST:event_mnPhieuNhapActionPerformed
 
     private void mnPhieuXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPhieuXuatActionPerformed
-        load(new pn_PhieuXuat());
+        load(new pn_PhieuXuat(nv));
     }//GEN-LAST:event_mnPhieuXuatActionPerformed
     
     public static void main(String args[]) {

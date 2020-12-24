@@ -17,6 +17,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
 
     public pn_NhomKhachHang() {
         initComponents();
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         loadTable();
     }
     public void loadTable() {
@@ -120,6 +121,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
         jPanel1.setLayout(null);
 
         btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,9 +129,10 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnXoa);
-        btnXoa.setBounds(540, 80, 110, 38);
+        btnXoa.setBounds(510, 70, 130, 50);
 
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,9 +140,10 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnSua);
-        btnSua.setBounds(540, 140, 110, 38);
+        btnSua.setBounds(510, 140, 130, 50);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +151,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnThem);
-        btnThem.setBounds(540, 20, 110, 38);
+        btnThem.setBounds(510, 0, 130, 50);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("ID Nhóm KH");

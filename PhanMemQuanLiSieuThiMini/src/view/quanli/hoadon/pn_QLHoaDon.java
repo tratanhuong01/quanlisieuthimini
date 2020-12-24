@@ -1,59 +1,33 @@
 package view.quanli.hoadon;
 
+import controller.LoadHoaDon;
+import controller.LocHoaDon;
+import controller.TimHoaDon;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
 
 public class pn_QLHoaDon extends javax.swing.JPanel {
-
+    TimHoaDon thd = new TimHoaDon();
+    LocHoaDon lhd = new LocHoaDon();
+    LoadHoaDon load = new LoadHoaDon();
     public pn_QLHoaDon() {
         initComponents();
-        loadTable();
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+        load.load(listHoaDon, load.getAll());
     }
-    public void loadTable() {
-        String query = "SELECT IDHoaDon AS 'ID Hóa Đơn' , NgayTao AS 'Ngày Tạo',IDKhachHang AS 'ID Khách Hàng'\n"
-                        + ",IDNhanVien AS 'ID Nhân Viên',TongTien AS 'Tổng Tiền',TrangThai AS 'Trạng Thái'\n"
-                        + ",IDThongTin AS 'ID Thông Tin' FROM HoaDon";      
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode;
-            listHoaDon.getTableHeader().setPreferredSize(new Dimension(WIDTH, 40));
-            listHoaDon.getTableHeader().setFont(new Font("Time New Roman", 1, 18));
-            listHoaDon.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listHoaDon.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                tableMode.addRow(vData);
-            }
-            listHoaDon.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,12 +38,13 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
+        btnLoc = new javax.swing.JButton();
+        den = new com.toedter.calendar.JDateChooser();
+        tu = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
+        cbChon = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnXoa = new javax.swing.JButton();
@@ -85,9 +60,11 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(350, 100));
 
+        jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setPreferredSize(new java.awt.Dimension(335, 598));
         jPanel1.setLayout(null);
 
+        jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
         jPanel5.setLayout(null);
 
@@ -103,19 +80,29 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         jPanel5.add(jLabel2);
         jLabel2.setBounds(0, 90, 60, 40);
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
-        jButton1.setText("Lọc");
-        jPanel5.add(jButton1);
-        jButton1.setBounds(120, 160, 130, 60);
-        jPanel5.add(jDateChooser3);
-        jDateChooser3.setBounds(80, 100, 250, 30);
-        jPanel5.add(jDateChooser4);
-        jDateChooser4.setBounds(80, 40, 250, 30);
+        btnLoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnLoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnLoc);
+        btnLoc.setBounds(120, 160, 130, 60);
+
+        den.setDateFormatString("yyyy-MM-dd");
+        jPanel5.add(den);
+        den.setBounds(80, 100, 250, 30);
+
+        tu.setDateFormatString("yyyy-MM-dd");
+        jPanel5.add(tu);
+        tu.setBounds(80, 40, 250, 30);
 
         jPanel1.add(jPanel5);
-        jPanel5.setBounds(0, 191, 350, 410);
+        jPanel5.setBounds(0, 241, 350, 360);
 
+        jPanel6.setBackground(java.awt.Color.white);
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
 
         txtInput.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -123,6 +110,14 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
         btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
+
+        cbChon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo Mã Hóa Đơn", "Theo Ngày Tạo", "Theo Tên Nhân Viên", "Theo Tên Khách Hàng", "Theo Mã Khách Hàng", "Theo Mã Nhân Viên" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -133,22 +128,31 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
                 .addComponent(txtInput, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(99, 99, 99)
                 .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(cbChon, 0, 304, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(btnTim))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(75, 75, 75)
+                    .addComponent(cbChon, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(76, Short.MAX_VALUE)))
         );
 
         jPanel1.add(jPanel6);
-        jPanel6.setBounds(2, 10, 340, 180);
+        jPanel6.setBounds(2, 10, 340, 230);
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -156,6 +160,7 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(101, 100));
         jPanel3.setLayout(null);
 
@@ -180,6 +185,8 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
+        listHoaDon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         listHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -190,7 +197,16 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listHoaDon.setRowHeight(25);
         jScrollPane2.setViewportView(listHoaDon);
 
         jPanel4.add(jScrollPane2);
@@ -202,15 +218,24 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
         add(jPanel22, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        load.load(listHoaDon, thd.loc(thd.switchs(cbChon.getSelectedItem().toString(), txtInput.getText())));
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        load.load(listHoaDon, lhd.loc(sdf.format(tu.getDate()), sdf.format(den.getDate())));
+    }//GEN-LAST:event_btnLocActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
-    private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private javax.swing.JComboBox<String> cbChon;
+    private com.toedter.calendar.JDateChooser den;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -223,6 +248,7 @@ public class pn_QLHoaDon extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listHoaDon;
+    private com.toedter.calendar.JDateChooser tu;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 }
