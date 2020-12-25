@@ -5,7 +5,9 @@ import controller.LoadTable;
 import controller.ReadFileExel;
 import controller.ThemAndCapNhatSanPham;
 import controller.ThemKhachHang;
+import controller.TimByList;
 import controller.TimKiemSanPham;
+import controller.loadDanhMuc;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -16,6 +18,8 @@ import javax.swing.JOptionPane;
 import model.ConnectDAO;
 import model.KhachHang;
 import model.NhanVien;
+import model.NhomSanPham;
+import model.SanPham;
 import model.StringUtil;
 
 public class pn_PhieuNhap extends javax.swing.JPanel {
@@ -25,7 +29,11 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     NhanVien nv;
     String idNhaCungCap = "";
     String idKVKho = "";
+    String idNhomSanPham = "";
     List<String[]> listSP = new ArrayList<>();
+    List<NhomSanPham> listnsp;
+    List<SanPham> listSPMain;
+
     public pn_PhieuNhap(NhanVien nv) {
         this.nv = nv;
         initComponents();
@@ -35,7 +43,10 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         btnImport.setEnabled(false);
         btnThemMoi.setEnabled(true);
-        new LoadTable().PhieuNhapLeft("", table3);
+        new loadDanhMuc().loadNhomSanPham1(cbNhomSanPham);
+        listnsp = new loadDanhMuc().loadNhomSanPham2();
+        listSPMain = new Kho().getSanPhamBy("");
+        new LoadTable().PhieuNhapLeft(listSPMain, table3);
     }
 
     public void loadNhaCungCap() {
@@ -92,12 +103,13 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel18 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnThemMoi = new javax.swing.JButton();
+        cbNhomSanPham = new javax.swing.JComboBox<>();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table3 = new javax.swing.JTable();
         right = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listPhieuNhap = new javax.swing.JTable();
+        listSPAdd = new javax.swing.JTable();
 
         setBackground(java.awt.Color.white);
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -311,7 +323,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
             }
         });
         jPanel18.add(txtInput);
-        txtInput.setBounds(12, 0, 307, 40);
+        txtInput.setBounds(0, 0, 240, 40);
 
         btnThemMoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
@@ -322,7 +334,16 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btnThemMoi);
-        btnThemMoi.setBounds(390, 0, 180, 40);
+        btnThemMoi.setBounds(490, 0, 170, 40);
+
+        cbNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbNhomSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNhomSanPhamActionPerformed(evt);
+            }
+        });
+        jPanel18.add(cbNhomSanPham);
+        cbNhomSanPham.setBounds(260, 0, 220, 40);
 
         left.add(jPanel18, java.awt.BorderLayout.PAGE_START);
 
@@ -359,9 +380,9 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         right.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 1));
         right.setLayout(new java.awt.GridLayout(1, 0));
 
-        listPhieuNhap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        listPhieuNhap.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        listPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
+        listSPAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listSPAdd.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        listSPAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -372,9 +393,9 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
 
             }
         ));
-        listPhieuNhap.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        listPhieuNhap.setRowHeight(25);
-        jScrollPane2.setViewportView(listPhieuNhap);
+        listSPAdd.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        listSPAdd.setRowHeight(25);
+        jScrollPane2.setViewportView(listSPAdd);
 
         right.add(jScrollPane2);
 
@@ -386,12 +407,11 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        new ReadFileExel().readNhap(listPhieuNhap);
-        int num = listPhieuNhap.getRowCount();
-        float tongTien = 0;
-        for (int i = 0; i < num; i++) {
-            int sl = Integer.parseInt(listPhieuNhap.getModel().getValueAt(i, 10).toString().replace(",", ""));
-            float giaVonSP = Float.parseFloat(listPhieuNhap.getModel().getValueAt(i, 8).toString().replace(",", "").
+        new ReadFileExel().readNhap(listSPAdd);
+        int tongTien = 0;
+        for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+            float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
                     replace(" VNĐ", ""));
             tongTien += sl * giaVonSP;
         }
@@ -406,29 +426,42 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
         tac.insertPhieuNhap(id, time, idNhaCungCap, nv.getIdNhanVien(),
                 tongTien, 0, null, 1, Float.parseFloat(txtVAT.getText()), txtGhiChu.getText());
-        int num = listPhieuNhap.getRowCount();
-        for (int i = 0; i < num; i++) {
-            String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
-            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-            String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
-            String idDonViTinh = listPhieuNhap.getModel().getValueAt(i, 3).toString();
-            int sl = Integer.parseInt(listPhieuNhap.getModel().getValueAt(i, 10).toString().replace(",", ""));
-            float giam = Float.parseFloat(listPhieuNhap.getModel().getValueAt(i, 7).toString().replace(",", ""));
-            float donGia = Float.parseFloat(listPhieuNhap.getModel().getValueAt(i, 6).toString().replace(" VNĐ", "").replace(",", ""));
-            float giaVonSP = Float.parseFloat(listPhieuNhap.getModel().getValueAt(i, 8).toString().replace(" VNĐ", "").replace(",", ""));
-            String idNhomSP = new TimKiemSanPham().getAllNhomSanPham(listPhieuNhap.getModel().getValueAt(i, 1).toString());
-            String tenSP = listPhieuNhap.getModel().getValueAt(i, 2).toString();
-            String ngaySanXuat = listPhieuNhap.getModel().getValueAt(i, 4).toString();
-            String hanSuDung = listPhieuNhap.getModel().getValueAt(i, 5).toString();
-            tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
-            tac.them(idSanPham, idNhomSP, tenSP, idDonViTinh, ngaySanXuat, hanSuDung,
-                    "BANKEO1.png", idBangGia, idNhaCungCap, 0);
-            tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, giam, (float) 0,0);
+        int num = listSPAdd.getRowCount();
+        if (cbKieu.getSelectedIndex() == 0) {
+            for (int i = 0; i < num; i++) {
+                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+                String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
+                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+                tac.insertDongHoaDon(iddhd, id, listSPAdd.getModel().getValueAt(i, 0).toString(), idDonViTinh, sl, 0, 0, 0);
+            }
+            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+            tac.updateIDPhieu(idPhieu, id);
+            JOptionPane.showMessageDialog(this, "Thành Công");
+        } else {
+            for (int i = 0; i < num; i++) {
+                String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
+                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+                String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
+                String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
+                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+                float giam = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 7).toString().replace(",", ""));
+                float donGia = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 6).toString().replace(" VNĐ", "").replace(",", ""));
+                float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(" VNĐ", "").replace(",", ""));
+                String idNhomSP = new TimKiemSanPham().getAllNhomSanPham(listSPAdd.getModel().getValueAt(i, 1).toString());
+                String tenSP = listSPAdd.getModel().getValueAt(i, 2).toString();
+                String ngaySanXuat = listSPAdd.getModel().getValueAt(i, 4).toString();
+                String hanSuDung = listSPAdd.getModel().getValueAt(i, 5).toString();
+                tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
+                tac.them(idSanPham, idNhomSP, tenSP, idDonViTinh, ngaySanXuat, hanSuDung,
+                        "BANKEO1.png", idBangGia, idNhaCungCap, 0);
+                tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, giam, (float) 0, 0);
+            }
+            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+            tac.updateIDPhieu(idPhieu, id);
+            JOptionPane.showMessageDialog(this, "Thành Công");
         }
-        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-        tac.updateIDPhieu(idPhieu, id);
-        JOptionPane.showMessageDialog(this, "Thành Công");
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void cbNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhaCungCapActionPerformed
@@ -444,11 +477,14 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
             btnImport.setEnabled(false);
             btnThemMoi.setEnabled(true);
             txtInput.setEnabled(true);
-            listPhieuNhap.removeAll();
+            listSPAdd.removeAll();
+            listSPAdd.updateUI();
         } else {
             btnImport.setEnabled(true);
             btnThemMoi.setEnabled(false);
             txtInput.setEnabled(false);
+            listSPAdd.removeAll();
+            listSPAdd.updateUI();
         }
     }//GEN-LAST:event_cbKieuActionPerformed
 
@@ -457,25 +493,60 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void txtInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInputKeyPressed
-        new LoadTable().PhieuNhapLeft(txtInput.getText(), table3);
+        new LoadTable().PhieuNhapLeft(new TimByList().timByWord(txtInput.getText(), listSPMain), table3);
     }//GEN-LAST:event_txtInputKeyPressed
 
     private void table3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table3MouseClicked
         String[] s = new String[11];
+        String idss = "";
         String op = JOptionPane.showInputDialog("Nhập Số Lượng");
-        int index = table3.getSelectedRow();
-        for (int i = 0; i < 10; i++) {
-            s[i] = table3.getModel().getValueAt(index, i).toString();
+        if (!op.equals("")) {
+            int index = table3.getSelectedRow();
+            idss = table3.getModel().getValueAt(index, 0).toString();
+            for (int i = 0; i < table3.getColumnCount(); i++) {
+                s[i] = table3.getModel().getValueAt(index, i).toString();
+            }
+            for (int i = 0; i < listSPMain.size(); i++) {
+                if (listSPMain.get(i).getIdSanPham().equals(idss)) {
+                    listSPMain.remove(i);
+                }
+            }
+            new LoadTable().PhieuNhapLeft(listSPMain, table3);
+            listSP.add(s);
+            s[10] = op;
+            new LoadTable().PhieuNhapRight(listSP, listSPAdd);
+            int tongTien = 0;
+            for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+                float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
+                        replace(" VNĐ", ""));
+                tongTien += sl * giaVonSP;
+            }
+            txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
+
+        } else {
+
         }
-        s[10] = op;
-        listSP.add(s);
-        new LoadTable().PhieuNhapRight(listSP, listPhieuNhap);
     }//GEN-LAST:event_table3MouseClicked
 
     private void cbKhoNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKhoNhanActionPerformed
         int index = cbKhoNhan.getSelectedIndex();
         idKVKho = listKho.get(index)[0];
     }//GEN-LAST:event_cbKhoNhanActionPerformed
+
+    private void cbNhomSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhomSanPhamActionPerformed
+        if (cbNhomSanPham.isValid()) {
+            int index = cbNhomSanPham.getSelectedIndex();
+            if (index == 0) {
+                idNhomSanPham = "";
+                new LoadTable().PhieuNhapLeft(listSPMain, table3);
+            } else {
+                idNhomSanPham = listnsp.get(index - 1).getIdNhomSanPham();
+                new LoadTable().PhieuNhapLeft(new TimByList().locByNhom(
+                        cbNhomSanPham.getSelectedItem().toString(), listSPMain), table3);
+            }
+        }
+    }//GEN-LAST:event_cbNhomSanPhamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -485,6 +556,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbKhoNhan;
     private javax.swing.JComboBox<String> cbKieu;
     private javax.swing.JComboBox<String> cbNhaCungCap;
+    private javax.swing.JComboBox<String> cbNhomSanPham;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -515,7 +587,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JPanel left;
-    private javax.swing.JTable listPhieuNhap;
+    private javax.swing.JTable listSPAdd;
     private javax.swing.JComboBox<String> ptThanhToan;
     private javax.swing.JPanel right;
     private javax.swing.JTable table3;

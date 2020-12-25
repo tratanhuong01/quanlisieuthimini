@@ -1,9 +1,12 @@
 package view.kho;
 
-public class pn_XuatHangTK extends javax.swing.JPanel {
+import controller.LoadTable_Kho;
 
+public class pn_XuatHangTK extends javax.swing.JPanel {
+    String idHoaDon = "";
     public pn_XuatHangTK() {
         initComponents();
+        new LoadTable_Kho().loadXuat("WHERE HoaDon.LoaiHoaDon = 2 ", listHoaDon);
     }
 
     @SuppressWarnings("unchecked")
@@ -13,11 +16,11 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbTinhTrang = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnLoc = new javax.swing.JButton();
+        btnTim = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listHoaDon = new javax.swing.JTable();
@@ -38,10 +41,10 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(12, 25, 135, 40);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoàn Thành", "Chưa Hoàn Thành ", "Đang Xử Lí" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(150, 20, 240, 50);
+        cbTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoàn Thành", "Chưa Hoàn Thành ", "Đang Xử Lí" }));
+        jPanel1.add(cbTinhTrang);
+        cbTinhTrang.setBounds(150, 20, 240, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Tìm Kiếm");
@@ -52,17 +55,22 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jPanel1.add(jTextField1);
         jTextField1.setBounds(680, 20, 293, 50);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
-        jButton3.setText("Lọc");
-        jPanel1.add(jButton3);
-        jButton3.setBounds(402, 19, 130, 51);
+        btnLoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnLoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLoc);
+        btnLoc.setBounds(402, 19, 130, 51);
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search1.png"))); // NOI18N
-        jButton2.setText("Tìm");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(980, 20, 120, 51);
+        btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search1.png"))); // NOI18N
+        btnTim.setText("Tìm");
+        jPanel1.add(btnTim);
+        btnTim.setBounds(980, 20, 120, 51);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -91,6 +99,11 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
             }
         });
         listHoaDon.setRowHeight(25);
+        listHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listHoaDon);
 
         jPanel2.add(jScrollPane2);
@@ -98,12 +111,27 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void listHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHoaDonMouseClicked
+        int index = listHoaDon.getSelectedRow();
+        new jf_XuLiPhieuXuat(listHoaDon.getModel().getValueAt(index, 0).toString()).setVisible(true);
+    }//GEN-LAST:event_listHoaDonMouseClicked
+
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        int index = cbTinhTrang.getSelectedIndex();
+        if (index == 0) 
+            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 1 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+        else if (index == 1)
+            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 0 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+        else 
+            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+    }//GEN-LAST:event_btnLocActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLoc;
+    private javax.swing.JButton btnTim;
+    private javax.swing.JComboBox<String> cbTinhTrang;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

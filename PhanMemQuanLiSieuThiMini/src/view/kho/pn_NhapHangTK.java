@@ -119,15 +119,12 @@ public class pn_NhapHangTK extends javax.swing.JPanel {
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         int index = cbTinhTrang.getSelectedIndex();
-        if (index == 0) {
+        if (index == 0) 
             new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 1 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
-        }
-        else if (index == 1){
-            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 0 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
-        }
-        else {
-            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
-        }
+        else if (index == 1)
+            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 0 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);   
+        else 
+            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon); 
     }//GEN-LAST:event_btnLocActionPerformed
 
 

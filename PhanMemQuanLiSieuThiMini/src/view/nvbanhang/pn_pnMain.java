@@ -3,6 +3,7 @@ package view.nvbanhang;
 import controller.CapNhatTienHoaDon;
 import controller.PTHoaDon;
 import controller.TimKiemSanPham;
+import controller.loadDanhMuc;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -37,6 +38,7 @@ import model.KhachHang;
 import model.NhanVien;
 import model.NhomSanPham;
 import model.SanPham;
+import model.StringUtil;
 import view.jf_QuanLi;
 
 public class pn_pnMain extends javax.swing.JPanel {
@@ -64,8 +66,8 @@ public class pn_pnMain extends javax.swing.JPanel {
         this.nv = nv;
         txtTenKhachHang.setEditable(false);
         txtSoDiemTich.setEditable(false);
-        loadNhomSanPham();
-        loadPTThanhToan();
+        new loadDanhMuc().loadNhomSanPham(cbNhomSanPham);
+        new loadDanhMuc().loadPTThanhToan(ptThanhToan);
         cssJScrollPanel();
         loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
     }
@@ -77,8 +79,8 @@ public class pn_pnMain extends javax.swing.JPanel {
         this.kh = kh;
         this.nv = nv;
         this.pnMains = pnMains;
-        loadNhomSanPham();
-        loadPTThanhToan();
+        new loadDanhMuc().loadNhomSanPham(cbNhomSanPham);
+        new loadDanhMuc().loadPTThanhToan(ptThanhToan);
         cssJScrollPanel();
         loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
         int diem = check(kh.getIdKhachHang());
@@ -87,7 +89,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         } else {
             txtSoDiemTich.setText(String.valueOf(check(kh.getIdKhachHang())));
         }
-        format();
+        StringUtil.format(txtTienKhachTra);
     }
 
     public int check(String idKhachHang) {
@@ -139,27 +141,6 @@ public class pn_pnMain extends javax.swing.JPanel {
         jScrollPane1.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
         jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-    }
-
-    public void loadNhomSanPham() {
-        List<NhomSanPham> list = new DAO().getNhomSanPham();
-        for (int i = 0; i < list.size(); i++) {
-            cbNhomSanPham.addItem(list.get(i).getTenNhomSanPham());
-        }
-    }
-
-    public void loadPTThanhToan() {
-        ptThanhToan.removeAllItems();
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT TenPTThanhToan FROM PhuongThucThanhToan";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ptThanhToan.addItem(rs.getString(1));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public String getIDPTThanhToan(String tenPTThanhToan) {
@@ -502,7 +483,9 @@ public class pn_pnMain extends javax.swing.JPanel {
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         pnChonSanPham.removeAll();
         pnChonSanPham.repaint();
-        List<SanPham> list = new TimKiemSanPham().getSanPhamByNhomSanPham(txtSearch.getText());
+        String query = "WHERE SanPham.IDSanPham LIKE N'%" + txtSearch.getText() + "%' "
+                + " OR SanPham.TenSanPham LIKE N'%" + txtSearch.getText() + "%' " ;
+        List<SanPham> list = new TimKiemSanPham().getSanPhamByNhomSanPham(query);
         loadSanPhamByNhomSanPham(list);
     }//GEN-LAST:event_txtSearchKeyPressed
 
@@ -554,38 +537,7 @@ public class pn_pnMain extends javax.swing.JPanel {
             new jf_DungDiem(txtSoDiemTich, txtTienKhuyenMai, txtTongTien).setVisible(true);
         }
     }//GEN-LAST:event_btnDungDiemActionPerformed
-    public void format() {
-        DecimalFormat deFormat1 = new DecimalFormat("###,###,###");
-        txtTienKhachTra.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
 
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-
-            }
-
-            public void insertUpdate(DocumentEvent e) {
-                warn();
-            }
-
-            public void warn() {
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        if (txtTienKhachTra.getText().length() <= 0) {
-
-                        } else {
-                            long money = Long.parseLong(txtTienKhachTra.getText().replace(",", ""));
-                            txtTienKhachTra.setText(deFormat1.format(money));
-                        }
-                    }
-
-                };
-                SwingUtilities.invokeLater(runnable);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDungDiem;

@@ -2,8 +2,12 @@ package view.kho;
 
 import controller.LoadTable_Kho;
 import controller.XuLiPhieu;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import model.ConnectDAO;
 import model.NhanVien;
 
 public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
@@ -18,7 +22,22 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
         new LoadTable_Kho().NhapHangTK(query, table);
         cbNgayNhap.setDate(new Date(System.currentTimeMillis()));
     }
-
+    public int checkEnd(String idHoaDon) {
+        int kq = 0;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "SELECT COUNT(*) FROM DongHoaDon WHERE IDHoaDon = ? AND TinhTrang = 0 ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, idHoaDon);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                kq = rs.getInt(1);
+            }
+            return kq;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return kq;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -186,6 +205,9 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
                 null, Integer.parseInt(txtSoLuongNhap.getText()), 0, 1, idKVKho);
         new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
         new LoadTable_Kho().NhapHangTK(query, table);
+        if (checkEnd(idHoaDon) == 0) {
+            new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
+        }
     }//GEN-LAST:event_btnThemActionPerformed
     public void trueOrFalse(boolean b) {
         txtIDSanPham.setEditable(b);

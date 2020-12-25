@@ -24,7 +24,6 @@ public class jf_SanPham extends javax.swing.JFrame {
         String query = "SELECT SanPham.IDSanPham ,SanPham.TenSanPham ,NhomSanPham.TenNhom,BangGia.DonGia,BangGia.GiaVonSP,BangGia.Giam\n"
                 + "FROM SanPham INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
                 + "INNER JOIN BangGia ON SanPham.IDBangGia = SanPham.IDBangGia" + text;
-        System.out.print(query);
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
@@ -149,6 +148,7 @@ public class jf_SanPham extends javax.swing.JFrame {
         jLabel7.setBounds(420, 150, 90, 30);
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-import-40.png"))); // NOI18N
         jButton2.setText("Import File Exel");
         jPanel2.add(jButton2);
         jButton2.setBounds(720, 140, 290, 50);
@@ -165,19 +165,22 @@ public class jf_SanPham extends javax.swing.JFrame {
         jLabel11.setBounds(720, 30, 290, 30);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         jButton1.setText("Xóa");
         jPanel2.add(jButton1);
-        jButton1.setBounds(1090, 140, 170, 50);
+        jButton1.setBounds(1090, 140, 140, 50);
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         jButton4.setText("Sửa");
         jPanel2.add(jButton4);
-        jButton4.setBounds(1090, 80, 170, 50);
+        jButton4.setBounds(1090, 80, 140, 50);
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         jButton3.setText("Thêm");
         jPanel2.add(jButton3);
-        jButton3.setBounds(1090, 20, 170, 50);
+        jButton3.setBounds(1090, 20, 140, 50);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
 

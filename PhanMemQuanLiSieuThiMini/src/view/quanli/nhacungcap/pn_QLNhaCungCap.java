@@ -2,6 +2,7 @@ package view.quanli.nhacungcap;
 
 import controller.LoadTable;
 import controller.ThemKhachHang;
+import controller.XuatFile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -42,6 +43,8 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
         btnXoa = new javax.swing.JButton();
         btnXuatFile = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        process = new javax.swing.JProgressBar();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listNhaCungCap = new javax.swing.JTable();
@@ -145,18 +148,24 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnSua);
-        btnSua.setBounds(234, 13, 141, 63);
+        btnSua.setBounds(220, 20, 141, 63);
 
         btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         btnXoa.setText("Xóa");
         jPanel3.add(btnXoa);
-        btnXoa.setBounds(447, 13, 141, 63);
+        btnXoa.setBounds(420, 20, 141, 63);
 
         btnXuatFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXuatFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
         btnXuatFile.setText("Xuất File");
+        btnXuatFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatFileActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnXuatFile);
-        btnXuatFile.setBounds(653, 13, 141, 63);
+        btnXuatFile.setBounds(620, 20, 160, 63);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-plus-45.png"))); // NOI18N
@@ -167,7 +176,17 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnThem);
-        btnThem.setBounds(36, 13, 158, 63);
+        btnThem.setBounds(30, 20, 140, 63);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Time");
+        jPanel3.add(jLabel1);
+        jLabel1.setBounds(850, 20, 140, 30);
+
+        process.setForeground(new java.awt.Color(51, 255, 51));
+        jPanel3.add(process);
+        process.setBounds(850, 50, 140, 30);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
@@ -250,6 +269,10 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
         id = listNhaCungCap.getModel().getValueAt(index, 0).toString();
     }//GEN-LAST:event_listNhaCungCapMouseClicked
 
+    private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
+        new XuatFile().execute(listNhaCungCap, process, "Nhà Cung Cấp");
+    }//GEN-LAST:event_btnXuatFileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
@@ -258,6 +281,7 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbChon;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -268,6 +292,7 @@ public class pn_QLNhaCungCap extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listNhaCungCap;
+    private javax.swing.JProgressBar process;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 }

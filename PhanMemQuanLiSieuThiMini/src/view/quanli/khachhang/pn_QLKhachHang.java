@@ -2,25 +2,36 @@ package view.quanli.khachhang;
 
 import controller.LoadTable;
 import controller.ThemKhachHang;
+import controller.XuatFile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
 import model.FormatScroll;
 import model.KhachHang;
 import model.StringUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class pn_QLKhachHang extends javax.swing.JPanel {
 
@@ -62,6 +73,8 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        cbChon1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
@@ -72,6 +85,8 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         btnXoa = new javax.swing.JButton();
         btnXuatFile = new javax.swing.JButton();
         btnQuanLiDiem = new javax.swing.JButton();
+        process = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listKhachHang = new javax.swing.JTable();
@@ -88,17 +103,17 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
 
         jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
+        jPanel5.setLayout(null);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
-        );
+        cbChon1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbChon1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ATM", "Tiền Mặt" }));
+        jPanel5.add(cbChon1);
+        cbChon1.setBounds(20, 90, 314, 46);
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setText("Phương Thức Thanh Toán");
+        jPanel5.add(jLabel2);
+        jLabel2.setBounds(20, 40, 310, 40);
 
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 271, 350, 330);
@@ -185,9 +200,15 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         btnXoa.setBounds(480, 20, 141, 63);
 
         btnXuatFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXuatFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
         btnXuatFile.setText("Xuất File");
+        btnXuatFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatFileActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnXuatFile);
-        btnXuatFile.setBounds(670, 20, 141, 63);
+        btnXuatFile.setBounds(670, 20, 160, 63);
 
         btnQuanLiDiem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnQuanLiDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-supplier-45.png"))); // NOI18N
@@ -199,6 +220,16 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         });
         jPanel3.add(btnQuanLiDiem);
         btnQuanLiDiem.setBounds(40, 20, 210, 63);
+
+        process.setForeground(new java.awt.Color(51, 255, 51));
+        jPanel3.add(process);
+        process.setBounds(850, 50, 146, 30);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Time");
+        jPanel3.add(jLabel1);
+        jLabel1.setBounds(850, 16, 140, 30);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
@@ -261,6 +292,10 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         id = listKhachHang.getModel().getValueAt(index, 0).toString();
     }//GEN-LAST:event_listKhachHangMouseClicked
 
+    private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
+        new XuatFile().execute(listKhachHang, process, "Khách Hàng");
+    }//GEN-LAST:event_btnXuatFileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuanLiDiem;
@@ -269,6 +304,9 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbChon;
+    private javax.swing.JComboBox<String> cbChon1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -278,6 +316,7 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listKhachHang;
+    private javax.swing.JProgressBar process;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 }

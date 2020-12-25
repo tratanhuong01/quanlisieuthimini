@@ -2,6 +2,7 @@ package view.quanli.nhanvien;
 
 import controller.LoadTable;
 import controller.ThemNhanVien;
+import controller.XuatFile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -66,9 +67,11 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnSua = new javax.swing.JButton();
         btnTaoTaiKhoan = new javax.swing.JButton();
-        btnCaLam = new javax.swing.JButton();
+        btnXuatFile = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnTinhLuong = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        process = new javax.swing.JProgressBar();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listNhanVien = new javax.swing.JTable();
@@ -174,7 +177,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnSua);
-        btnSua.setBounds(210, 20, 141, 63);
+        btnSua.setBounds(160, 20, 120, 63);
 
         btnTaoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTaoTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
@@ -185,12 +188,18 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnTaoTaiKhoan);
-        btnTaoTaiKhoan.setBounds(400, 20, 220, 63);
+        btnTaoTaiKhoan.setBounds(300, 20, 200, 63);
 
-        btnCaLam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCaLam.setText("Ca Làm");
-        jPanel3.add(btnCaLam);
-        btnCaLam.setBounds(870, 20, 141, 63);
+        btnXuatFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXuatFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
+        btnXuatFile.setText("Xuất File");
+        btnXuatFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatFileActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnXuatFile);
+        btnXuatFile.setBounds(710, 20, 150, 63);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-plus-45.png"))); // NOI18N
@@ -201,12 +210,23 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnThem);
-        btnThem.setBounds(10, 20, 158, 63);
+        btnThem.setBounds(10, 20, 130, 63);
 
         btnTinhLuong.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTinhLuong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-payroll-40.png"))); // NOI18N
         btnTinhLuong.setText("Tính Lương");
         jPanel3.add(btnTinhLuong);
-        btnTinhLuong.setBounds(680, 20, 141, 63);
+        btnTinhLuong.setBounds(520, 20, 170, 63);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Time");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(880, 20, 130, 30);
+
+        process.setForeground(new java.awt.Color(51, 255, 51));
+        jPanel3.add(process);
+        process.setBounds(880, 50, 130, 30);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
@@ -274,15 +294,20 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
         id = listNhanVien.getModel().getValueAt(index, 0).toString();
     }//GEN-LAST:event_listNhanVienMouseClicked
 
+    private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
+        new XuatFile().execute(listNhanVien, process,"Nhân Viên");
+    }//GEN-LAST:event_btnXuatFileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCaLam;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoTaiKhoan;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnTinhLuong;
+    private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbChon;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -293,6 +318,7 @@ public class pn_QLNhanVien extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listNhanVien;
+    private javax.swing.JProgressBar process;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 }

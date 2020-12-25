@@ -51,7 +51,8 @@ public class ThemAndCapNhatSanPham {
     public boolean them(String idSanPham,String idNhomSP,String tenSanPham,String idDonViTinh,String ngaySanXuat
                     ,String hanSuDung,String urlImage,String idBangGia,String idKhachHang,int tinhTrang) {
         try (Connection conn = new ConnectDAO().getConnection()){
-            String query = "INSERT INTO [dbo].[SanPham]([IDSanPham],[IDNhomSanPham],[TenSanPham],[IDDonViTinh],[NgaySanXuat],[HanSuDung]\n" +
+            String query = "INSERT INTO [dbo].[SanPham]([IDSanPham],[IDNhomSanPham],[TenSanPham],[IDDonViTinh],[NgaySanXuat],"
+                    + "[HanSuDung]\n" +
 "		,[UrlImage],[IDBangGia],[IDKhachHang],[TinhTrang])VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idSanPham);

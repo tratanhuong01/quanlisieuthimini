@@ -1,10 +1,13 @@
 package view.quanli.phieu;
 
+import controller.Kho;
 import controller.LoadTable;
 import controller.ReadFileExel;
 import controller.ThemAndCapNhatSanPham;
 import controller.ThemKhachHang;
+import controller.TimByList;
 import controller.TimKiemSanPham;
+import controller.loadDanhMuc;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -14,21 +17,39 @@ import javax.swing.JOptionPane;
 import model.ConnectDAO;
 import model.KhachHang;
 import model.NhanVien;
+import model.NhomSanPham;
+import model.SanPham;
 import model.StringUtil;
 
 public class pn_PhieuXuat extends javax.swing.JPanel {
+
     List<KhachHang> list = new ThemKhachHang().getAllNhaCungCap();
+    List<String[]> listKho = new Kho().getKho();
     NhanVien nv;
     String idNhaCungCap = "";
+    String idKVKho = "";
+    String idNhomSanPham = "";
     List<String[]> listSP = new ArrayList<>();
-    String[] s = new String[11];
+    List<NhomSanPham> listnsp;
+    List<SanPham> listSPMain;
+
     public pn_PhieuXuat(NhanVien nv) {
         this.nv = nv;
         initComponents();
         txtTenQuanLi.setText(nv.getHoTen());
         txtTenQuanLi.setEditable(false);
         txtTongTien.setEditable(false);
-        new LoadTable().PhieuNhapLeft("", table1);
+        new loadDanhMuc().loadNhomSanPham1(cbNhomSanPham);
+        listnsp = new loadDanhMuc().loadNhomSanPham2();
+        listSPMain = new Kho().getSanPhamBy("");
+        new LoadTable().PhieuNhapLeft(listSPMain, table1);
+        loadKho();
+    }
+     public void loadKho() {
+        cbKhuVucKho.removeAllItems();
+        for (int i = 0; i < listKho.size(); i++) {
+            cbKhuVucKho.addItem(listKho.get(i)[1]);
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,7 +81,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         jPanel17 = new javax.swing.JPanel();
         btnImport = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbKhuVucKho = new javax.swing.JComboBox<>();
         txtTongTien = new javax.swing.JTextField();
         txtNoiNhan = new javax.swing.JTextField();
         txtGhiChu = new javax.swing.JTextField();
@@ -70,6 +91,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         jPanel18 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
+        cbNhomSanPham = new javax.swing.JComboBox<>();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table1 = new javax.swing.JTable();
@@ -114,7 +136,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
 
         jPanel10.setBackground(java.awt.Color.white);
         jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
-        jPanel10.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
+        jPanel10.setLayout(new java.awt.GridLayout(4, 0, 10, 10));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -141,7 +163,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 37, Short.MAX_VALUE)
+            .addGap(0, 49, Short.MAX_VALUE)
         );
 
         jPanel10.add(jPanel14);
@@ -149,7 +171,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         jPanel9.add(jPanel10);
 
         jPanel15.setBackground(java.awt.Color.white);
-        jPanel15.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
+        jPanel15.setLayout(new java.awt.GridLayout(4, 0, 10, 10));
 
         jComboBox2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhập Tay", "Nhập File" }));
@@ -231,9 +253,13 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         jPanel8.setBackground(java.awt.Color.white);
         jPanel8.setLayout(new java.awt.GridLayout(5, 0, 10, 10));
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel8.add(jComboBox1);
+        cbKhuVucKho.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbKhuVucKho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbKhuVucKhoActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cbKhuVucKho);
 
         txtTongTien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel8.add(txtTongTien);
@@ -274,13 +300,22 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
             }
         });
         jPanel18.add(txtInput);
-        txtInput.setBounds(12, 0, 307, 40);
+        txtInput.setBounds(0, 0, 240, 40);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
-        btnThem.setText("Thêm");
+        btnThem.setText("Thêm Mới");
         jPanel18.add(btnThem);
-        btnThem.setBounds(370, 0, 150, 40);
+        btnThem.setBounds(480, 0, 180, 40);
+
+        cbNhomSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbNhomSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNhomSanPhamActionPerformed(evt);
+            }
+        });
+        jPanel18.add(cbNhomSanPham);
+        cbNhomSanPham.setBounds(250, 0, 220, 40);
 
         jPanel11.add(jPanel18, java.awt.BorderLayout.PAGE_START);
 
@@ -354,41 +389,84 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
         SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String time = formatTime.format(new Date(System.currentTimeMillis()));
-        tac.insertPhieuNhap(id, time, idNhaCungCap, nv.getIdNhanVien(),
+        tac.insertPhieuNhap(id, time, null, nv.getIdNhanVien(),
                 0, 0, null, 2, 0, txtGhiChu.getText());
-        int num = table2.getRowCount();
-        for (int i = 0; i < num; i++) {
+        for (int i = 0; i < table2.getRowCount(); i++) {
             String idSanPham = table2.getModel().getValueAt(i, 0).toString();
             String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
             String idDonViTinh = table2.getModel().getValueAt(i, 3).toString();
             int sl = Integer.parseInt(table2.getModel().getValueAt(i, 10).toString());;
-            tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, 0, (float) 0,0);
+            tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, 0, (float) 0, 0);
+            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+            tac.updateIDPhieu(idPhieu, id);
+            JOptionPane.showMessageDialog(this, "Thành Công");
         }
 
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
-        new LoadTable().PhieuNhapLeft(txtInput.getText(), table1);
+        new LoadTable().PhieuNhapLeft(new Kho().getSanPhamBy(""), table1);
     }//GEN-LAST:event_txtInputActionPerformed
 
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
         String[] s = new String[11];
+        String idss = "";
         String op = JOptionPane.showInputDialog("Nhập Số Lượng");
-        int index = table1.getSelectedRow();
-        for (int i = 0; i < 10; i++) {
-            s[i] = table1.getModel().getValueAt(index, i).toString();
+        if (!op.equals("")) {
+            int index = table1.getSelectedRow();
+            for (int i = 0; i < table1.getColumnCount(); i++) {
+                idss = table1.getModel().getValueAt(index, 0).toString();
+                s[i] = table1.getModel().getValueAt(index, i).toString();
+            }
+            for (int i = 0; i < listSPMain.size(); i++) {
+                if (listSPMain.get(i).getIdSanPham().equals(idss)) {
+                    listSPMain.remove(i);
+                }
+            }
+            new LoadTable().PhieuNhapLeft(listSPMain, table1);
+            s[10] = op;
+            listSP.add(s);
+            new LoadTable().PhieuNhapRight(listSP, table2);
+            int tongTien = 0;
+            for (int i = 0; i < table2.getRowCount(); i++) {
+                int sl = Integer.parseInt(table2.getModel().getValueAt(i, 10).toString().replace(",", ""));
+                float giaVonSP = Float.parseFloat(table2.getModel().getValueAt(i, 8).toString().replace(",", "").
+                        replace(" VNĐ", ""));
+                tongTien += sl * giaVonSP;
+            }
+            txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
+        } else {
+
         }
-        s[10] = op;
-        listSP.add(s);
-        new LoadTable().PhieuNhapRight(listSP, table2);
     }//GEN-LAST:event_table1MouseClicked
+
+    private void cbNhomSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhomSanPhamActionPerformed
+        if (cbNhomSanPham.isValid()) {
+            int index = cbNhomSanPham.getSelectedIndex();
+            if (index == 0) {
+                idNhomSanPham = "";
+                new LoadTable().PhieuNhapLeft(listSPMain, table1);
+            } else {
+                idNhomSanPham = listnsp.get(index - 1).getIdNhomSanPham();
+                new LoadTable().PhieuNhapLeft(new TimByList().locByNhom(
+                        cbNhomSanPham.getSelectedItem().toString(), listSPMain), table1);
+            }
+        }
+    }//GEN-LAST:event_cbNhomSanPhamActionPerformed
+
+    private void cbKhuVucKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKhuVucKhoActionPerformed
+        int index = cbKhuVucKho.getSelectedIndex();
+        idKVKho = listKho.get(index)[0];
+    }//GEN-LAST:event_cbKhuVucKhoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnTao;
     private javax.swing.JButton btnThem;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbKhuVucKho;
+    private javax.swing.JComboBox<String> cbNhomSanPham;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;

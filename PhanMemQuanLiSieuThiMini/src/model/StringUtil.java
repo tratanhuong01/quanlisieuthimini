@@ -3,8 +3,13 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class StringUtil {
 
@@ -44,5 +49,37 @@ public class StringUtil {
         }
 
         return sb.toString();
+    }
+    public static void format(JTextField txt) {
+        DecimalFormat deFormat1 = new DecimalFormat("###,###,###");
+        txt.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (txt.getText().length() <= 0) {
+
+                        } else {
+                            long money = Long.parseLong(txt.getText().replace(",", ""));
+                            txt.setText(deFormat1.format(money));
+                        }
+                    }
+
+                };
+                SwingUtilities.invokeLater(runnable);
+            }
+        });
     }
 }

@@ -17,6 +17,7 @@ import model.ConnectDAO;
 import model.SanPham;
 
 public class LoadTable {
+    DecimalFormat format = new DecimalFormat("###,###,###");
     public void SanPham(String text,JTable jTable) {
         String query = "SELECT SanPham.IDSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
                 + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
@@ -42,21 +43,21 @@ public class LoadTable {
             jTable.removeAll();
             while (rs.next()) {
                 vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
-                vData.add(rs.getString(10));
-                vData.add(rs.getString(11));
-                vData.add(rs.getString(12));
-                vData.add(rs.getString(13));
-                vData.add(rs.getString(14));
-                vData.add(rs.getString(15));
+                vData.add(checkNull(rs.getString(1)));
+                vData.add(checkNull(rs.getString(2)));
+                vData.add(checkNull(rs.getString(3)));
+                vData.add(checkNull(rs.getString(4)));
+                vData.add(checkNull(rs.getString(5)));
+                vData.add(checkNull(rs.getString(6)));
+                vData.add(checkNull(rs.getString(7)));
+                vData.add(format.format(Integer.parseInt(rs.getString(8).replace(".0", ""))) + " VNĐ");
+                vData.add(format.format(Integer.parseInt(rs.getString(9).replace(".0", ""))));
+                vData.add(format.format(Integer.parseInt(rs.getString(10).replace(".0", ""))) + "VNĐ");
+                vData.add(checkNull(rs.getString(11)));
+                vData.add(checkNull(rs.getString(12)));
+                vData.add(checkNull(rs.getString(13)));
+                vData.add(checkNull(rs.getString(14)));
+                vData.add(checkNull(rs.getString(15)));
                 tableMode.addRow(vData);
             }
             jTable.setModel(tableMode);
@@ -64,9 +65,41 @@ public class LoadTable {
             e.printStackTrace();
         }
     }
-    public void PhieuNhapLeft(String text, JTable table) {
-        DecimalFormat format = new DecimalFormat("###,###,###");
-        List<SanPham> list = new Kho().getSanPhamBy(text);
+    public void PhieuNhapLeft(List<SanPham> list,JTable table) {
+        table.removeAll();
+        Vector vTitle = null;
+        Vector vData = null;
+        DefaultTableModel tableMode;
+        vTitle = new Vector(10);
+        vTitle.add("IDSanPham");
+        vTitle.add("TenNhom");
+        vTitle.add("TenSanPham");
+        vTitle.add("DonViTinh");
+        vTitle.add("NgaySanXuat");
+        vTitle.add("NgayHetHan");
+        vTitle.add("DonGia");
+        vTitle.add("Giam");
+        vTitle.add("GiaVonSP");
+        vTitle.add("TenNhaCungCap");
+        tableMode = new DefaultTableModel(vTitle, 0);
+        for (SanPham sp : list) {
+            vData = new Vector();
+            vData.add(sp.getIdSanPham());
+            vData.add(sp.getTenNhom());
+            vData.add(sp.getTenSanPham());
+            vData.add(sp.getIdDonViTinh());
+            vData.add(sp.getNgaySanXuat());
+            vData.add(sp.getHanSuDung());
+            vData.add(format.format(sp.getDonGia()) + " VNĐ");
+            vData.add(format.format(sp.getGiam()));
+            vData.add(format.format(sp.getGiaVonSP()) + " VNĐ");
+            vData.add(sp.getTenNhaCungCap());
+            tableMode.addRow(vData);
+        }
+        table.setModel(tableMode);
+    }
+    public void PhieuNhapLeft1(String text, JTable table) {
+        List<SanPham> list = new Kho().getSanPhamByNSP(text);
         table.removeAll();
         Vector vTitle = null;
         Vector vData = null;
@@ -148,15 +181,15 @@ public class LoadTable {
             listNhaCungCap.removeAll();
             while (rs.next()) {
                 vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
+                vData.add(checkNull(rs.getString(1)));
+                vData.add(checkNull(rs.getString(2)));
+                vData.add(checkNull(rs.getString(3)));
+                vData.add(checkNull(rs.getString(4)));
+                vData.add(checkNull(rs.getString(5)));
+                vData.add(checkNull(rs.getString(6)));
+                vData.add(checkNull(rs.getString(7)));
+                vData.add(checkNull(rs.getString(8)));
+                vData.add(checkNull(rs.getString(9)));
                 tableMode.addRow(vData);
             }
             listNhaCungCap.setModel(tableMode);
@@ -189,11 +222,11 @@ public class LoadTable {
             table1.removeAll();
             while (rs.next()) {
                 vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
+                vData.add(checkNull(rs.getString(1)));
+                vData.add(checkNull(rs.getString(2)));
+                vData.add(checkNull(rs.getString(3)));
+                vData.add(checkNull(rs.getString(4)));
+                vData.add(checkNull(rs.getString(5)));
                 tableMode.addRow(vData);
             }
             table1.setModel(tableMode);
@@ -227,17 +260,17 @@ public class LoadTable {
             listKhachHang.removeAll();
             while (rs.next()) {
                 vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
-                vData.add(rs.getString(10));
-                vData.add(rs.getString(11));
+                vData.add(checkNull(rs.getString(1)));
+                vData.add(checkNull(rs.getString(2)));
+                vData.add(checkNull(rs.getString(3)));
+                vData.add(checkNull(rs.getString(4)));
+                vData.add(checkNull(rs.getString(5)));
+                vData.add(checkNull(rs.getString(6)));
+                vData.add(checkNull(rs.getString(7)));
+                vData.add(checkNull(rs.getString(8)));
+                vData.add(checkNull(rs.getString(9)));
+                vData.add(checkNull(rs.getString(10)));
+                vData.add(checkNull(rs.getString(11)));
                 tableMode.addRow(vData);
             }
             listKhachHang.setModel(tableMode);
@@ -277,20 +310,23 @@ public class LoadTable {
             listNhanVien.removeAll();
             while (rs.next()) {
                 vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                vData.add(rs.getString(7));
-                vData.add(rs.getString(8));
-                vData.add(rs.getString(9));
+                vData.add(checkNull(rs.getString(1)));
+                vData.add(checkNull(rs.getString(2)));
+                vData.add(checkNull(rs.getString(3)));
+                vData.add(checkNull(rs.getString(4)));
+                vData.add(checkNull(rs.getString(5)));
+                vData.add(checkNull(rs.getString(6)));
+                vData.add(checkNull(rs.getString(7)));
+                vData.add(checkNull(rs.getString(8)));
+                vData.add(checkNull(rs.getString(9)));
                 tableMode.addRow(vData);
             }
             listNhanVien.setModel(tableMode);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public String checkNull(String s) {
+        return s == null ? "<empty>" : s;
     }
 }

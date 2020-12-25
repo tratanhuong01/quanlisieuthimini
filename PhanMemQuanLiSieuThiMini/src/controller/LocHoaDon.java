@@ -8,14 +8,14 @@ import model.HoaDon;
 
 public class LocHoaDon {
 
-    public List<HoaDon> loc(String timeFrom, String timeTo) {
+    public List<HoaDon> loc(String timeFrom, String timeTo,String subQuery) {
         List<HoaDon> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT HoaDon.IDHoaDon, HoaDon.NgayTao,NhanVien.IDNhanVien , NhanVien.HoTen,KhachHang.IDKhachHang,\n"
                     + "KhachHang.HoTen,HoaDon.TongTien ,\n"
                     + "CASE \n"
-                    + "	WHEN HoaDon.LoaiHoaDon = '1' THEN  N'Hóa Đơn Khách Hàng'\n"
-                    + "	WHEN HoaDon.LoaiHoaDon = '2' THEN N'Hóa Đơn Nhập Hàng'\n"
+                    + "	WHEN HoaDon.LoaiHoaDon = '0' THEN  N'Hóa Đơn Khách Hàng'\n"
+                    + "	WHEN HoaDon.LoaiHoaDon = '1' THEN N'Hóa Đơn Nhập Hàng'\n"
                     + "	ELSE N'Hóa Đơn Xuất Hàng'\n"
                     + "END AS LoaiHoaDon,\n"
                     + "CASE \n"
@@ -25,7 +25,7 @@ public class LocHoaDon {
                     + "FROM  HoaDon\n"
                     + "LEFT JOIN NhanVien ON HoaDon.IDNhanVien = NhanVien.IDNhanVien\n"
                     + "INNER JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang\n"
-                    + "WHERE NgayTao >= ? AND NgayTao <= ? ";
+                    + "WHERE NgayTao >= ? AND NgayTao <= ? " + subQuery ;
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, timeFrom);
             ps.setString(2, timeTo);

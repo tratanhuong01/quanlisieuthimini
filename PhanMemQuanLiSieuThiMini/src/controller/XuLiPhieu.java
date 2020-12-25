@@ -4,6 +4,20 @@ import java.sql.*;
 import model.ConnectDAO;
 
 public class XuLiPhieu {
+    public boolean updateTinhTrangHD(int trangThai,String idHoaDon) {
+        int kq = 0;
+        try (Connection conn = new ConnectDAO().getConnection()){
+            String query = "UPDATE HoaDon SET TrangThai = ? WHERE IDHoaDon = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, trangThai);
+            ps.setString(2, idHoaDon);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean updateSKUSanPham(String sku , String idSanPham) {
         try (Connection conn = new ConnectDAO().getConnection()){
             String query = "UPDATE SanPham SET SKU = ? WHERE IDSanPham = ? ";
