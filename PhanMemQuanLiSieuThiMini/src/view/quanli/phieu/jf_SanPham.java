@@ -1,5 +1,8 @@
 package view.quanli.phieu;
 
+import controller.ThemAndCapNhatSanPham;
+import controller.ThemKhachHang;
+import controller.TimKiemSanPham;
 import view.quanli.sanpham.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,58 +12,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.KhachHang;
+import model.StringUtil;
 
 public class jf_SanPham extends javax.swing.JFrame {
 
+    List<KhachHang> list = new ThemKhachHang().getAllNhaCungCap();
+    String idNhaCungCap = "";
+
     public jf_SanPham() {
         initComponents();
-        loadTable("");
-    }
-
-    public void loadTable(String text) {
-        String query = "SELECT SanPham.IDSanPham ,SanPham.TenSanPham ,NhomSanPham.TenNhom,BangGia.DonGia,BangGia.GiaVonSP,BangGia.Giam\n"
-                + "FROM SanPham INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                + "INNER JOIN BangGia ON SanPham.IDBangGia = SanPham.IDBangGia" + text;
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode = null;
-            listSanPham.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            listSanPham.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            listSanPham.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listSanPham.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                tableMode.addRow(vData);
-            }
-            listSanPham.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -75,14 +48,14 @@ public class jf_SanPham extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listSanPham = new javax.swing.JTable();
+        listSPAdd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
@@ -151,45 +124,51 @@ public class jf_SanPham extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-import-40.png"))); // NOI18N
         jButton2.setText("Import File Exel");
         jPanel2.add(jButton2);
-        jButton2.setBounds(720, 140, 290, 50);
+        jButton2.setBounds(720, 80, 250, 50);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox1);
-        jComboBox1.setBounds(720, 80, 290, 50);
+        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        jPanel2.add(btnXoa);
+        btnXoa.setBounds(1190, 140, 140, 50);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Chọn Nhà Cung Cấp");
-        jPanel2.add(jLabel11);
-        jLabel11.setBounds(720, 30, 290, 30);
+        btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        jPanel2.add(btnSua);
+        btnSua.setBounds(1190, 80, 140, 50);
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
-        jButton1.setText("Xóa");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1090, 140, 140, 50);
+        btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnThem);
+        btnThem.setBounds(1190, 20, 140, 50);
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
-        jButton4.setText("Sửa");
-        jPanel2.add(jButton4);
-        jButton4.setBounds(1090, 80, 140, 50);
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jRadioButton1.setText("Nhập File");
+        jPanel2.add(jRadioButton1);
+        jRadioButton1.setBounds(1005, 130, 180, 31);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
-        jButton3.setText("Thêm");
-        jPanel2.add(jButton3);
-        jButton3.setBounds(1090, 20, 140, 50);
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jRadioButton2.setText("Nhập Tay");
+        jPanel2.add(jRadioButton2);
+        jRadioButton2.setBounds(1005, 50, 180, 31);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        listSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        listSanPham.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        listSanPham.setModel(new javax.swing.table.DefaultTableModel(
+        listSPAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listSPAdd.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        listSPAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -208,8 +187,13 @@ public class jf_SanPham extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        listSanPham.setRowHeight(25);
-        jScrollPane2.setViewportView(listSanPham);
+        listSPAdd.setRowHeight(25);
+        listSPAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSPAddMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listSPAdd);
 
         jPanel1.add(jScrollPane2);
 
@@ -218,6 +202,30 @@ public class jf_SanPham extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
+        for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+            String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
+            String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
+            String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
+            float giam = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 7).toString().replace(",", ""));
+            float donGia = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 6).toString().replace(" VNĐ", "").replace(",", ""));
+            float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(" VNĐ", "").replace(",", ""));
+            String idNhomSP = new TimKiemSanPham().getAllNhomSanPham(listSPAdd.getModel().getValueAt(i, 1).toString());
+            String tenSP = listSPAdd.getModel().getValueAt(i, 2).toString();
+            String ngaySanXuat = listSPAdd.getModel().getValueAt(i, 4).toString();
+            String hanSuDung = listSPAdd.getModel().getValueAt(i, 5).toString();
+            tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
+            tac.them(idSanPham, idNhomSP, tenSP, idDonViTinh, ngaySanXuat, hanSuDung,
+                    "BANKEO1.png", idBangGia, idNhaCungCap, 0);
+        }
+        JOptionPane.showMessageDialog(this, "Thành Công");
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void listSPAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSPAddMouseClicked
+        
+    }//GEN-LAST:event_listSPAddMouseClicked
 
     public static void main(String args[]) {
 
@@ -229,13 +237,12 @@ public class jf_SanPham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -243,8 +250,10 @@ public class jf_SanPham extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable listSanPham;
+    private javax.swing.JTable listSPAdd;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtGiaVon;
     private javax.swing.JTextField txtGiam;

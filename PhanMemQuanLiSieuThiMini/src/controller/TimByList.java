@@ -29,7 +29,7 @@ public class TimByList {
     public static void main(String[] args) {
         while (true) {
             String search = new Scanner(System.in).nextLine();
-            System.out.println(new TimByList().timByWord(search, new Kho().getSanPhamBy("")).size());;
+            System.out.println(new TimByList().timByWord(search, new Kho().getSanPhamBy("","")).size());;
         }
     }
 }

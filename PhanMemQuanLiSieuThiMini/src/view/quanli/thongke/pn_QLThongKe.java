@@ -19,26 +19,28 @@ import javax.swing.JPanel;
 import model.ConnectDAO;
 
 public class pn_QLThongKe extends javax.swing.JPanel {
-
+    ThongKe tk = new ThongKe();
     public pn_QLThongKe() {
         initComponents();
         JPanel[] pn = {pnNgay, pnNgayTruoc, pnTuan, pnTuanTruoc, pnThang, pnThangTruoc};
         JButton[] btn = {btnNgay, btnNgayTruoc, btnTuan, btnTuanTruoc, btnThang, btnThangTruoc};
+        String[] query = {tk.NAM,tk.NGAY_TRUOC,tk.TUAN,tk.TUAN_TRUOC,tk.THANG,tk.THANG_TRUOC,tk.NAM,tk.NAM_TRUOC};
         for (int i = 0; i < pn.length; i++) {
             try {
-                addLabel("Hóa Đơn : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchHoaDon(i + 1))
+                addLabel("Hóa Đơn : " + String.valueOf(new DecimalFormat("###,###,###").format(tk.switchHoaDon(i + 1))
                         + " Cái"), pn[i]);
-                addLabel("Sản Phẩm : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchSanPham(i + 1))
+                addLabel("Sản Phẩm : " + String.valueOf(new DecimalFormat("###,###,###").format(tk.switchSanPham(i + 1))
                         + " SP"), pn[i]);
-                addLabel("Doanh Thu : " + String.valueOf(new DecimalFormat("###,###,###").format(new ThongKe().switchTien(i + 1))
+                addLabel("Doanh Thu : " + String.valueOf(new DecimalFormat("###,###,###").format(tk.switchTien(i + 1))
                         + "  VNĐ"), pn[i]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            int a = i;
             btn[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    new jf_ThongKeChiTiet().setVisible(true);
+                    new jf_ThongKeChiTiet(query[a]).setVisible(true);
                 }
             });
         }
@@ -609,7 +611,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
-        new jf_ThongKeChiTiet().setVisible(true);
+        new jf_ThongKeChiTiet("").setVisible(true);
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
 

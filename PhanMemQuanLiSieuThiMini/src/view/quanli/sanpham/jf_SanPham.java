@@ -1,196 +1,323 @@
 package view.quanli.sanpham;
 
+import controller.LoadSanPham;
+import controller.ReadFileExel;
+import view.quanli.phieu.*;
+import controller.ThemAndCapNhatSanPham;
+import controller.ThemKhachHang;
+import controller.TimKiemSanPham;
+import view.quanli.sanpham.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Vector;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
+import model.KhachHang;
+import model.StringUtil;
 
 public class jf_SanPham extends javax.swing.JFrame {
 
+    List<KhachHang> list = new ThemKhachHang().getAllNhaCungCap();
+    String idNhaCungCap = "";
+    ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
+    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
     public jf_SanPham() {
         initComponents();
-        loadTable("");
+        trueFalse();
     }
 
-    public void loadTable(String text) {
-        String query = "SELECT SanPham.IDSanPham ,SanPham.TenSanPham ,NhomSanPham.TenNhom,BangGia.DonGia,BangGia.GiaVonSP,BangGia.Giam\n"
-                + "FROM SanPham INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                + "INNER JOIN BangGia ON SanPham.IDBangGia = SanPham.IDBangGia" + text;
-        try (Connection conn = new ConnectDAO().getConnection()) {
-            Vector vTitle = null;
-            Vector vData = null;
-            DefaultTableModel tableMode = null;
-            listSanPham.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            listSanPham.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            listSanPham.getTableHeader().setBackground(Color.WHITE);
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsm = rs.getMetaData();
-            int soCot = rsm.getColumnCount();
-            vTitle = new Vector(soCot);
-            for (int i = 1; i <= soCot; i++) {
-                vTitle.add(rsm.getColumnLabel(i));
-            }
-            tableMode = new DefaultTableModel(vTitle, 0);
-            listSanPham.removeAll();
-            while (rs.next()) {
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getString(5));
-                vData.add(rs.getString(6));
-                tableMode.addRow(vData);
-            }
-            listSanPham.setModel(tableMode);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void switchsB(int a) {
+        switch (a) {
+            case 0:
+                txtGiaVon.setEditable(true);
+                listSPAdd.removeAll();
+                listSPAdd.repaint();
+                listSPAdd.updateUI();
+                break;
+            case 1:
+                txtGiaVon.setEditable(false);
+                new LoadSanPham().load(listSPAdd);
+                break;
+            case 2:
+                txtGiaVon.setEditable(false);
+                new LoadSanPham().load(listSPAdd);
+                break;
         }
+    }
+
+    public void trueFalse() {
+        JButton[] btn = {btnThem, btnSua, btnXoa, btnReadFile, btnThemFromFile};
+        for (int i = 0; i < btn.length; i++) {
+            btn[i].setEnabled(false);
+        }
+        JRadioButton[] radioBtn = {radioThem, radioSua, radioXoa};
+        for (int i = 0; i < radioBtn.length; i++) {
+            int a = i;
+            radioBtn[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    if (radioBtn[a].isSelected()) {
+                        switchsB(a);
+                        for (int j = 0; j < radioBtn.length; j++) {
+                            if (j == a) {
+                                btn[a].setEnabled(true);
+                            } else {
+                                btn[j].setEnabled(false);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        nhapTay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                btnReadFile.setEnabled(false);
+                btnThemFromFile.setEnabled(false);
+                btnThem.setEnabled(true);
+            }
+        });
+        nhapFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                btnReadFile.setEnabled(true);
+                btnThemFromFile.setEnabled(true);
+                btnThem.setEnabled(false);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtIDSanPham = new javax.swing.JTextField();
         txtTenSanPham = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtTenSanPham1 = new javax.swing.JTextField();
+        txtTenNhom = new javax.swing.JTextField();
         txtGiam = new javax.swing.JTextField();
         txtGiaVon = new javax.swing.JTextField();
         txtDonGia = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        btnReadFile = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        nhapFile = new javax.swing.JRadioButton();
+        nhapTay = new javax.swing.JRadioButton();
+        radioXoa = new javax.swing.JRadioButton();
+        radioThem = new javax.swing.JRadioButton();
+        radioSua = new javax.swing.JRadioButton();
+        txtDonViTinh = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        btnThemFromFile = new javax.swing.JButton();
+        nsx = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        hsd = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listSanPham = new javax.swing.JTable();
+        listSPAdd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1366, 768));
         setMinimumSize(new java.awt.Dimension(1366, 768));
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setSize(new java.awt.Dimension(1366, 768));
 
         jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 200));
         jPanel2.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("ID Sản Phẩm");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(50, 30, 130, 30);
+        jLabel1.setBounds(10, 30, 130, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Tên Sản Phẩm");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(50, 90, 130, 30);
+        jLabel2.setBounds(10, 90, 130, 30);
 
         txtIDSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtIDSanPham.setEnabled(false);
         jPanel2.add(txtIDSanPham);
-        txtIDSanPham.setBounds(210, 20, 200, 50);
+        txtIDSanPham.setBounds(150, 20, 230, 50);
 
         txtTenSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.add(txtTenSanPham);
-        txtTenSanPham.setBounds(210, 80, 200, 50);
+        txtTenSanPham.setBounds(150, 80, 230, 50);
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel6.setText("Nhóm Sản Phẩm");
+        jLabel6.setText("Tên Nhóm");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(50, 150, 140, 30);
+        jLabel6.setBounds(10, 150, 140, 30);
 
-        txtTenSanPham1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel2.add(txtTenSanPham1);
-        txtTenSanPham1.setBounds(210, 140, 200, 50);
+        txtTenNhom.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(txtTenNhom);
+        txtTenNhom.setBounds(150, 140, 230, 50);
 
         txtGiam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.add(txtGiam);
-        txtGiam.setBounds(510, 140, 200, 50);
+        txtGiam.setBounds(480, 140, 200, 50);
 
         txtGiaVon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.add(txtGiaVon);
-        txtGiaVon.setBounds(510, 80, 200, 50);
+        txtGiaVon.setBounds(480, 80, 200, 50);
 
         txtDonGia.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.add(txtDonGia);
-        txtDonGia.setBounds(510, 20, 200, 50);
+        txtDonGia.setBounds(480, 20, 200, 50);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel9.setText("Đơn Giá");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(420, 30, 90, 30);
+        jLabel9.setBounds(390, 30, 90, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel8.setText("Giá Vốn");
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(420, 90, 90, 30);
+        jLabel8.setBounds(390, 90, 90, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel7.setText("Giảm");
+        jLabel7.setText("NSX");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(420, 150, 90, 30);
+        jLabel7.setBounds(700, 30, 50, 30);
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-import-40.png"))); // NOI18N
-        jButton2.setText("Import File Exel");
-        jPanel2.add(jButton2);
-        jButton2.setBounds(720, 140, 290, 50);
+        btnReadFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnReadFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-import-40.png"))); // NOI18N
+        btnReadFile.setText("Import File Exel");
+        btnReadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReadFileActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnReadFile);
+        btnReadFile.setBounds(810, 140, 203, 50);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox1);
-        jComboBox1.setBounds(720, 80, 290, 50);
+        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        jPanel2.add(btnXoa);
+        btnXoa.setBounds(1210, 140, 140, 50);
+
+        btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        jPanel2.add(btnSua);
+        btnSua.setBounds(1210, 80, 140, 50);
+
+        btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnThem);
+        btnThem.setBounds(1210, 10, 140, 50);
+
+        nhapFile.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(nhapFile);
+        nhapFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        nhapFile.setText("Nhập File");
+        jPanel2.add(nhapFile);
+        nhapFile.setBounds(850, 100, 120, 31);
+
+        nhapTay.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(nhapTay);
+        nhapTay.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        nhapTay.setText("Nhập Tay");
+        jPanel2.add(nhapTay);
+        nhapTay.setBounds(1020, 100, 120, 31);
+
+        radioXoa.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(radioXoa);
+        radioXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(radioXoa);
+        radioXoa.setBounds(1170, 150, 30, 25);
+
+        radioThem.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(radioThem);
+        radioThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(radioThem);
+        radioThem.setBounds(1170, 30, 30, 25);
+
+        radioSua.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(radioSua);
+        radioSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(radioSua);
+        radioSua.setBounds(1170, 90, 30, 25);
+
+        txtDonViTinh.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(txtDonViTinh);
+        txtDonViTinh.setBounds(690, 140, 110, 50);
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Đơn Vị Tính");
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(690, 90, 110, 30);
+
+        btnThemFromFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnThemFromFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
+        btnThemFromFile.setText("Thêm");
+        btnThemFromFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemFromFileActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnThemFromFile);
+        btnThemFromFile.setBounds(1020, 140, 130, 50);
+
+        nsx.setDateFormatString("yyy-MM-dd");
+        nsx.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(nsx);
+        nsx.setBounds(750, 20, 160, 50);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Chọn Nhà Cung Cấp");
+        jLabel11.setText("Giảm");
         jPanel2.add(jLabel11);
-        jLabel11.setBounds(720, 30, 290, 30);
+        jLabel11.setBounds(390, 150, 90, 30);
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
-        jButton1.setText("Xóa");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1090, 140, 140, 50);
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel12.setText("HSD");
+        jPanel2.add(jLabel12);
+        jLabel12.setBounds(920, 30, 50, 30);
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
-        jButton4.setText("Sửa");
-        jPanel2.add(jButton4);
-        jButton4.setBounds(1090, 80, 140, 50);
+        hsd.setDateFormatString("yyy-MM-dd");
+        hsd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel2.add(hsd);
+        hsd.setBounds(980, 20, 160, 50);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
-        jButton3.setText("Thêm");
-        jPanel2.add(jButton3);
-        jButton3.setBounds(1090, 20, 140, 50);
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        listSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        listSanPham.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        listSanPham.setModel(new javax.swing.table.DefaultTableModel(
+        listSPAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listSPAdd.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        listSPAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -209,8 +336,13 @@ public class jf_SanPham extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        listSanPham.setRowHeight(25);
-        jScrollPane2.setViewportView(listSanPham);
+        listSPAdd.setRowHeight(25);
+        listSPAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSPAddMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listSPAdd);
 
         jPanel1.add(jScrollPane2);
 
@@ -219,6 +351,63 @@ public class jf_SanPham extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
+        String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
+        float donGia = Float.parseFloat(txtDonGia.getText().replace(",", "").replace(" VNĐ", ""));
+        float giam = Float.parseFloat(txtGiam.getText().replace(",", "").replace(" VNĐ", ""));
+        float giaVonSP = Float.parseFloat(txtGiaVon.getText().replace(",", "").replace(" VNĐ", ""));
+        tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
+        String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
+        String idNhomSanPham = new LoadSanPham().getIDByNhomSP(txtTenNhom.getText());
+        String tenSanPham = txtTenSanPham.getText();
+        String donViTinh = txtDonViTinh.getText();
+        tac.them(idSanPham, idNhomSanPham, tenSanPham, donViTinh,
+        formatDate.format(nsx.getDate()), formatDate.format(hsd.getDate()), idNhomSanPham + ".png", idBangGia, null, 0);
+        txtIDSanPham.setText(StringUtil.taoID("IDSanPham", "SanPham", "SP"));
+        JOptionPane.showMessageDialog(this, "Thành Công");
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void listSPAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSPAddMouseClicked
+        int index = listSPAdd.getSelectedRow();
+        if (!radioThem.isSelected()) {
+            txtIDSanPham.setText(listSPAdd.getModel().getValueAt(index, 0).toString());
+        }
+        txtTenNhom.setText(listSPAdd.getModel().getValueAt(index, 1).toString());
+        txtTenSanPham.setText(listSPAdd.getModel().getValueAt(index, 2).toString());
+        txtDonViTinh.setText(listSPAdd.getModel().getValueAt(index, 3).toString());
+        txtDonGia.setText(listSPAdd.getModel().getValueAt(index, 4).toString());
+        txtGiam.setText(listSPAdd.getModel().getValueAt(index, 5).toString());
+        txtGiaVon.setText(listSPAdd.getModel().getValueAt(index, 6).toString());
+    }//GEN-LAST:event_listSPAddMouseClicked
+
+    private void btnReadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadFileActionPerformed
+        new ReadFileExel().readThem(listSPAdd);
+    }//GEN-LAST:event_btnReadFileActionPerformed
+
+    private void btnThemFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemFromFileActionPerformed
+        for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+            String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
+            float donGia = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 6)
+                    .toString().replace(",", "").replace(" VNĐ", ""));
+            float giam = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 7)
+                    .toString().replace(",", "").replace(" VNĐ", ""));
+            float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8)
+                    .toString().replace(",", "").replace(" VNĐ", ""));
+            String tenNhom = listSPAdd.getModel().getValueAt(i, 1).toString();
+            tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
+            String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
+            String idNhomSanPham = new LoadSanPham().getIDByNhomSP(tenNhom);
+            String tenSanPham = listSPAdd.getModel().getValueAt(i, 2).toString();
+            String donViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
+            String nsx = listSPAdd.getModel().getValueAt(i, 4).toString();
+            String hsd = listSPAdd.getModel().getValueAt(i, 5).toString();
+            tac.them(idSanPham, idNhomSanPham, tenSanPham, donViTinh,
+            nsx,hsd,idNhomSanPham + ".png", idBangGia, null, 0);
+        }
+        JOptionPane.showMessageDialog(this, "Thành Công");
+    }//GEN-LAST:event_btnThemFromFileActionPerformed
 
     public static void main(String args[]) {
 
@@ -230,13 +419,18 @@ public class jf_SanPham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnReadFile;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThemFromFile;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private com.toedter.calendar.JDateChooser hsd;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -245,12 +439,19 @@ public class jf_SanPham extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable listSanPham;
+    private javax.swing.JTable listSPAdd;
+    private javax.swing.JRadioButton nhapFile;
+    private javax.swing.JRadioButton nhapTay;
+    private com.toedter.calendar.JDateChooser nsx;
+    private javax.swing.JRadioButton radioSua;
+    private javax.swing.JRadioButton radioThem;
+    private javax.swing.JRadioButton radioXoa;
     private javax.swing.JTextField txtDonGia;
+    private javax.swing.JTextField txtDonViTinh;
     private javax.swing.JTextField txtGiaVon;
     private javax.swing.JTextField txtGiam;
     private javax.swing.JTextField txtIDSanPham;
+    private javax.swing.JTextField txtTenNhom;
     private javax.swing.JTextField txtTenSanPham;
-    private javax.swing.JTextField txtTenSanPham1;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,16 +17,18 @@ import model.ConnectDAO;
 import model.SanPham;
 
 public class LoadTable {
+
     DecimalFormat format = new DecimalFormat("###,###,###");
-    public void SanPham(String text,JTable jTable) {
+
+    public void SanPham(String text, JTable jTable) {
         String query = "SELECT SanPham.IDSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
                 + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
                 + "BangGia.Giam,BangGia.GiaVonSP,KhachHang.HoTen ,\n"
                 + "SanPham.TinhTrang , SanPham.SKU,Kho.NgayNhap,Kho.NgayXuat FROM SanPham\n"
                 + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                + "INNER JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
-                + "INNER JOIN Kho ON SanPham.SKU = Kho.SKU\n"
-                + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n" + text;
+                + "FULL JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
+                + "FULL JOIN Kho ON SanPham.SKU = Kho.SKU\n"
+                + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia " + text;
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
@@ -65,7 +67,8 @@ public class LoadTable {
             e.printStackTrace();
         }
     }
-    public void PhieuNhapLeft(List<SanPham> list,JTable table) {
+
+    public void PhieuNhapLeft(List<SanPham> list, JTable table) {
         table.removeAll();
         Vector vTitle = null;
         Vector vData = null;
@@ -84,20 +87,21 @@ public class LoadTable {
         tableMode = new DefaultTableModel(vTitle, 0);
         for (SanPham sp : list) {
             vData = new Vector();
-            vData.add(sp.getIdSanPham());
-            vData.add(sp.getTenNhom());
-            vData.add(sp.getTenSanPham());
-            vData.add(sp.getIdDonViTinh());
-            vData.add(sp.getNgaySanXuat());
-            vData.add(sp.getHanSuDung());
+            vData.add(checkNull(sp.getIdSanPham()));
+            vData.add(checkNull(sp.getTenNhom()));
+            vData.add(checkNull(sp.getTenSanPham()));
+            vData.add(checkNull(sp.getIdDonViTinh()));
+            vData.add(checkNull(sp.getNgaySanXuat()));
+            vData.add(checkNull(sp.getHanSuDung()));
             vData.add(format.format(sp.getDonGia()) + " VNĐ");
             vData.add(format.format(sp.getGiam()));
             vData.add(format.format(sp.getGiaVonSP()) + " VNĐ");
-            vData.add(sp.getTenNhaCungCap());
+            vData.add(checkNull(sp.getTenNhaCungCap()));
             tableMode.addRow(vData);
         }
         table.setModel(tableMode);
     }
+
     public void PhieuNhapLeft1(String text, JTable table) {
         List<SanPham> list = new Kho().getSanPhamByNSP(text);
         table.removeAll();
@@ -132,7 +136,8 @@ public class LoadTable {
         }
         table.setModel(tableMode);
     }
-    public void PhieuNhapRight(List<String[]> list,JTable table) {
+
+    public void PhieuNhapRight(List<String[]> list, JTable table) {
         table.removeAll();
         Vector vTitle = null;
         Vector vData = null;
@@ -159,6 +164,7 @@ public class LoadTable {
         }
         table.setModel(tableMode);
     }
+
     public void NhaCungCap(String text, JTable listNhaCungCap) {
         String query = "SELECT KhachHang.IDKhachHang ,NhomKhachHang.TenNhom,KhachHang.HoTen,\n"
                 + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
@@ -326,6 +332,7 @@ public class LoadTable {
             e.printStackTrace();
         }
     }
+
     public String checkNull(String s) {
         return s == null ? "<empty>" : s;
     }

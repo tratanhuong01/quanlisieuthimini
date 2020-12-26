@@ -27,7 +27,7 @@ public class Kho {
         }
         return list;
     }
-    public List<SanPham> getSanPhamBy(String text) {
+    public List<SanPham> getSanPhamBy(String text,String subQuery) {
         List<SanPham> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT SanPham.IDSanPham,SanPham.IDNhomSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
@@ -35,11 +35,11 @@ public class Kho {
                     + "BangGia.Giam,BangGia.GiaVonSP,SanPham.IDKhachHang,KhachHang.HoTen , \n"
                     + "SanPham.TinhTrang , SanPham.SKU,Kho.NgayNhap,Kho.NgayXuat FROM SanPham "
                     + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
-                    + "INNER JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
+                    + "FULL JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
                     + "FULL JOIN Kho ON SanPham.SKU = Kho.SKU\n"
                     + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia \n"
                     + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc " 
-                    + "WHERE SanPham.IDSanPham LIKE N'%" + text + "%' OR SanPham.TenSanPham LIKE N'%" + text + "%' ";
+                    + "WHERE (SanPham.IDSanPham LIKE N'%" + text + "%' OR SanPham.TenSanPham LIKE N'%" + text + "%' ) " + subQuery;
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

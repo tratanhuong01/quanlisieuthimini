@@ -148,4 +148,57 @@ public class ReadFileExel {
         num = Long.parseLong(s);
         return num;
     }
+    public boolean readThem(JTable jTable) {
+        try {
+            DecimalFormat format = new DecimalFormat("###,###,###");
+            JFileChooser jf = new JFileChooser();
+            if (jf.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                File file = new File(jf.getSelectedFile().getAbsolutePath());
+                FileInputStream fis = new FileInputStream(file);
+                HSSFWorkbook xssfW = new HSSFWorkbook(fis);
+                HSSFSheet excelSheet = xssfW.getSheetAt(0);
+                Vector vTitle = new Vector(9);
+                CellStyle cellStyle = xssfW.createCellStyle();
+                CreationHelper creationHelper = xssfW.getCreationHelper();
+                cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd hh:mm:ss"));
+                DefaultTableModel tableModel = new DefaultTableModel(vTitle, 0);
+                for (int row = 0; row < excelSheet.getLastRowNum(); row++) {
+                    HSSFRow excelRow = excelSheet.getRow(row);
+                    if (row == 0) {
+                        vTitle.add(excelRow.getCell(0).toString().replace(".0", ""));
+                        vTitle.add(excelRow.getCell(1).toString());
+                        vTitle.add(excelRow.getCell(2).toString());
+                        vTitle.add(excelRow.getCell(3).toString());
+                        vTitle.add(excelRow.getCell(4).toString());
+                        vTitle.add(excelRow.getCell(5).toString());
+                        vTitle.add(excelRow.getCell(6).toString());
+                        vTitle.add(excelRow.getCell(7).toString());
+                        vTitle.add(excelRow.getCell(8).toString());
+                    } else {
+                        Vector vData = new Vector();
+                        vData.add(excelRow.getCell(0).toString());
+                        vData.add(excelRow.getCell(1).toString());
+                        vData.add(excelRow.getCell(2).toString());
+                        vData.add(excelRow.getCell(3).toString());
+                        String date4 = new SimpleDateFormat("yyyy-MM-dd").format(
+                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+                                parse(excelRow.getCell(4).toString()));
+                        String date5 = new SimpleDateFormat("yyyy-MM-dd").format(
+                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+                                parse(excelRow.getCell(5).toString()));
+                        vData.add(date4);
+                        vData.add(date5);
+                        vData.add(format.format(formatString(excelRow.getCell(6))) + " VNĐ");
+                        vData.add(format.format(formatString(excelRow.getCell(7))));
+                        vData.add(format.format(formatString(excelRow.getCell(8))) + " VNĐ");
+                        tableModel.addRow(vData);
+                    }
+                }
+                jTable.setModel(tableModel);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

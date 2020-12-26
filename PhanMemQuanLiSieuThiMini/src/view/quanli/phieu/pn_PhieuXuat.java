@@ -41,7 +41,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         new loadDanhMuc().loadNhomSanPham1(cbNhomSanPham);
         listnsp = new loadDanhMuc().loadNhomSanPham2();
-        listSPMain = new Kho().getSanPhamBy("");
+        listSPMain = new Kho().getSanPhamBy(""," AND Kho.TinhTrang = 1 ");
         new LoadTable().PhieuNhapLeft(listSPMain, table1);
         loadKho();
     }
@@ -388,9 +388,10 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
         String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
         SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
         String time = formatTime.format(new Date(System.currentTimeMillis()));
         tac.insertPhieuNhap(id, time, null, nv.getIdNhanVien(),
-                0, 0, null, 2, 0, txtGhiChu.getText());
+                tongTien, 0, null, 2, 0, txtGhiChu.getText());
         for (int i = 0; i < table2.getRowCount(); i++) {
             String idSanPham = table2.getModel().getValueAt(i, 0).toString();
             String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
@@ -406,7 +407,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
-        new LoadTable().PhieuNhapLeft(new Kho().getSanPhamBy(""), table1);
+        new LoadTable().PhieuNhapLeft(new TimByList().timByWord(txtInput.getText(), listSPMain), table1);
     }//GEN-LAST:event_txtInputActionPerformed
 
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked

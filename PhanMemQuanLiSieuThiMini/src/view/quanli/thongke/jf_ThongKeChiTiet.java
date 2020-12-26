@@ -1,9 +1,17 @@
 package view.quanli.thongke;
 
+import controller.ThongKe;
+import java.text.DecimalFormat;
 public class jf_ThongKeChiTiet extends javax.swing.JFrame {
-
-    public jf_ThongKeChiTiet() {
+    String query;
+    public jf_ThongKeChiTiet(String query) {
         initComponents();
+        this.query = query;
+        int[] arr = new ThongKe().load(table, query);
+        DecimalFormat format = new DecimalFormat("###,###,###");
+        soHoaDon.setText(format.format(arr[1]) + " Hóa Đơn");
+        tongSanPham.setText(format.format(arr[0]) + " Sản Phẩm");
+        tienLai.setText(format.format(arr[2]) + " VNĐ");
     }
 
     @SuppressWarnings("unchecked")
@@ -13,13 +21,13 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        soHoaDon = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        tongSanPham = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        tienLai = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -52,13 +60,13 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-supplier-45.png"))); // NOI18N
-        jLabel6.setText("       Vốn :  ");
+        jLabel6.setText("Hóa Đơn : ");
         jPanel9.add(jLabel6);
 
-        jLabel7.setBackground(java.awt.Color.white);
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel7.setText("28.389.00 VNĐ");
-        jPanel9.add(jLabel7);
+        soHoaDon.setBackground(java.awt.Color.white);
+        soHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        soHoaDon.setText("28.389.00 VNĐ");
+        jPanel9.add(soHoaDon);
 
         jPanel2.add(jPanel9);
 
@@ -69,13 +77,13 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-supplier-45.png"))); // NOI18N
-        jLabel12.setText("       Vốn :  ");
+        jLabel12.setText("Sản Phẩm : ");
         jPanel11.add(jLabel12);
 
-        jLabel11.setBackground(java.awt.Color.white);
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel11.setText("500 Hóa Đơn");
-        jPanel11.add(jLabel11);
+        tongSanPham.setBackground(java.awt.Color.white);
+        tongSanPham.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        tongSanPham.setText("500 Hóa Đơn");
+        jPanel11.add(tongSanPham);
 
         jPanel2.add(jPanel11);
 
@@ -86,13 +94,13 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-supplier-45.png"))); // NOI18N
-        jLabel13.setText("       Vốn :  ");
+        jLabel13.setText("Tiền Lãi : ");
         jPanel10.add(jLabel13);
 
-        jLabel9.setBackground(java.awt.Color.white);
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel9.setText("1.237 Sản Phẩm");
-        jPanel10.add(jLabel9);
+        tienLai.setBackground(java.awt.Color.white);
+        tienLai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        tienLai.setText("1.237 Sản Phẩm");
+        jPanel10.add(tienLai);
 
         jPanel2.add(jPanel10);
 
@@ -208,15 +216,6 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tableMouseClicked
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jf_ThongKeChiTiet().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -226,7 +225,6 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -234,8 +232,6 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
@@ -244,6 +240,9 @@ public class jf_ThongKeChiTiet extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel soHoaDon;
     private javax.swing.JTable table;
+    private javax.swing.JLabel tienLai;
+    private javax.swing.JLabel tongSanPham;
     // End of variables declaration//GEN-END:variables
 }

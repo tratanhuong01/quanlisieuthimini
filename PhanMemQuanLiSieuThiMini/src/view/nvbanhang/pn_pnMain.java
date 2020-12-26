@@ -514,7 +514,8 @@ public class pn_pnMain extends javax.swing.JPanel {
             if (result == JOptionPane.YES_OPTION) {
                 if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
                     new jf_pnATM(ptThanhToan.getSelectedItem().toString(), listDongHoaDon, kh, nv,
-                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), pnMains,
+                            Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "")), 
+                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), pnMains,
                             Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
                 } else {
                     InfoAtm info = null;

@@ -1,22 +1,31 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.util.Vector;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
 
 public class ThongKe {
 
-    final String NGAY = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
+    public String NGAY = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
             + "AND NgayTao <= GETDATE() AND HoaDon.LoaiHoaDon = 0";
-    final String NGAY_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
+    public String NGAY_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
             + "AND NgayTao >= CONCAT(FORMAT(GETDATE() - 1,'yyyy-MM-dd'),' 00:00:00.000') AND HoaDon.LoaiHoaDon = 0";
-    final String TUAN = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE() - \n"
+    public String TUAN = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE() - \n"
             + "(SELECT CASE \n"
             + "When (SELECT DATEPART(WEEKDAY, GETDATE()) - 2) < 0 THEN 6\n"
             + "	ELSE (SELECT DATEPART(WEEKDAY, GETDATE()) - 2) \n"
             + "END AS RS)\n"
             + ",'yyyy-MM-dd'),' 00:00:00.000')\n"
             + "AND NgayTao <= GETDATE() AND HoaDon.LoaiHoaDon = 0";
-    final String TUAN_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE() - (SELECT DATEPART(WEEKDAY, GETDATE()) + \n"
+    public String TUAN_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE() - (SELECT DATEPART(WEEKDAY, GETDATE()) + \n"
             + "(SELECT CASE \n"
             + "When (SELECT DATEPART(WEEKDAY, GETDATE()) - 2) < 0 THEN 6\n"
             + "	ELSE (SELECT DATEPART(WEEKDAY, GETDATE()) - 2) \n"
@@ -27,13 +36,13 @@ public class ThongKe {
             + "	ELSE (SELECT DATEPART(WEEKDAY, GETDATE()) - 2) \n"
             + "END AS RS)),'yyyy-MM-dd'),' 00:00:00.000')) - 7\n"
             + "AND HoaDon.LoaiHoaDon = 0";
-    final String THANG = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE() - DAY(GETDATE() - 1),'yyyy-MM-dd'),' 00:00:00.000')\n"
+    public String THANG = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE() - DAY(GETDATE() - 1),'yyyy-MM-dd'),' 00:00:00.000')\n"
             + "AND NgayTao <= GETDATE() AND HoaDon.LoaiHoaDon = 0";
-    final String THANG_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE() - DAY(GETDATE() - 1),'yyyy-MM-dd'),' 00:00:00.000')\n"
+    public String THANG_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE() - DAY(GETDATE() - 1),'yyyy-MM-dd'),' 00:00:00.000')\n"
             + "AND NgayTao >= CONVERT(Datetime,CONCAT(FORMAT(GETDATE() - DAY(GETDATE()) - DAY(EOMONTH(GETDATE() - DAY(GETDATE())))"
             + " + 1,'yyyy-MM-dd'),' 00:00:00')) AND HoaDon.LoaiHoaDon = 0";
-    final String NAM = "";
-    final String NAM_TRUOC = "";
+    public String NAM = "";
+    public String NAM_TRUOC = "";
 
     public int LocHoaDon(String query) {
         int count = 0;
@@ -193,4 +202,74 @@ public class ThongKe {
         }
         return count;
     }
+
+    public int[] load(JTable table, String subQuery) {
+        int[] arr = new int[10];
+        table.removeAll();
+        DecimalFormat format = new DecimalFormat("###,###,###");
+        int soHoaDon = 0;
+        int tienLai = 0;
+        int tongSanPham = 0;
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT HoaDon.IDHoaDon , SanPham.IDSanPham,Kho.SKU,SanPham.TenSanPham,DongHoaDon.SoLuong,\n"
+                    + "BangGia.GiaVonSP * DongHoaDon.SoLuong AS 'Đơn Giá',\n"
+                    + "BangGia.DonGia * DongHoaDon.SoLuong - ((BangGia.DonGia * DongHoaDon.SoLuong)*((100-BangGia.Giam)/100)) AS 'Giảm',\n"
+                    + "BangGia.DonGia * DongHoaDon.SoLuong - (BangGia.GiaVonSP * DongHoaDon.SoLuong+ \n"
+                    + "BangGia.DonGia * DongHoaDon.SoLuong - ((BangGia.DonGia * DongHoaDon.SoLuong)*((100-BangGia.Giam)/100))) AS ' Tiền Lãi'\n"
+                    + "FROM HoaDon \n"
+                    + "INNER JOIN DongHoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon\n"
+                    + "INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
+                    + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n"
+                    + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham\n"
+                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rms = rs.getMetaData();
+            Vector vTitle = new Vector(rms.getColumnCount());
+            Vector vData = null;
+            for (int i = 1; i <= rms.getColumnCount(); i++) {
+                vTitle.add(rms.getColumnLabel(i));
+            }
+
+            DefaultTableModel tableModel = new DefaultTableModel(vTitle, 0);
+            while (rs.next()) {
+
+                vData = new Vector();
+                vData.add(rs.getString(1));
+                vData.add(rs.getString(2));
+                vData.add(rs.getString(3));
+                vData.add(rs.getString(4));
+                vData.add(rs.getInt(5));
+                vData.add(format.format(rs.getInt(6)) + " VNĐ");
+                vData.add(format.format(rs.getInt(7)) + " VNĐ");
+                vData.add(format.format(rs.getInt(8)) + " VNĐ");
+                tienLai += rs.getInt(8);
+                tongSanPham += rs.getInt(5);
+                tableModel.addRow(vData);
+            }
+            table.setModel(tableModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query = "SELECT COUNT(*) \n"
+                    + "FROM HoaDon \n"
+                    + "INNER JOIN DongHoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon\n"
+                    + "INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
+                    + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n"
+                    + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham\n"
+                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) 
+                soHoaDon = rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        arr[0] = tongSanPham;
+        arr[1] = soHoaDon;
+        arr[2] = tienLai;
+        return arr;
+    }
+
 }
