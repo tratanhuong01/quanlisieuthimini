@@ -31,6 +31,7 @@ public class XuLiPhieu {
         }
         return false;
     }
+
     public boolean xuLiPhieuNhap(int tinhTrang,String idDongHoaDon) {
         try (Connection conn = new ConnectDAO().getConnection()){
             String query = "UPDATE DongHoaDon SET TinhTrang = ? WHERE IDDongHoaDon = ? ";

@@ -22,14 +22,14 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
     }
 
     public void loadTable() {
-        String query = "SELECT * FROM NhomSanPham";
+        String query = "SELECT IDNhomSanPham,TenNhom,LoaiNhom FROM NhomSanPham";
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;
             DefaultTableModel tableMode;
-            jTable1.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            jTable1.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            jTable1.getTableHeader().setBackground(Color.WHITE);
+            table.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
+            table.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
+            table.getTableHeader().setBackground(Color.WHITE);
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
@@ -39,30 +39,28 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
                 vTitle.add(rsm.getColumnLabel(i));
             }
             tableMode = new DefaultTableModel(vTitle, 0);
-            jTable1.removeAll();
+            table.removeAll();
             while (rs.next()) {
                 vData = new Vector();
                 vData.add(rs.getString(1));
                 vData.add(rs.getString(2));
                 vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
                 tableMode.addRow(vData);
             }
-            jTable1.setModel(tableMode);
+            table.setModel(tableMode);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean add(String idNhomSP, String tenNhom,int loaiNhom,String idKhuVuc) {
+    public boolean add(String idNhomSP, String tenNhom,int loaiNhom) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO NhomSanPham(IDNhomSanPham,TenNhom,LoaiNhom,IDKhuVuc)VALUES "
-                    + "(?,?,?,?)";
+            String query = "INSERT INTO NhomSanPham(IDNhomSanPham,TenNhom,LoaiNhom)VALUES "
+                    + "(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhomSP);
             ps.setString(2, tenNhom);
             ps.setInt(3, loaiNhom);
-            ps.setString(4, idKhuVuc);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -71,14 +69,13 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         return false;
     }
 
-    public boolean update(String tenNhom,int loaiNhom,String idKhuVuc,String idNhomSP) {
+    public boolean update(String tenNhom,int loaiNhom,String idNhomSP) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "UPDATE NhomKhachHang SET TenNhom = ? , LoaiNhom = ? , IDKhuVuc WHERE IDNhomSanPham = ?";
+            String query = "UPDATE NhomKhachHang SET TenNhom = ? , LoaiNhom = ? WHERE IDNhomSanPham = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, tenNhom);
             ps.setInt(2, loaiNhom);
-            ps.setString(3, idKhuVuc);
-            ps.setString(4, idNhomSP);
+            ps.setString(3, idNhomSP);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -115,18 +112,16 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtLoai = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtIDKhuVuc = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setBackground(java.awt.Color.white);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhóm Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 24))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(java.awt.Color.white);
-        jPanel1.setPreferredSize(new java.awt.Dimension(682, 250));
+        jPanel1.setPreferredSize(new java.awt.Dimension(682, 200));
         jPanel1.setLayout(null);
 
         btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -138,7 +133,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnXoa);
-        btnXoa.setBounds(500, 90, 130, 60);
+        btnXoa.setBounds(500, 60, 130, 50);
 
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
@@ -149,7 +144,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnSua);
-        btnSua.setBounds(500, 180, 130, 60);
+        btnSua.setBounds(500, 130, 130, 50);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
@@ -160,7 +155,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnThem);
-        btnThem.setBounds(500, 0, 130, 60);
+        btnThem.setBounds(500, 0, 130, 50);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("ID Nhóm Sản Phẩm");
@@ -189,20 +184,12 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 140, 180, 37);
 
-        txtIDKhuVuc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(txtIDKhuVuc);
-        txtIDKhuVuc.setBounds(210, 190, 260, 50);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 200, 180, 37);
-
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -213,8 +200,13 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setRowHeight(40);
-        jScrollPane1.setViewportView(jTable1);
+        table.setRowHeight(40);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
 
         jPanel2.add(jScrollPane1);
 
@@ -223,7 +215,7 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (add(txtIDNhomSanPham.getText(),  txtTenNhomSanPham.getText(),
-                Integer.parseInt(txtLoai.getText()),  txtIDKhuVuc.getText()))
+                Integer.parseInt(txtLoai.getText())))
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         else 
             JOptionPane.showMessageDialog(this, "Thêm thất bại ... vui lòng kiểm tra lại !!");
@@ -237,12 +229,18 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (update(txtTenNhomSanPham.getText(),Integer.parseInt(txtLoai.getText()), 
-                txtIDKhuVuc.getText(),txtIDNhomSanPham.getText()))
+        if (update(txtTenNhomSanPham.getText(),Integer.parseInt(txtLoai.getText()),txtIDNhomSanPham.getText()))
             JOptionPane.showMessageDialog(this, "Sửa thành công");
         else 
             JOptionPane.showMessageDialog(this, "Sửa thất bại ... vui lòng kiểm tra lại !!");
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int index = table.getSelectedRow();
+        txtIDNhomSanPham.setText(table.getModel().getValueAt(index, 0).toString());
+        txtTenNhomSanPham.setText(table.getModel().getValueAt(index, 1).toString());
+        txtLoai.setText(table.getModel().getValueAt(index, 2).toString());
+    }//GEN-LAST:event_tableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,12 +250,10 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtIDKhuVuc;
+    private javax.swing.JTable table;
     private javax.swing.JTextField txtIDNhomSanPham;
     private javax.swing.JTextField txtLoai;
     private javax.swing.JTextField txtTenNhomSanPham;

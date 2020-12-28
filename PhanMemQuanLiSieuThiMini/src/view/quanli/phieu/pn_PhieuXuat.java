@@ -41,7 +41,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         new loadDanhMuc().loadNhomSanPham1(cbNhomSanPham);
         listnsp = new loadDanhMuc().loadNhomSanPham2();
-        listSPMain = new Kho().getSanPhamBy(""," AND Kho.TinhTrang = 1 ");
+        listSPMain = new Kho().getSanPhamBy(""," AND Kho.TinhTrang = 0 ");
         new LoadTable().PhieuNhapLeft(listSPMain, table1);
         loadKho();
     }
@@ -398,12 +398,12 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
             String idDonViTinh = table2.getModel().getValueAt(i, 3).toString();
             int sl = Integer.parseInt(table2.getModel().getValueAt(i, 10).toString());;
             tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, 0, (float) 0, 0);
-            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-            tac.updateIDPhieu(idPhieu, id);
-            JOptionPane.showMessageDialog(this, "Thành Công");
+            
         }
-
+        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+        tac.updateIDPhieu(idPhieu, id);
+        JOptionPane.showMessageDialog(this, "Thành Công");
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed

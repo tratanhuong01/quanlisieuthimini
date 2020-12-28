@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fields templateEngineKind="Velocity" >
 	<description><![CDATA[]]></description>
-	<field name="dongHoaDon.HinhSanPham" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.DonGia" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdDonViTinh" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.Giam" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdDongHoaDon" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.HinhSanPham" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdHoaDon" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdDonViTinh" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdKhachHang" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdDongHoaDon" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdNhanVien" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdHoaDon" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.IdSanPham" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdKhachHang" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.NgayTao" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdNhanVien" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.TenKhachHang" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.IdSanPham" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.TenNhanVien" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.NgayTao" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="dongHoaDon.TenSanPham" list="true" imageName="" syntaxKind="">
+	<field name="donghoadon.SoLuong" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="donghoadon.TenKhachHang" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="donghoadon.TenNhanVien" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="donghoadon.TenSanPham" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
 </fields>

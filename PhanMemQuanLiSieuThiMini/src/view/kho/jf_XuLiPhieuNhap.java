@@ -202,7 +202,8 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
         String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0 ";
         new XuLiPhieu().insertKho(txtMaSKU.getText(), txtIDSanPham.getText(),
                 new SimpleDateFormat("yyyy-MM-dd hh:mm:sss").format(cbNgayNhap.getDate()),
-                null, Integer.parseInt(txtSoLuongNhap.getText()), 0, 1, idKVKho);
+                null, Integer.parseInt(txtSoLuongNhap.getText()), Integer.parseInt(txtSoLuongNhap.getText())
+                , 0, idKVKho);
         new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
         new LoadTable_Kho().NhapHangTK(query, table);
         if (checkEnd(idHoaDon) == 0) {

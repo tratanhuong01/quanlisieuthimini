@@ -151,7 +151,7 @@ public class LoadTable_Kho {
     public void XuatHangTK(String text, JTable table) {
         table.removeAll();
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT Kho.SKU,DongHoaDon.IDSanPham,SanPham.TenSanPham,DongHoaDon.IDDonViTinh,\n"
+            String query = "SELECT DongHoaDon.IDDongHoaDon,Kho.SKU,DongHoaDon.IDSanPham,SanPham.TenSanPham,DongHoaDon.IDDonViTinh,\n"
                     + "DongHoaDon.SoLuong,NhomSanPham.TenNhom,KhuVucKho.TenKho \n"
                     + "FROM DongHoaDon INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
                     + "INNER JOIN Kho ON SanPham.IDSanPham = Kho.IDSanPham\n"
@@ -177,6 +177,7 @@ public class LoadTable_Kho {
                 vData.add(rs.getString(5));
                 vData.add(rs.getString(6));
                 vData.add(rs.getString(7));
+                vData.add(rs.getString(8));
                 tableMode.addRow(vData);
             }
             table.setModel(tableMode);

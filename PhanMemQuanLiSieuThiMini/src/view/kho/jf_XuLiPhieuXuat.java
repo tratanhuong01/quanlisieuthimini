@@ -1,11 +1,14 @@
 package view.kho;
 
 import controller.LoadTable_Kho;
+import controller.UpdateDB;
 import controller.XuLiPhieu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import model.ConnectDAO;
 
 public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
@@ -20,6 +23,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         btnNhapFile.setEnabled(false);
         String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon + "' AND DongHoaDon.TinhTrang = 0";
         new LoadTable_Kho().XuatHangTK(query, table);
+        cbNgayXuat.setDate(new java.sql.Date(System.currentTimeMillis()));
     }
     public int checkEnd(String idHoaDon) {
         int kq = 0;
@@ -47,7 +51,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         txtMaSKU = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cbNgayNhap = new com.toedter.calendar.JDateChooser();
+        cbNgayXuat = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         txtSoLuongNhap = new javax.swing.JTextField();
         cbKieuNhap = new javax.swing.JComboBox<>();
@@ -87,8 +91,11 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         jLabel3.setText("Ngày Xuất");
         top.add(jLabel3);
         jLabel3.setBounds(580, 40, 150, 40);
-        top.add(cbNgayNhap);
-        cbNgayNhap.setBounds(730, 40, 260, 40);
+
+        cbNgayXuat.setDateFormatString("yyyy-MM-dd");
+        cbNgayXuat.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        top.add(cbNgayXuat);
+        cbNgayXuat.setBounds(730, 40, 260, 40);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel5.setText("Số Lượng Xuất");
@@ -189,16 +196,18 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int index = table.getSelectedRow();
-        
+        idDongHoaDon = table.getModel().getValueAt(index, 0).toString();
+        txtMaSKU.setText(table.getModel().getValueAt(index, 1).toString());
+        txtIDSanPham.setText(table.getModel().getValueAt(index, 2).toString());
+        txtSoLuongNhap.setText(table.getModel().getValueAt(index, 5).toString());
     }//GEN-LAST:event_tableMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         new XuLiPhieu().xuLiPhieuNhap(1, idDongHoaDon);
         String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0 ";
-        new XuLiPhieu().insertKho(txtMaSKU.getText(), txtIDSanPham.getText(),
-                new SimpleDateFormat("yyyy-MM-dd hh:mm:sss").format(cbNgayNhap.getDate()),
-                null, Integer.parseInt(txtSoLuongNhap.getText()), 0, 1, idKVKho);
         new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
+        new UpdateDB().xuLiSKU(Integer.parseInt(txtSoLuongNhap.getText()), txtMaSKU.getText());
+        new UpdateDB().updateNgayXuat(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(cbNgayXuat.getDate()), txtMaSKU.getText());
         new LoadTable_Kho().XuatHangTK(query, table);
         if (checkEnd(idHoaDon) == 0) {
             new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
@@ -207,7 +216,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
     public void trueOrFalse(boolean b) {
         txtMaSKU.setEditable(b);
         txtSoLuongNhap.setEditable(b);
-        cbNgayNhap.setEnabled(b);
+        cbNgayXuat.setEnabled(b);
         btnThem.setEnabled(b);
         btnNhapFile.setEnabled(!b);
     }
@@ -217,7 +226,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
     private javax.swing.JButton btnNhapFile;
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cbKieuNhap;
-    private com.toedter.calendar.JDateChooser cbNgayNhap;
+    private com.toedter.calendar.JDateChooser cbNgayXuat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

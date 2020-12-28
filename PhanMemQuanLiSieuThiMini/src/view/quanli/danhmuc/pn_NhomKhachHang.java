@@ -26,9 +26,9 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             Vector vTitle = null;
             Vector vData = null;
             DefaultTableModel tableMode;
-            jTable1.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
-            jTable1.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
-            jTable1.getTableHeader().setBackground(Color.WHITE);
+            table.getTableHeader().setPreferredSize(new Dimension(WIDTH, 30));
+            table.getTableHeader().setFont(new Font("Time New Roman", 1, 14));
+            table.getTableHeader().setBackground(Color.WHITE);
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
@@ -38,7 +38,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
                 vTitle.add(rsm.getColumnLabel(i));
             }
             tableMode = new DefaultTableModel(vTitle, 0);
-            jTable1.removeAll();
+            table.removeAll();
             while (rs.next()) {
                 vData = new Vector();
                 vData.add(rs.getString(1));
@@ -46,18 +46,19 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
                 vData.add(rs.getString(3));
                 tableMode.addRow(vData);
             }
-            jTable1.setModel(tableMode);
+            table.setModel(tableMode);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public boolean add(String idNhomKH, String tenNhom) {
+    public boolean add(String idNhomKH, String tenNhom,String loai) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO NhomKhachHang(IDNhomKH,TenNhom)VALUES "
-                    + "(?,?)";
+            String query = "INSERT INTO NhomKhachHang(IDNhomKH,TenNhom,Loai)VALUES "
+                    + "(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhomKH);
             ps.setString(2, tenNhom);
+            ps.setString(3, loai);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -83,8 +84,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
 
     public boolean delete(String idNhomKH) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "DELETE FROM NhomKhachHang WHERE "
-                    + "IDNhomKH = ? ";
+            String query = "DELETE FROM NhomKhachHang WHERE IDNhomKH = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhomKH);
             ps.executeUpdate();
@@ -106,11 +106,11 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
         txtIDNhomKH = new javax.swing.JTextField();
         txtTenNhom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtLoai = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setBackground(java.awt.Color.white);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhóm Khách Hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 24))); // NOI18N
@@ -171,9 +171,9 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 80, 147, 37);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(170, 130, 300, 50);
+        txtLoai.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(txtLoai);
+        txtLoai.setBounds(170, 130, 300, 50);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Loại");
@@ -184,8 +184,8 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -196,8 +196,13 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setRowHeight(40);
-        jScrollPane1.setViewportView(jTable1);
+        table.setRowHeight(40);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
 
         jPanel2.add(jScrollPane1);
 
@@ -205,10 +210,11 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (add(txtIDNhomKH.getText(), txtTenNhom.getText()) == true) 
+        if (add(txtIDNhomKH.getText(), txtTenNhom.getText(),txtLoai.getText()) == true) 
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         else 
             JOptionPane.showMessageDialog(this, "Thêm thất bại ... vui lòng kiểm tra lại!!");
+        loadTable();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -216,6 +222,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         else 
             JOptionPane.showMessageDialog(this, "Xóa thất bại ... vui lòng kiểm tra lại!!");
+        loadTable();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -223,7 +230,15 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         else 
             JOptionPane.showMessageDialog(this, "Cập nhật thất bại ... vui lòng kiểm tra lại!!");
+        loadTable();
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int index = table.getSelectedRow();
+        txtIDNhomKH.setText(table.getModel().getValueAt(index, 0).toString());
+        txtTenNhom.setText(table.getModel().getValueAt(index, 1).toString());
+        txtLoai.setText(table.getModel().getValueAt(index, 2).toString());
+    }//GEN-LAST:event_tableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,9 +251,9 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable table;
     private javax.swing.JTextField txtIDNhomKH;
+    private javax.swing.JTextField txtLoai;
     private javax.swing.JTextField txtTenNhom;
     // End of variables declaration//GEN-END:variables
 }
