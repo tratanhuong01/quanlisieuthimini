@@ -398,8 +398,8 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
                     return Printable.NO_SUCH_PAGE;
                 }
                 Graphics2D g2 = (Graphics2D) graphics;
-                g2.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                g2.scale(0.7, 0.7);
+                g2.translate(pageFormat.getImageableX() + 150, pageFormat.getImageableY());
+                g2.scale(0.5, 0.5);
                 pn.paint(g2);
                 pn.paint(graphics);
                 return Printable.PAGE_EXISTS;

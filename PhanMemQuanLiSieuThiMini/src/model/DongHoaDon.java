@@ -145,5 +145,4 @@ public class DongHoaDon {
         this.ngayTao = ngayTao;
     }
     
-    
 }

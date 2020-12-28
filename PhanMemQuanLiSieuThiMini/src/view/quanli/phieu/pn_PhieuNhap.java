@@ -46,7 +46,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         btnThemMoi.setEnabled(true);
         new loadDanhMuc().loadNhomSanPham1(cbNhomSanPham);
         listnsp = new loadDanhMuc().loadNhomSanPham2();
-        listSPMain = new Kho().getSanPhamBy("","");
+        listSPMain = new Kho().getSanPhamBy("", "");
         new LoadTable().PhieuNhapLeft(listSPMain, table3);
     }
 
@@ -420,29 +420,28 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
-        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
-        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String time = formatTime.format(new Date(System.currentTimeMillis()));
-        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
-        tac.insertPhieuNhap(id, time, idNhaCungCap, nv.getIdNhanVien(),
-                tongTien, 0, null, 1, Float.parseFloat(txtVAT.getText()), txtGhiChu.getText());
-        int num = listSPAdd.getRowCount();
-//        if (cbKieu.getSelectedIndex() == 0) {
-            for (int i = 0; i < num; i++) {
-                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-                String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
-                String idSanPham = listSPAdd.getModel().getValueAt(i, 0).toString();
-                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-                new LoadSanPham().updateNhaCungCap(idNhaCungCap, idSanPham);
-                tac.insertDongHoaDon(iddhd, id, listSPAdd.getModel().getValueAt(i, 0).toString(), idDonViTinh, sl, 0, 0, 0);
-            }
-            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-            tac.updateIDPhieu(idPhieu, id);
-            JOptionPane.showMessageDialog(this, "Thành Công");
-            
-//        } else {
+        new jf_TemplatePhieuNhap(listSP,cbNhaCungCap.getSelectedItem().toString(),"Đà Nẵng",
+        "2730382","029226353",ptThanhToan.getSelectedItem().toString(),"VNĐ").setVisible(true);
+//        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
+//        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
+//        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//        String time = formatTime.format(new Date(System.currentTimeMillis()));
+//        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
+//        tac.insertPhieuNhap(id, time, idNhaCungCap, nv.getIdNhanVien(),
+//                tongTien, 0, null, 1, Float.parseFloat(txtVAT.getText()), txtGhiChu.getText());
+//        int num = listSPAdd.getRowCount();
+//        for (int i = 0; i < num; i++) {
+//            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+//            String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
+//            String idSanPham = listSPAdd.getModel().getValueAt(i, 0).toString();
+//            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+//            new LoadSanPham().updateNhaCungCap(idNhaCungCap, idSanPham);
+//            tac.insertDongHoaDon(iddhd, id, listSPAdd.getModel().getValueAt(i, 0).toString(), idDonViTinh, sl, 0, 0, 0);
+//        }
+//        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+//        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+//        tac.updateIDPhieu(idPhieu, id);
+//        JOptionPane.showMessageDialog(this, "Thành Công");
 //            for (int i = 0; i < num; i++) {
 //                String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
 //                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
@@ -465,7 +464,6 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
 //            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
 //            tac.updateIDPhieu(idPhieu, id);
 //            JOptionPane.showMessageDialog(this, "Thành Công");
-//        }
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void cbNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhaCungCapActionPerformed

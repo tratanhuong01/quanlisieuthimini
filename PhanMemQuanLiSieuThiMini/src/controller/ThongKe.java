@@ -221,7 +221,7 @@ public class ThongKe {
                     + "INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
                     + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n"
                     + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham\n"
-                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
+                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ORDER BY HoaDon.IDHoaDon DESC ";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rms = rs.getMetaData();
@@ -252,13 +252,8 @@ public class ThongKe {
             e.printStackTrace();
         }
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT COUNT(*) \n"
-                    + "FROM HoaDon \n"
-                    + "INNER JOIN DongHoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon\n"
-                    + "INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
-                    + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n"
-                    + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham\n"
-                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
+            String query = "SELECT DISTINCT COUNT(*) \n" +
+                " FROM HoaDon " + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) 
