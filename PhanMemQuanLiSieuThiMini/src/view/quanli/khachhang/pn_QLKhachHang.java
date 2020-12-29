@@ -73,8 +73,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        cbChon1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         txtInput = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
@@ -104,17 +102,6 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         jPanel5.setBackground(java.awt.Color.white);
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 20))); // NOI18N
         jPanel5.setLayout(null);
-
-        cbChon1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        cbChon1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ATM", "Tiền Mặt" }));
-        jPanel5.add(cbChon1);
-        cbChon1.setBounds(20, 90, 314, 46);
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Phương Thức Thanh Toán");
-        jPanel5.add(jLabel2);
-        jLabel2.setBounds(20, 40, 310, 40);
-
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 271, 350, 330);
 
@@ -196,6 +183,11 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-delete-40.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnXoa);
         btnXoa.setBounds(480, 20, 141, 63);
 
@@ -296,6 +288,10 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         new XuatFile().execute(listKhachHang, process, "Khách Hàng");
     }//GEN-LAST:event_btnXuatFileActionPerformed
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        
+    }//GEN-LAST:event_btnXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuanLiDiem;
@@ -304,9 +300,7 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbChon;
-    private javax.swing.JComboBox<String> cbChon1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

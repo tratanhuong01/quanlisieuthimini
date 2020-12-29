@@ -1,13 +1,8 @@
 package controller;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.Vector;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
@@ -230,7 +225,6 @@ public class ThongKe {
             for (int i = 1; i <= rms.getColumnCount(); i++) {
                 vTitle.add(rms.getColumnLabel(i));
             }
-
             DefaultTableModel tableModel = new DefaultTableModel(vTitle, 0);
             while (rs.next()) {
 
@@ -252,12 +246,13 @@ public class ThongKe {
             e.printStackTrace();
         }
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT DISTINCT COUNT(*) \n" +
-                " FROM HoaDon " + subQuery + " AND HoaDon.LoaiHoaDon = 0 ";
+            String query = "SELECT DISTINCT COUNT(*) \n"
+                    + " FROM HoaDon " + subQuery;
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) 
+            if (rs.next()) {
                 soHoaDon = rs.getInt(1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

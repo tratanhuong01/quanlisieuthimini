@@ -34,7 +34,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     List<String[]> listSP = new ArrayList<>();
     List<NhomSanPham> listnsp;
     List<SanPham> listSPMain;
-
+    int in = 0;
     public pn_PhieuNhap(NhanVien nv) {
         this.nv = nv;
         initComponents();
@@ -48,6 +48,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         listnsp = new loadDanhMuc().loadNhomSanPham2();
         listSPMain = new Kho().getSanPhamBy("", "");
         new LoadTable().PhieuNhapLeft(listSPMain, table3);
+        txtVAT.setEditable(false);
     }
 
     public void loadNhaCungCap() {
@@ -68,6 +69,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jSlider1 = new javax.swing.JSlider();
         jPanel5 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -127,15 +129,31 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel4.setBackground(java.awt.Color.white);
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 330));
 
+        jSlider1.setBackground(new java.awt.Color(255, 255, 255));
+        jSlider1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jSlider1.setMaximum(50);
+        jSlider1.setValue(0);
+        jSlider1.setPreferredSize(new java.awt.Dimension(200, 40));
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 232, Short.MAX_VALUE)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.EAST);
@@ -297,6 +315,8 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         jPanel12.add(jLabel10);
 
         txtVAT.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtVAT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtVAT.setText("0");
         jPanel12.add(txtVAT);
 
         jPanel8.add(jPanel12);
@@ -420,28 +440,9 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
-        new jf_TemplatePhieuNhap(listSP,cbNhaCungCap.getSelectedItem().toString(),"Đà Nẵng",
-        "2730382","029226353",ptThanhToan.getSelectedItem().toString(),"VNĐ").setVisible(true);
-//        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
-//        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-//        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//        String time = formatTime.format(new Date(System.currentTimeMillis()));
-//        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
-//        tac.insertPhieuNhap(id, time, idNhaCungCap, nv.getIdNhanVien(),
-//                tongTien, 0, null, 1, Float.parseFloat(txtVAT.getText()), txtGhiChu.getText());
-//        int num = listSPAdd.getRowCount();
-//        for (int i = 0; i < num; i++) {
-//            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-//            String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
-//            String idSanPham = listSPAdd.getModel().getValueAt(i, 0).toString();
-//            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-//            new LoadSanPham().updateNhaCungCap(idNhaCungCap, idSanPham);
-//            tac.insertDongHoaDon(iddhd, id, listSPAdd.getModel().getValueAt(i, 0).toString(), idDonViTinh, sl, 0, 0, 0);
-//        }
-//        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-//        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-//        tac.updateIDPhieu(idPhieu, id);
-//        JOptionPane.showMessageDialog(this, "Thành Công");
+        new jf_TemplatePhieuNhap(listSP,ptThanhToan.getSelectedItem().toString(),"VNĐ",list.get(in),
+                                txtTongTien,idKVKho,nv,listSPAdd,txtVAT,txtGhiChu).setVisible(true);
+        
 //            for (int i = 0; i < num; i++) {
 //                String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
 //                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
@@ -470,6 +471,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         for (int i = 0; i < list.size(); i++) {
             if (cbNhaCungCap.getSelectedIndex() == i) {
                 idNhaCungCap = list.get(i).getIdKhachHang();
+                in = i;
             }
         }
     }//GEN-LAST:event_cbNhaCungCapActionPerformed
@@ -550,6 +552,10 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbNhomSanPhamActionPerformed
 
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        txtVAT.setText(String.valueOf(jSlider1.getValue()));
+    }//GEN-LAST:event_jSlider1StateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImport;
@@ -587,6 +593,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JPanel left;
     private javax.swing.JTable listSPAdd;

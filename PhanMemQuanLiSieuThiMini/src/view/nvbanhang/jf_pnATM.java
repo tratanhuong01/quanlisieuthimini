@@ -23,6 +23,7 @@ public class jf_pnATM extends javax.swing.JFrame {
     public jf_pnATM(String tenPTThanhToan,List<DongHoaDon> list,KhachHang kh,NhanVien nv,
             float tienKhuyenMai,float tienKhachTra,JPanel pnMain,float tongTienFull) {
         initComponents();
+        txtoaiThe.setEditable(false);
         this.tenPTThanhToan = tenPTThanhToan;
         this.list = list;
         this.kh = kh;
@@ -48,15 +49,16 @@ public class jf_pnATM extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         txtChiNhanh = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
-        cbLoaiThe = new javax.swing.JComboBox<>();
         txtSoTaiKhoan = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         txtTenNganHang = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
         btnHuy = new javax.swing.JButton();
+        txtoaiThe = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pnATM.setBackground(java.awt.Color.white);
         pnATM.setMaximumSize(new java.awt.Dimension(600, 600));
         pnATM.setMinimumSize(new java.awt.Dimension(600, 600));
 
@@ -110,9 +112,6 @@ public class jf_pnATM extends javax.swing.JFrame {
             }
         });
 
-        cbLoaiThe.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        cbLoaiThe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vietcombank", "Vietinbank", "Sacombank", "BIDV", "Agribank", "VP Bank", "ACB", "TP Bank", "Eximbank", "Techcombank", "MB Bank", "LienVietPost", "VietABank" }));
-
         txtSoTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         txtSoTaiKhoan.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtSoTaiKhoan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -137,21 +136,18 @@ public class jf_pnATM extends javax.swing.JFrame {
             }
         });
 
+        txtoaiThe.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtoaiThe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtoaiTheMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnATMLayout = new javax.swing.GroupLayout(pnATM);
         pnATM.setLayout(pnATMLayout);
         pnATMLayout.setHorizontalGroup(
             pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(pnATMLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel37)
-                .addGap(99, 99, 99)
-                .addComponent(cbLoaiThe, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnATMLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(txtTenNganHang, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pnATMLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,18 +169,28 @@ public class jf_pnATM extends javax.swing.JFrame {
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(pnATMLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37))
+                .addGap(40, 40, 40)
+                .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtTenNganHang, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txtoaiThe)))
         );
         pnATMLayout.setVerticalGroup(
             pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnATMLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnATMLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel37))
-                    .addComponent(cbLoaiThe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addGroup(pnATMLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtoaiThe, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addGroup(pnATMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
                     .addComponent(txtTenNganHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -229,9 +235,9 @@ public class jf_pnATM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDocTheActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        InfoAtm info = new InfoAtm("", new LuuAtm().getIDByTen(tenPTThanhToan), cbLoaiThe.getSelectedItem().toString(),
+        InfoAtm info = new InfoAtm("", new LuuAtm().getIDByTen(tenPTThanhToan), txtoaiThe.getText(),
                  txtSoTaiKhoan.getText(), txtTenTaiKhoan.getText(), txtChiNhanh.getText(), txtTenNganHang.getText());
-        jf_TaoHoaDon tdh = new jf_TaoHoaDon(list,kh,nv,info,tenPTThanhToan,tienKhachTra,tienKhuyenMai,pnMain,tongTienFull);
+        jf_TaoHoaDon tdh = new jf_TaoHoaDon(list,kh,nv,info,tenPTThanhToan,tienKhuyenMai,tienKhachTra,pnMain,tongTienFull);
         this.dispose();
         tdh.setVisible(true);
 //        
@@ -241,20 +247,14 @@ public class jf_pnATM extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
-//    public static void main(String args[]) {
-//
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new jf_pnATM().setVisible(true);
-//            }
-//        });
-//    }
+    private void txtoaiTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtoaiTheMouseClicked
+        new jf_The(txtoaiThe,txtTenNganHang).setVisible(true);
+    }//GEN-LAST:event_txtoaiTheMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDocThe;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JComboBox<String> cbLoaiThe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel37;
@@ -268,5 +268,6 @@ public class jf_pnATM extends javax.swing.JFrame {
     private javax.swing.JTextField txtSoTaiKhoan;
     private javax.swing.JTextField txtTenNganHang;
     private javax.swing.JTextField txtTenTaiKhoan;
+    private javax.swing.JTextField txtoaiThe;
     // End of variables declaration//GEN-END:variables
 }

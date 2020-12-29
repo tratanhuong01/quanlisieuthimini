@@ -42,6 +42,7 @@ import model.StringUtil;
 import view.jf_QuanLi;
 
 public class pn_pnMain extends javax.swing.JPanel {
+
     int count = 0;
     KhachHang kh;
     NhanVien nv;
@@ -385,7 +386,11 @@ public class pn_pnMain extends javax.swing.JPanel {
         jPanel16.add(jLabel41);
 
         ptThanhToan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        ptThanhToan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ptThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ptThanhToanActionPerformed(evt);
+            }
+        });
         jPanel16.add(ptThanhToan);
 
         jLabel35.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -484,7 +489,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         pnChonSanPham.removeAll();
         pnChonSanPham.repaint();
         String query = "WHERE SanPham.IDSanPham LIKE N'%" + txtSearch.getText() + "%' "
-                + " OR SanPham.TenSanPham LIKE N'%" + txtSearch.getText() + "%' " ;
+                + " OR SanPham.TenSanPham LIKE N'%" + txtSearch.getText() + "%' ";
         List<SanPham> list = new TimKiemSanPham().getSanPhamByNhomSanPham(query);
         loadSanPhamByNhomSanPham(list);
     }//GEN-LAST:event_txtSearchKeyPressed
@@ -497,8 +502,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         count++;
         if (count > 1) {
             TaoHoaDon();
-        }
-        else {
+        } else {
             int i = JOptionPane.showConfirmDialog(this, "Có Sử Dụng Điểm ? ");
             if (i == JOptionPane.YES_OPTION) {
                 btnDungDiem.setEnabled(true);
@@ -506,24 +510,27 @@ public class pn_pnMain extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnTaoHoaDonActionPerformed
     public void TaoHoaDon() {
-        if (Float.parseFloat(txtTienKhachTra.getText().replace(",", "")) < (Integer.parseInt(txtTongTien.getText().replace(",", "").replace(" VNĐ", "")))) {
+        if (Float.parseFloat(txtTienKhachTra.getText().replace(",", ""))
+                < (Integer.parseInt(txtTongTien.getText().replace(",", "").replace(" VNĐ", "")))) {
+            if (ptThanhToan.getSelectedItem().equals("ATM")) {
+                int result = JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Chắn Là Muốn Tạo Hóa Đơn Không?");
+                if (result == JOptionPane.YES_OPTION) {
+                    new jf_pnATM(ptThanhToan.getSelectedItem().toString(), listDongHoaDon, kh, nv,
+                        Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "").replace(" VNĐ", "")),
+                        Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", "")), pnMains,
+                        Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
+                }
+            } else {
 
+            }
         } else {
-
             int result = JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Chắn Là Muốn Tạo Hóa Đơn Không?");
             if (result == JOptionPane.YES_OPTION) {
-                if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
-                    new jf_pnATM(ptThanhToan.getSelectedItem().toString(), listDongHoaDon, kh, nv,
-                            Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "")), 
-                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "")), pnMains,
-                            Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
-                } else {
-                    InfoAtm info = null;
-                    new jf_TaoHoaDon(listDongHoaDon, kh, nv, info, ptThanhToan.getSelectedItem().toString(),
-                            Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "").replace(" VNĐ", "")),
-                            Float.parseFloat(txtTienKhachTra.getText().replace(",", "").replace(" VNĐ", "")), pnMains,
-                            Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
-                }
+                InfoAtm info = null;
+                new jf_TaoHoaDon(listDongHoaDon, kh, nv, info, ptThanhToan.getSelectedItem().toString(),
+                        Float.parseFloat(txtTienKhuyenMai.getText().replace(",", "").replace(" VNĐ", "")),
+                        Float.parseFloat(txtTienKhachTra.getText().replace(",", "").replace(" VNĐ", "")), pnMains,
+                        Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""))).setVisible(true);
             }
         }
     }
@@ -538,6 +545,15 @@ public class pn_pnMain extends javax.swing.JPanel {
             new jf_DungDiem(txtSoDiemTich, txtTienKhuyenMai, txtTongTien).setVisible(true);
         }
     }//GEN-LAST:event_btnDungDiemActionPerformed
+
+    private void ptThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ptThanhToanActionPerformed
+        if (ptThanhToan.getSelectedItem().toString().equals("ATM")) {
+            txtTienKhachTra.setEditable(false);
+            txtTienKhachTra.setText("0");
+        } else {
+            txtTienKhachTra.setEditable(true);
+        }
+    }//GEN-LAST:event_ptThanhToanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

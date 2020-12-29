@@ -1,6 +1,5 @@
 package view.quanli.phieu;
 
-import controller.LoadSanPham;
 import controller.ThemAndCapNhatSanPham;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,30 +18,25 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import model.KhachHang;
 import model.NhanVien;
 import model.StringUtil;
 
-public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
+public class jf_TemplatePhieuXuat extends javax.swing.JFrame {
     List<String[]> list;
-    KhachHang kh;
     JTextField txtTongTien;
-    String idKVKho;
     NhanVien nv;
-    JTable listSPAdd;
-    JTextField txtVAT;
-    JTextField txtLiDo;
-    public jf_TemplatePhieuNhap(List<String[]> list,String pTThanhToan,String donViTien,KhachHang kh,JTextField txtTongTien,
-            String idKVKho,NhanVien nv,JTable listSPAdd,JTextField txtVAT,JTextField txtLiDo) {
+    JTextField txtLiDos;
+    JTable table2;
+    String idKVKho;
+    public jf_TemplatePhieuXuat(List<String[]> list,String noiNhan,String diaChi,String taiKho,
+            JTextField txtTongTien,NhanVien nv,JTextField txtLiDos,JTable table2,String idKVKho) {
         initComponents();
         this.list = list;
-        this.kh = kh;
         this.txtTongTien = txtTongTien;
-        this.idKVKho = idKVKho;
         this.nv = nv;
-        this.listSPAdd = listSPAdd;
-        this.txtVAT = txtVAT;
-        this.txtLiDo = txtLiDo;
+        this.table2 = table2;
+        this.idKVKho = idKVKho;
+        this.txtLiDos = txtLiDos;
         int top = load(list);
         pn.setSize(1366, top);
         JPanel pnKiTen = new jf_KiTen();
@@ -51,14 +45,33 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         pnMain.setPreferredSize(new Dimension(1366, top + 600));
         pnMain.repaint();
         pnMain.validate();
-        txtDiaChi1.setText(kh.getDiaChi());
-        txtDonViTienTe1.setText(donViTien);
-        txtMaSoThue1.setText(kh.getMaSoThue());
-        txtPTThanhToan1.setText(pTThanhToan);
-        txtTenNhaCungCap1.setText(kh.getHoTen());
-        txtSoDienThoai1.setText(kh.getSoDienThoai());
+        lbSoPhieu.setText("Số Phiếu : " + StringUtil.taoID("IDPhieu", "PhieuKho", "PK"));
+        txtLiDo.setText(txtLiDos.getText());
+        txtTaiKho.setText(taiKho);
+        txtNoiNhan.setText(noiNhan);
+        txtDiaChi.setText(diaChi);
     }
-
+    public void execute() {
+        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
+        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
+        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
+        String time = formatTime.format(new Date(System.currentTimeMillis()));
+        tac.insertPhieuNhap(id, time, null, nv.getIdNhanVien(),
+                tongTien, 0, null, 2, 0, txtLiDo.getText());
+        for (int i = 0; i < table2.getRowCount(); i++) {
+            String idSanPham = table2.getModel().getValueAt(i, 0).toString();
+            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
+            String idDonViTinh = table2.getModel().getValueAt(i, 3).toString();
+            int sl = Integer.parseInt(table2.getModel().getValueAt(i, 10).toString());;
+            tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, 0, (float) 0, 0);
+            
+        }
+        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
+        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
+        tac.updateIDPhieu(idPhieu, id);
+        JOptionPane.showMessageDialog(this, "Thành Công");
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -68,7 +81,7 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbTenDoanhNghiep1 = new javax.swing.JLabel();
-        lbSoPhieu1 = new javax.swing.JLabel();
+        lbSoPhieu = new javax.swing.JLabel();
         lbDiaChi3 = new javax.swing.JLabel();
         lbDiaChi4 = new javax.swing.JLabel();
         lbSoDienThoai1 = new javax.swing.JLabel();
@@ -76,19 +89,17 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         lbTenPhieu1 = new javax.swing.JLabel();
         lbNgayThangNam1 = new javax.swing.JLabel();
         lbbr5 = new javax.swing.JLabel();
-        txtTenNhaCungCap1 = new javax.swing.JLabel();
+        txtNoiNhan = new javax.swing.JLabel();
         lbTenNhaCungCap1 = new javax.swing.JLabel();
         lbDiaChi5 = new javax.swing.JLabel();
-        txtDiaChi1 = new javax.swing.JLabel();
+        txtLiDo = new javax.swing.JLabel();
         lbMaSoThue1 = new javax.swing.JLabel();
-        txtMaSoThue1 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        lbPTThanhToan1 = new javax.swing.JLabel();
+        txtTaiKho = new javax.swing.JLabel();
         lbSoDienThoaiNCC1 = new javax.swing.JLabel();
-        txtSoDienThoai1 = new javax.swing.JLabel();
-        txtPTThanhToan1 = new javax.swing.JLabel();
-        txtDonViTienTe1 = new javax.swing.JLabel();
+        txtDiaChi = new javax.swing.JLabel();
         lbbr6 = new javax.swing.JLabel();
+        lbTenNhaCungCap2 = new javax.swing.JLabel();
+        txtTenNhaCungCap2 = new javax.swing.JLabel();
         pn = new javax.swing.JPanel();
         lbDiaChi7 = new javax.swing.JLabel();
         lbDiaChi8 = new javax.swing.JLabel();
@@ -125,11 +136,11 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         jPanel1.add(lbTenDoanhNghiep1);
         lbTenDoanhNghiep1.setBounds(0, 0, 560, 30);
 
-        lbSoPhieu1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        lbSoPhieu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbSoPhieu1.setText("Số Phiếu : IDP10001");
-        jPanel1.add(lbSoPhieu1);
-        lbSoPhieu1.setBounds(800, 10, 560, 30);
+        lbSoPhieu.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lbSoPhieu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbSoPhieu.setText("Số Phiếu : ");
+        jPanel1.add(lbSoPhieu);
+        lbSoPhieu.setBounds(800, 10, 560, 30);
 
         lbDiaChi3.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbDiaChi3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -157,7 +168,7 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
 
         lbTenPhieu1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbTenPhieu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTenPhieu1.setText("PHIẾU NHẬP HÀNG");
+        lbTenPhieu1.setText("PHIẾU XUẤT HÀNG");
         jPanel1.add(lbTenPhieu1);
         lbTenPhieu1.setBounds(530, 140, 350, 50);
 
@@ -173,83 +184,71 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         jPanel1.add(lbbr5);
         lbbr5.setBounds(0, 220, 1370, 20);
 
-        txtTenNhaCungCap1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtTenNhaCungCap1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtTenNhaCungCap1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtTenNhaCungCap1);
-        txtTenNhaCungCap1.setBounds(290, 260, 350, 30);
+        txtNoiNhan.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtNoiNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtNoiNhan.setText("Công Ty TNHH Market Mini Three Members");
+        jPanel1.add(txtNoiNhan);
+        txtNoiNhan.setBounds(840, 340, 400, 30);
 
         lbTenNhaCungCap1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbTenNhaCungCap1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbTenNhaCungCap1.setText("Tên Nhà Cung Cấp :");
+        lbTenNhaCungCap1.setText("Nơi Nhận : ");
         jPanel1.add(lbTenNhaCungCap1);
-        lbTenNhaCungCap1.setBounds(90, 260, 190, 30);
+        lbTenNhaCungCap1.setBounds(730, 340, 100, 30);
 
         lbDiaChi5.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbDiaChi5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbDiaChi5.setText("Địa Chỉ : ");
+        lbDiaChi5.setText("Lí Do Xuất Kho :");
         jPanel1.add(lbDiaChi5);
         lbDiaChi5.setBounds(90, 300, 190, 30);
 
-        txtDiaChi1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtDiaChi1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtDiaChi1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtDiaChi1);
-        txtDiaChi1.setBounds(290, 300, 370, 30);
+        txtLiDo.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtLiDo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtLiDo.setText("................................................................................................................................................................................................");
+        jPanel1.add(txtLiDo);
+        txtLiDo.setBounds(290, 300, 950, 30);
 
         lbMaSoThue1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbMaSoThue1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbMaSoThue1.setText("Mã Số Thuế :");
+        lbMaSoThue1.setText("Tại Kho");
         jPanel1.add(lbMaSoThue1);
         lbMaSoThue1.setBounds(90, 340, 190, 30);
 
-        txtMaSoThue1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtMaSoThue1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtMaSoThue1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtMaSoThue1);
-        txtMaSoThue1.setBounds(290, 340, 350, 30);
-
-        jLabel21.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Đơn Vị Tiền Tệ");
-        jPanel1.add(jLabel21);
-        jLabel21.setBounds(730, 340, 260, 30);
-
-        lbPTThanhToan1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        lbPTThanhToan1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbPTThanhToan1.setText("Phương Thức Thanh Toán");
-        jPanel1.add(lbPTThanhToan1);
-        lbPTThanhToan1.setBounds(730, 300, 260, 30);
+        txtTaiKho.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtTaiKho.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtTaiKho.setText("...................................................................");
+        jPanel1.add(txtTaiKho);
+        txtTaiKho.setBounds(290, 340, 350, 30);
 
         lbSoDienThoaiNCC1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         lbSoDienThoaiNCC1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbSoDienThoaiNCC1.setText("Điện Thoại :");
+        lbSoDienThoaiNCC1.setText("Địa Chỉ :");
         jPanel1.add(lbSoDienThoaiNCC1);
-        lbSoDienThoaiNCC1.setBounds(730, 260, 260, 30);
+        lbSoDienThoaiNCC1.setBounds(730, 260, 100, 30);
 
-        txtSoDienThoai1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtSoDienThoai1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtSoDienThoai1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtSoDienThoai1);
-        txtSoDienThoai1.setBounds(1000, 260, 230, 30);
-
-        txtPTThanhToan1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtPTThanhToan1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtPTThanhToan1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtPTThanhToan1);
-        txtPTThanhToan1.setBounds(1000, 300, 230, 30);
-
-        txtDonViTienTe1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        txtDonViTienTe1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtDonViTienTe1.setText("Công Ty TNHH Market Mini Three Members");
-        jPanel1.add(txtDonViTienTe1);
-        txtDonViTienTe1.setBounds(1000, 340, 230, 30);
+        txtDiaChi.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtDiaChi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtDiaChi.setText("Công Ty TNHH Market Mini Three Members");
+        jPanel1.add(txtDiaChi);
+        txtDiaChi.setBounds(840, 260, 390, 30);
 
         lbbr6.setFont(new java.awt.Font("Times New Roman", 1, 13)); // NOI18N
         lbbr6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbbr6.setText("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         jPanel1.add(lbbr6);
         lbbr6.setBounds(0, 380, 1370, 20);
+
+        lbTenNhaCungCap2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lbTenNhaCungCap2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbTenNhaCungCap2.setText("Họ Tên Người Nhận :");
+        jPanel1.add(lbTenNhaCungCap2);
+        lbTenNhaCungCap2.setBounds(90, 260, 190, 30);
+
+        txtTenNhaCungCap2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        txtTenNhaCungCap2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtTenNhaCungCap2.setText("....................................................................................");
+        jPanel1.add(txtTenNhaCungCap2);
+        txtTenNhaCungCap2.setBounds(290, 260, 400, 30);
 
         pnMain.add(jPanel1);
         jPanel1.setBounds(0, 0, 1366, 380);
@@ -336,9 +335,15 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
     private void xuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xuatFileActionPerformed
         
     }//GEN-LAST:event_xuatFileActionPerformed
+
+    private void xuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xuatFileMouseClicked
+        printPhieu(pnMain);
+        execute();
+        this.dispose();
+    }//GEN-LAST:event_xuatFileMouseClicked
     public void printPhieu(JPanel pnMain) {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
-        printerJob.setJobName("Print HoaDon");
+        printerJob.setJobName("Print Phiếu Xuất");
         printerJob.setPrintable(new Printable() {
             @Override
             public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -362,34 +367,6 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
             }
         }
     }
-    public void execute() {
-        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
-        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String time = formatTime.format(new Date(System.currentTimeMillis()));
-        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
-        tongTien *= (((float)100 + (float)Integer.parseInt(txtVAT.getText()))/(float)100);
-        tac.insertPhieuNhap(id, time, kh.getIdKhachHang(), nv.getIdNhanVien(),
-                tongTien, 0, null, 1, Float.parseFloat(txtVAT.getText()), txtLiDo.getText());
-        int num = listSPAdd.getRowCount();
-        for (int i = 0; i < num; i++) {
-            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-            String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
-            String idSanPham = listSPAdd.getModel().getValueAt(i, 0).toString();
-            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-            new LoadSanPham().updateNhaCungCap(kh.getIdKhachHang(), idSanPham);
-            tac.insertDongHoaDon(iddhd, id, listSPAdd.getModel().getValueAt(i, 0).toString(), idDonViTinh, sl, 0, 0, 0);
-        }
-        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-        tac.updateIDPhieu(idPhieu, id);
-        JOptionPane.showMessageDialog(this, "Thành Công");
-    }
-    private void xuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xuatFileMouseClicked
-        printPhieu(pnMain);
-        execute();
-        this.dispose();
-    }//GEN-LAST:event_xuatFileMouseClicked
     public JLabel lb(JPanel pn,String s) {
         JLabel lb = new JLabel();
         lb.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
@@ -422,11 +399,11 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         int top = 50;
         for (int i = 0; i < list.size(); i++) {
             int sl = Integer.parseInt(list.get(i)[10]);
-            int donGia = Integer.parseInt(list.get(i)[8].replace(" VNĐ", "").replace(",", ""));
+            int donGia = Integer.parseInt(list.get(i)[6].replace(" VNĐ", "").replace(",", ""));
             lb(pn,String.valueOf(i+1)).setBounds(50, top, 110, 40);
             lb(pn,list.get(i)[0]).setBounds(160, top, 180, 40);
             lb(pn,list.get(i)[2]).setBounds(340, top, 380, 40);
-            lb(pn,list.get(i)[8]).setBounds(720, top, 240, 40);
+            lb(pn,list.get(i)[6]).setBounds(720, top, 240, 40);
             lb(pn,list.get(i)[10]).setBounds(960, top, 110, 40);
             lb(pn,new DecimalFormat("###,###,###").format(sl*donGia) + " VNĐ").setBounds(1070, top, 250, 40);
             top+=40;
@@ -436,21 +413,11 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
         lb1(pn,"Cộng Tiền Hàng : ").setBounds(50, top, 1020, 40);
         lb1(pn,new DecimalFormat("###,###,###").format(tongTien) + " VNĐ").setBounds(1070, top, 250, 40);
         top +=40;
-        lb(pn,"VAT : " + txtVAT.getText() +"% ").setBounds(50, top, 670, 40);
-        lb1(pn,"Tiền VAT : ").setBounds(720, top, 350, 40);
-        lb1(pn,new DecimalFormat("###,###,###").format(((float)tongTien * 
-        (((float)100 + (float)Integer.parseInt(txtVAT.getText()))/100))-(float)tongTien) + " VNĐ").setBounds(1070, top, 250, 40);
-        top +=40;
-        lb1(pn,"Tổng Cộng Tiền Thanh Toán : ").setBounds(50, top, 1020, 40);
-        lb1(pn,new DecimalFormat("###,###,###").format(((float)tongTien * 
-        (((float)100 + (float)Integer.parseInt(txtVAT.getText()))/100))) + " VNĐ").setBounds(1070, top, 250, 40);
-        top +=40;
         return top;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -466,24 +433,23 @@ public class jf_TemplatePhieuNhap extends javax.swing.JFrame {
     private javax.swing.JLabel lbDiaChi8;
     private javax.swing.JLabel lbMaSoThue1;
     private javax.swing.JLabel lbNgayThangNam1;
-    private javax.swing.JLabel lbPTThanhToan1;
     private javax.swing.JLabel lbSoDienThoai1;
     private javax.swing.JLabel lbSoDienThoaiNCC1;
-    private javax.swing.JLabel lbSoPhieu1;
+    private javax.swing.JLabel lbSoPhieu;
     private javax.swing.JLabel lbTenDoanhNghiep1;
     private javax.swing.JLabel lbTenNhaCungCap1;
+    private javax.swing.JLabel lbTenNhaCungCap2;
     private javax.swing.JLabel lbTenPhieu1;
     private javax.swing.JLabel lbbr4;
     private javax.swing.JLabel lbbr5;
     private javax.swing.JLabel lbbr6;
     private javax.swing.JPanel pn;
     private javax.swing.JPanel pnMain;
-    private javax.swing.JLabel txtDiaChi1;
-    private javax.swing.JLabel txtDonViTienTe1;
-    private javax.swing.JLabel txtMaSoThue1;
-    private javax.swing.JLabel txtPTThanhToan1;
-    private javax.swing.JLabel txtSoDienThoai1;
-    private javax.swing.JLabel txtTenNhaCungCap1;
+    private javax.swing.JLabel txtDiaChi;
+    private javax.swing.JLabel txtLiDo;
+    private javax.swing.JLabel txtNoiNhan;
+    private javax.swing.JLabel txtTaiKho;
+    private javax.swing.JLabel txtTenNhaCungCap2;
     private javax.swing.JMenu xuatFile;
     // End of variables declaration//GEN-END:variables
 }

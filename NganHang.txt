@@ -1,0 +1,49 @@
+1@Ngân Hàng An Bình@ABBANK
+2@Ngân Hàng Á Châu@ACB
+3@Ngân Hàng NN&PT Nông thôn Việt Nam@Agribank
+4@Ngân Hàng ANZ Việt Nam@ANZVL
+5@Ngân Hàng Bắc Á@Bac A Bank
+6@Ngân Hàng Bảo Việt@BAOVIET Bank
+7@Ngân Hàng Đầu tư và Phát triển Việt Nam@BIDV
+8@Ngân Hàng Xây dựng@CB
+9@Ngân Hàng CIMB Việt Nam@CIMB
+10@Ngân Hàng Hợp tác xã Việt Nam@Co-opBank
+11@Ngân Hàng Đông Á@DongA Bank
+12@Ngân Hàng Xuất Nhập Khẩu@Eximbank
+13@Ngân Hàng Dầu khí toàn cầu@GPBank
+14@Ngân Hàng Phát triển TPHồ Chí Minh@HDBank
+15@Ngân Hàng Hong Leong Việt Nam@HLBVN
+16@Ngân Hàng HSBC Việt Nam@HSBC
+17@Ngân Hàng Indovina@IVB
+18@Ngân Hàng Kiên Long@Kienlongbank
+19@Ngân Hàng Bưu điện Liên Việt@LienVietPostBank
+20@Ngân Hàng Quân Đội@MB
+21@Ngân Hàng Hàng Hải@MSB
+22@Ngân Hàng Nam Á@Nam A Bank
+23@Ngân Hàng Quốc dân@NCB
+24@Ngân Hàng Phương Đông@OCB
+25@Ngân Hàng Đại Dương@OceanBank
+26@Ngân Hàng Public Bank Việt Nam@PBVN
+27@Ngân Hàng Xăng dầu Petrolimex@PG Bank
+28@Ngân Hàng Đại Chúng Việt Nam@PVcomBank
+29@Ngân Hàng Sài Gòn Thương Tín@Sacombank
+30@Ngân Hàng Sài Gòn Công Thương@SAIGONBANK
+31@Ngân Hàng Sài Gòn@SCB
+32@Ngân Hàng Standard Chartered Việt Nam@SCBVL
+33@Ngân Hàng Đông Nam Á@SeABank
+34@Ngân Hàng Sài Gòn – Hà Nội@SHB
+35@Ngân Hàng Shinhan Việt Nam@SHBVN
+36@Ngân Hàng Kỹ Thương@Techcombank
+37@Ngân Hàng Tiên Phong@TPBank
+38@Ngân Hàng UOB Việt Nam@UOB
+39@Ngân Hàng Chính sách xã hội Việt Nam@VBSP
+40@Ngân Hàng Phát triển Việt Nam@VDB
+41@Ngân Hàng Quốc Tế@VIB
+42@Ngân Hàng Bản Việt@Viet Capital Bank
+43@Ngân Hàng Việt Á@VietABank
+44@Ngân Hàng Việt Nam Thương Tín@Vietbank
+45@Ngân Hàng Ngoại Thương Việt Nam@Vietcombank
+46@Ngân Hàng Công thương Việt Nam@VietinBank
+47@Ngân Hàng Việt Nam Thịnh Vượng@VPBank
+48@Ngân Hàng Việt – Nga@VRB
+49@Ngân Hàng Woori Việt Nam@Woori

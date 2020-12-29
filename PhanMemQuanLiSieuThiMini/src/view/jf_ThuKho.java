@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import model.NhanVien;
-import view.kho.pn_KiemKe;
 import view.kho.pn_KiemKeTK;
 import view.kho.pn_NhapHangTK;
 import view.kho.pn_XuatHangTK;

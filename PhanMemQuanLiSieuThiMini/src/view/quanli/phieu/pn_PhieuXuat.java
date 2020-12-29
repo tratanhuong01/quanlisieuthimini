@@ -84,7 +84,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         cbKhuVucKho = new javax.swing.JComboBox<>();
         txtTongTien = new javax.swing.JTextField();
         txtNoiNhan = new javax.swing.JTextField();
-        txtGhiChu = new javax.swing.JTextField();
+        txtLiDo = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -267,8 +267,8 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         txtNoiNhan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel8.add(txtNoiNhan);
 
-        txtGhiChu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel8.add(txtGhiChu);
+        txtLiDo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel8.add(txtLiDo);
 
         jPanel12.setBackground(java.awt.Color.white);
         jPanel12.setLayout(new java.awt.GridLayout(1, 2));
@@ -385,25 +385,9 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
-        ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
-        String id = StringUtil.taoID("IDHoaDon", "HoaDon", "HD");
-        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        float tongTien = Float.parseFloat(txtTongTien.getText().replace(",", "").replace(" VNĐ", ""));
-        String time = formatTime.format(new Date(System.currentTimeMillis()));
-        tac.insertPhieuNhap(id, time, null, nv.getIdNhanVien(),
-                tongTien, 0, null, 2, 0, txtGhiChu.getText());
-        for (int i = 0; i < table2.getRowCount(); i++) {
-            String idSanPham = table2.getModel().getValueAt(i, 0).toString();
-            String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-            String idDonViTinh = table2.getModel().getValueAt(i, 3).toString();
-            int sl = Integer.parseInt(table2.getModel().getValueAt(i, 10).toString());;
-            tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, 0, (float) 0, 0);
-            
-        }
-        String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-        tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-        tac.updateIDPhieu(idPhieu, id);
-        JOptionPane.showMessageDialog(this, "Thành Công");
+        new jf_TemplatePhieuXuat(listSP, txtNoiNhan.getText(), cbKhuVucKho.getSelectedItem().toString(),
+                cbKhuVucKho.getSelectedItem().toString(),
+            txtTongTien,nv,txtLiDo,table2,idKVKho).setVisible(true);
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
@@ -501,8 +485,8 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
-    private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtInput;
+    private javax.swing.JTextField txtLiDo;
     private javax.swing.JTextField txtNoiNhan;
     private javax.swing.JTextField txtTenQuanLi;
     private javax.swing.JTextField txtTongTien;

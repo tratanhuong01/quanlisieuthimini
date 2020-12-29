@@ -1,9 +1,14 @@
 package view.kho;
 
+import controller.LoadTable;
+import controller.XuatFile;
+import javax.swing.JProgressBar;
+
 public class pn_KiemKeTK extends javax.swing.JPanel {
 
     public pn_KiemKeTK() {
         initComponents();
+        new LoadTable().SanPham("", table);
     }
 
     @SuppressWarnings("unchecked")
@@ -11,13 +16,13 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnXuatFile = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbTinhTrangSP = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtInput = new javax.swing.JTextField();
+        btnTinhTrang = new javax.swing.JButton();
+        btnTimSp = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -26,53 +31,72 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnTuDen = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(0, 150));
         jPanel1.setLayout(null);
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setText("Xuất File");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(1170, 20, 160, 51);
+        btnXuatFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXuatFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
+        btnXuatFile.setText("Xuất File");
+        btnXuatFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatFileActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnXuatFile);
+        btnXuatFile.setBounds(1170, 20, 180, 51);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Đến");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(210, 90, 60, 50);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hết Hạn", "Sắp Hết Hạn" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(150, 20, 283, 50);
+        cbTinhTrangSP.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbTinhTrangSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hết Hạn", "Sắp Hết Hạn" }));
+        jPanel1.add(cbTinhTrangSP);
+        cbTinhTrangSP.setBounds(150, 20, 283, 50);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Sản Phẩm");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(579, 24, 130, 40);
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(710, 20, 293, 50);
+        txtInput.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(txtInput);
+        txtInput.setBounds(710, 20, 293, 50);
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setText("Lọc");
-        jPanel1.add(jButton3);
-        jButton3.setBounds(451, 20, 90, 51);
+        btnTinhTrang.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTinhTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnTinhTrang.setText("Lọc");
+        btnTinhTrang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTinhTrangActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTinhTrang);
+        btnTinhTrang.setBounds(451, 20, 120, 51);
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Tìm");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(1020, 20, 80, 51);
+        btnTimSp.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTimSp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnTimSp.setText("Tìm");
+        btnTimSp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimSpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTimSp);
+        btnTimSp.setBounds(1020, 20, 120, 51);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(0, 150));
         jPanel3.setLayout(null);
@@ -108,12 +132,24 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 0, 0, 150);
 
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton7.setText("Lọc");
-        jPanel1.add(jButton7);
-        jButton7.setBounds(451, 90, 90, 51);
+        btnTuDen.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnTuDen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnTuDen.setText("Lọc");
+        btnTuDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTuDenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTuDen);
+        btnTuDen.setBounds(451, 90, 120, 51);
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        jDateChooser1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(jDateChooser1);
         jDateChooser1.setBounds(270, 90, 160, 50);
+
+        jDateChooser2.setDateFormatString("yyyy-MM-dd");
+        jDateChooser2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel1.add(jDateChooser2);
         jDateChooser2.setBounds(50, 90, 150, 50);
 
@@ -131,7 +167,9 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        table.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,24 +179,56 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jPanel2.add(jScrollPane1);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.setRowHeight(25);
+        jScrollPane2.setViewportView(table);
+
+        jPanel2.add(jScrollPane2);
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTinhTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhTrangActionPerformed
+        switch (cbTinhTrangSP.getSelectedIndex()) {
+            case 0 :
+                new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()",table);
+                break;
+            case 1:
+                new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()-15",table);
+                break;
+        }
+    }//GEN-LAST:event_btnTinhTrangActionPerformed
+
+    private void btnTuDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTuDenActionPerformed
+        new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()",table);
+    }//GEN-LAST:event_btnTuDenActionPerformed
+
+    private void btnTimSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimSpActionPerformed
+        new LoadTable().SanPham("WHERE SanPham.TenSanPham LIKE N'%" + txtInput.getText() + "%'",table);
+    }//GEN-LAST:event_btnTimSpActionPerformed
+
+    private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
+        new XuatFile().execute(table, new JProgressBar(), "SP");
+    }//GEN-LAST:event_btnXuatFileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnTimSp;
+    private javax.swing.JButton btnTinhTrang;
+    private javax.swing.JButton btnTuDen;
+    private javax.swing.JButton btnXuatFile;
+    private javax.swing.JComboBox<String> cbTinhTrangSP;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
@@ -171,10 +241,10 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable table;
+    private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 
 }
