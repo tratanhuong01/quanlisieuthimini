@@ -1,5 +1,6 @@
 package view.nvbanhang;
 
+import controller.UDSoLuongHienTai;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.text.DecimalFormat;
@@ -41,6 +42,7 @@ public class pn_SanPhamChon extends javax.swing.JPanel {
         this.txtTienKhuyenMai = txtTienKhuyenMai;
         lbGiaSanPham.setText(new DecimalFormat("###,###,###").format(sp.getDonGia() * Integer.parseInt(txtSoLuong.getText())) + " VNĐ");
         lbTenSanPham.setText(sp.getTenSanPham());
+//        lbHinhSanPham.setText(new DecimalFormat("###,###,###").format(new UDSoLuongHienTai().getSLHienTai(sp.getSKU())));
         lbHinhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/" + sp.getUrlSanPham()))); // NOI18N
     }
 
@@ -69,9 +71,14 @@ public class pn_SanPhamChon extends javax.swing.JPanel {
         bg.setMaximumSize(new java.awt.Dimension(210, 253));
         bg.setMinimumSize(new java.awt.Dimension(210, 253));
 
+        pnHinhSP.setBackground(new java.awt.Color(255, 255, 255));
         pnHinhSP.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnHinhSP.setMinimumSize(new java.awt.Dimension(80, 80));
         pnHinhSP.setLayout(new java.awt.GridLayout(1, 0));
+
+        lbHinhSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        lbHinhSanPham.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbHinhSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnHinhSP.add(lbHinhSanPham);
 
         txtSoLuong.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N

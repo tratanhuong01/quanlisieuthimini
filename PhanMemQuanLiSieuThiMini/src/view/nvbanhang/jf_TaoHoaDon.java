@@ -6,6 +6,7 @@ import controller.LuuAtm;
 import controller.PTHoaDon;
 import controller.SuaDiemTieuDung;
 import controller.ThemKhachHang;
+import controller.UDSoLuongHienTai;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -845,7 +846,6 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
     public boolean update() {
         try {
             int tongTien = 0;
-
             PTHoaDon pTHoaDon = new PTHoaDon();
             pTHoaDon.insertHoaDon(idHoaDon, time, kh.getIdKhachHang(), nv.getIdNhanVien(),
                     1, 0, 0);
@@ -859,9 +859,10 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
                 String idDongHoaDon = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
                 pTHoaDon.insertDongHoaDon(idDongHoaDon, idHoaDon, list.get(i).getIdSanPham(), list.get(i).getIdDonViTinh(), list.get(i).getSoLuong());
                 tongTien += (list.get(i).getDonGia() * list.get(i).getSoLuong());
+                new UDSoLuongHienTai().update(list.get(i).getIdSanPham(),list.get(i).getSoLuong());
             }
             new CapNhatTienHoaDon().CapNhat(tongTien - tienKhuyenMai, idHoaDon);
-//            new ThemKhachHang().
+            
             return true;
         } catch (Exception e) {
             e.printStackTrace();

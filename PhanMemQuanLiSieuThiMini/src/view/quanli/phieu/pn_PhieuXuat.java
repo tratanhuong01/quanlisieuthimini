@@ -51,6 +51,20 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
             cbKhuVucKho.addItem(listKho.get(i)[1]);
         }
     }
+     public int getAmout(String idsp) {
+         int num = 0;
+         try (Connection conn = new ConnectDAO().getConnection()) {
+             String query = "SELECT SoLuongTonKho FROM Kho WHERE IDSanPham = ? ";
+             PreparedStatement ps = conn.prepareStatement(query);
+             ps.setString(1, idsp);
+             ResultSet rs = ps.executeQuery();
+             if (rs.next()) 
+                 num = rs.getInt(1);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+         return num;
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -369,6 +383,11 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         ));
         table2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table2.setRowHeight(25);
+        table2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(table2);
 
         jPanel3.add(jScrollPane2);
@@ -397,9 +416,11 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
         String[] s = new String[11];
         String idss = "";
-        String op = JOptionPane.showInputDialog("Nhập Số Lượng");
+        int index = table1.getSelectedRow();
+        String op = JOptionPane.showInputDialog("Nhập Số Lượng (Có " 
+                + getAmout(table1.getModel().getValueAt(index, 0).toString())
+                + " " + table1.getModel().getValueAt(index, 2).toString() + " Ở Trong Kho)");
         if (!op.equals("")) {
-            int index = table1.getSelectedRow();
             for (int i = 0; i < table1.getColumnCount(); i++) {
                 idss = table1.getModel().getValueAt(index, 0).toString();
                 s[i] = table1.getModel().getValueAt(index, i).toString();
@@ -444,6 +465,11 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         int index = cbKhuVucKho.getSelectedIndex();
         idKVKho = listKho.get(index)[0];
     }//GEN-LAST:event_cbKhuVucKhoActionPerformed
+
+    private void table2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table2MouseClicked
+        int index = table2.getSelectedRow();
+        new DialogUpdate(table2.getModel().getValueAt(index, 0).toString(), listSP, table2).setVisible(true);
+    }//GEN-LAST:event_table2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

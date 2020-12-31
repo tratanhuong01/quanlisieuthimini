@@ -35,6 +35,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     List<NhomSanPham> listnsp;
     List<SanPham> listSPMain;
     int in = 0;
+    long tongTien = 0;
     public pn_PhieuNhap(NhanVien nv) {
         this.nv = nv;
         initComponents();
@@ -416,6 +417,11 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         ));
         listSPAdd.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         listSPAdd.setRowHeight(25);
+        listSPAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSPAddMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listSPAdd);
 
         right.add(jScrollPane2);
@@ -428,21 +434,22 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        new ReadFileExel().readNhap(listSPAdd);
-        int tongTien = 0;
-        for (int i = 0; i < listSPAdd.getRowCount(); i++) {
-            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-            float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
-                    replace(" VNĐ", ""));
-            tongTien += sl * giaVonSP;
+        if (new ReadFileExel().readNhap(listSPAdd) == true) {
+            for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+                float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
+                        replace(" VNĐ", ""));
+                tongTien += sl * giaVonSP;
+            }
+            txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
         }
-        txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
+
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
-        new jf_TemplatePhieuNhap(listSP,ptThanhToan.getSelectedItem().toString(),"VNĐ",list.get(in),
-                                txtTongTien,idKVKho,nv,listSPAdd,txtVAT,txtGhiChu).setVisible(true);
-        
+        new jf_TemplatePhieuNhap(listSP, ptThanhToan.getSelectedItem().toString(), "VNĐ", list.get(in),
+                txtTongTien, idKVKho, nv, listSPAdd, txtVAT, txtGhiChu).setVisible(true);
+
 //            for (int i = 0; i < num; i++) {
 //                String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
 //                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
@@ -501,6 +508,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_txtInputKeyPressed
 
     private void table3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table3MouseClicked
+        tongTien = 0;
         String[] s = new String[11];
         String idss = "";
         String op = JOptionPane.showInputDialog("Nhập Số Lượng");
@@ -519,7 +527,6 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
             listSP.add(s);
             s[10] = op;
             new LoadTable().PhieuNhapRight(listSP, listSPAdd);
-            int tongTien = 0;
             for (int i = 0; i < listSPAdd.getRowCount(); i++) {
                 int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
                 float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
@@ -553,8 +560,16 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_cbNhomSanPhamActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        txtVAT.setText(String.valueOf(jSlider1.getValue()));
+        int value = jSlider1.getValue();
+        txtVAT.setText(String.valueOf(value));
+        float VAT = ((float)100 + (float)value)/(float)100;
+        txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien * VAT) + " VNĐ");
     }//GEN-LAST:event_jSlider1StateChanged
+
+    private void listSPAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSPAddMouseClicked
+        int index = listSPAdd.getSelectedRow();
+        new DialogUpdate(listSPAdd.getModel().getValueAt(index, 0).toString(), listSP, listSPAdd).setVisible(true);
+    }//GEN-LAST:event_listSPAddMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

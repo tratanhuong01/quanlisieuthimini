@@ -22,9 +22,9 @@ public class LoadTable {
 
     public void SanPham(String text, JTable jTable) {
         String query = "SELECT SanPham.IDSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
-                + "SanPham.NgaySanXuat,SanPham.HanSuDung,SanPham.UrlImage , NhomSanPham.TenNhom,BangGia.DonGia,\n"
+                + "SanPham.NgaySanXuat,SanPham.HanSuDung,Kho.SoLuongHienTai , NhomSanPham.TenNhom,BangGia.DonGia,\n"
                 + "BangGia.Giam,BangGia.GiaVonSP,KhachHang.HoTen ,\n"
-                + "SanPham.TinhTrang , SanPham.SKU,Kho.NgayNhap,Kho.NgayXuat FROM SanPham\n"
+                + "Kho.SoLuongTonKho , SanPham.SKU,Kho.NgayNhap,Kho.NgayXuat FROM SanPham\n"
                 + "INNER JOIN NhomSanPham ON SanPham.IDNhomSanPham = NhomSanPham.IDNhomSanPham\n"
                 + "FULL JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
                 + "FULL JOIN Kho ON SanPham.SKU = Kho.SKU\n"
@@ -246,7 +246,7 @@ public class LoadTable {
                 + "KhachHang.SoDienThoai,KhachHang.DiaChi,NhomKhachHang.TenNhom,KhachHang.MaSoThue,\n"
                 + "KhachHang.TraDK,KhachHang.ThuDK,TichDiem.SoDiem\n"
                 + "FROM KhachHang INNER JOIN NhomKhachHang ON KhachHang.IDNhomKH = NhomKhachHang.IDNhomKH \n"
-                + "INNER JOIN TichDiem ON KhachHang.IDKhachHang = TichDiem.IDKhachHang " + text;
+                + "INNER JOIN TichDiem ON KhachHang.IDKhachHang = TichDiem.IDKhachHang WHERE KhachHang.IDNhomKH != 'NKH10003' " + text;
         try (Connection conn = new ConnectDAO().getConnection()) {
             Vector vTitle = null;
             Vector vData = null;

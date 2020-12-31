@@ -20,7 +20,7 @@ public class XuLiPhieu {
     }
     public boolean updateSKUSanPham(String sku , String idSanPham) {
         try (Connection conn = new ConnectDAO().getConnection()){
-            String query = "UPDATE SanPham SET SKU = ? WHERE IDSanPham = ? ";
+            String query = "UPDATE SanPham SET SKU = ?  WHERE IDSanPham = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, sku);
             ps.setString(2, idSanPham);
@@ -48,8 +48,8 @@ public class XuLiPhieu {
     public boolean insertKho(String sku,String idSanPham,String ngayNhap,String ngayXuat,int soLuongNhap,
                    int soLuongXuat,int tinhTrang,String idKVKho) {
         try (Connection conn = new ConnectDAO().getConnection()){
-            String query = "INSERT INTO Kho(SKU,IDSanPham,NgayNhap,NgayXuat,SoLuongNhap,SoLuongXuat,TinhTrang,IDKVKho)VALUES "
-                    + "(?,?,?,?,?,?,?,?)";
+            String query = "INSERT INTO Kho(SKU,IDSanPham,NgayNhap,NgayXuat,SoLuongNhap,SoLuongXuat,TinhTrang,IDKVKho,SoLuongTonKho)VALUES "
+                    + "(?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, sku);
             ps.setString(2, idSanPham);
@@ -59,6 +59,7 @@ public class XuLiPhieu {
             ps.setInt(6, soLuongXuat);
             ps.setInt(7, tinhTrang);
             ps.setString(8, idKVKho);
+            ps.setInt(9, soLuongNhap - soLuongXuat);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {

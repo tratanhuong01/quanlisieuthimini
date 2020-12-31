@@ -20,10 +20,13 @@ public class UpdateDB {
 
     public boolean xuLiSKU(int soLuongXuat, String sku) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "UPDATE Kho SET SoLuongXuat = ? WHERE SKU = ? ";
+            String query = "UPDATE Kho SET SoLuongXuat = ? , SoLuongHienTai = SoLuongNhap - ? , "
+                    + "SoLuongTonKho = SoLuongNhap - ? WHERE SKU = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, soLuongXuat);
-            ps.setString(2, sku);
+            ps.setInt(2, soLuongXuat);
+            ps.setInt(3, soLuongXuat);
+            ps.setString(4, sku);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -57,4 +60,28 @@ public class UpdateDB {
         }
         return 0;
     }
+
+    public int updateSanPham(String tenSanPhan, String idDonViTinh,String idSanPham,float donGia,int giam) {
+        try (Connection conn = new ConnectDAO().getConnection()) {
+            String query1 = "UPDATE SanPham SET TenSanPham = ? , IDDonViTinh = ? \n"
+                    + " WHERE  IDsanPham = ? ";
+            String query2 = "UPDATE BangGia SET DonGia = ? , Giam = ? \n"
+                    + " WHERE IDBangGia = (SELECT IDBangGia FROM  SanPham WHERE IDSanPham = ? ) ";
+            PreparedStatement ps1 = conn.prepareStatement(query1);
+            ps1.setString(1, tenSanPhan);
+            ps1.setString(2, idDonViTinh);
+            ps1.setString(3, idSanPham);
+            
+            PreparedStatement ps2 = conn.prepareStatement(query2);
+            ps2.setFloat(1, donGia);
+            ps2.setInt(2, giam);
+            ps2.setString(3, idSanPham);
+            
+            return ps1.executeUpdate() + ps2.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

@@ -47,19 +47,19 @@ public class pn_QLKhachHang extends javax.swing.JPanel {
         String text = "";
         switch (chon) {
             case "Theo Họ Tên":
-                text = "  WHERE KhachHang.HoTen LIKE N'%" + value + "%' ";
+                text = "  AND KhachHang.HoTen LIKE N'%" + value + "%' ";
                 break;
             case "Theo Số Điện Thoại":
-                text = " WHERE KhachHang.SoDienThoai LIKE N'%" + value + "%' ";
+                text = " AND KhachHang.SoDienThoai LIKE N'%" + value + "%' ";
                 break;
             case "Theo Địa Chỉ":
-                text = " WHERE KhachHang.DiaChi LIKE N'%" + value + "%'  ";
+                text = " AND KhachHang.DiaChi LIKE N'%" + value + "%'  ";
                 break;       
             case "Theo Mã Khách Hàng":
-                text = " WHERE KhachHang.IDKhachHang LIKE N'%" + value + "%' ";
+                text = " AND KhachHang.IDKhachHang LIKE N'%" + value + "%' ";
                 break;   
             case "Theo Giới Tính":
-                text = " WHERE KhachHang.GioiTinh LIKE N'%" + value + "%' ";
+                text = " AND KhachHang.GioiTinh LIKE N'%" + value + "%' ";
                 break;   
         }
         return text;

@@ -25,9 +25,10 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         new LoadTable_Kho().XuatHangTK(query, table);
         cbNgayXuat.setDate(new java.sql.Date(System.currentTimeMillis()));
     }
+
     public int checkEnd(String idHoaDon) {
         int kq = 0;
-        try (Connection conn = new ConnectDAO().getConnection()){
+        try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT COUNT(*) FROM DongHoaDon WHERE IDHoaDon = ? AND TinhTrang = 0 ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idHoaDon);
@@ -41,6 +42,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         }
         return kq;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,6 +132,11 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         btnNhapFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnNhapFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         btnNhapFile.setText("Nhập Từ Bảng");
+        btnNhapFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhapFileActionPerformed(evt);
+            }
+        });
         top.add(btnNhapFile);
         btnNhapFile.setBounds(1050, 110, 220, 50);
 
@@ -204,15 +211,32 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         new XuLiPhieu().xuLiPhieuNhap(1, idDongHoaDon);
-        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0 ";
-        new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
+        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon + "' AND DongHoaDon.TinhTrang = 0 ";
         new UpdateDB().xuLiSKU(Integer.parseInt(txtSoLuongNhap.getText()), txtMaSKU.getText());
+        new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
         new UpdateDB().updateNgayXuat(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(cbNgayXuat.getDate()), txtMaSKU.getText());
         new LoadTable_Kho().XuatHangTK(query, table);
         if (checkEnd(idHoaDon) == 0) {
             new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnNhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapFileActionPerformed
+        for (int i = 0; i < table.getRowCount(); i++) {
+            new XuLiPhieu().xuLiPhieuNhap(1, table.getModel().getValueAt(i, 0).toString());
+            new UpdateDB().xuLiSKU(Integer.parseInt(table.getModel().getValueAt(i, 5).toString()), 
+                    table.getModel().getValueAt(i, 1).toString());
+            new XuLiPhieu().updateSKUSanPham(table.getModel().getValueAt(i, 1).toString(), 
+                                             table.getModel().getValueAt(i, 2).toString());
+            new UpdateDB().updateNgayXuat(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(cbNgayXuat.getDate()), 
+                    table.getModel().getValueAt(i, 1).toString());
+            if (checkEnd(idHoaDon) == 0) {
+                new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
+            }
+        }
+        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon + "' AND DongHoaDon.TinhTrang = 0 ";
+        new LoadTable_Kho().XuatHangTK(query, table);
+    }//GEN-LAST:event_btnNhapFileActionPerformed
     public void trueOrFalse(boolean b) {
         txtMaSKU.setEditable(b);
         txtSoLuongNhap.setEditable(b);

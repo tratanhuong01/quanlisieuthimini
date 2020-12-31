@@ -1,32 +1,16 @@
 package view.quanli.sanpham;
 
-import controller.LoadSanPham;
-import controller.ReadFileExel;
-import view.quanli.phieu.*;
-import controller.ThemAndCapNhatSanPham;
-import controller.ThemKhachHang;
-import controller.TimKiemSanPham;
-import view.quanli.sanpham.*;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import static java.awt.image.ImageObserver.WIDTH;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import controller.*;
+import view.quanli.*;
+import controller.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.table.DefaultTableModel;
-import model.ConnectDAO;
-import model.KhachHang;
-import model.StringUtil;
+import javax.swing.*;
+import model.*;
 
 public class jf_SanPham extends javax.swing.JFrame {
 
@@ -34,24 +18,38 @@ public class jf_SanPham extends javax.swing.JFrame {
     String idNhaCungCap = "";
     ThemAndCapNhatSanPham tac = new ThemAndCapNhatSanPham();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+
     public jf_SanPham() {
         initComponents();
         trueFalse();
+        List<NhomSanPham> listnsp = new DAO().getNhomSanPham();
+        cbTenNhom.removeAllItems();
+        for (int i = 0; i < listnsp.size(); i++) {
+
+            cbTenNhom.addItem(listnsp.get(i).getTenNhomSanPham());
+        }
     }
 
     public void switchsB(int a) {
         switch (a) {
             case 0:
+                txtIDSanPham.setText(StringUtil.taoID("IDSanPham", "SanPham", "SP"));
+                btnReadFile.setEnabled(false);
+                btnThemFromFile.setEnabled(false);
                 txtGiaVon.setEditable(true);
                 listSPAdd.removeAll();
                 listSPAdd.repaint();
                 listSPAdd.updateUI();
                 break;
             case 1:
+                btnReadFile.setEnabled(false);
+                btnThemFromFile.setEnabled(false);
                 txtGiaVon.setEditable(false);
                 new LoadSanPham().load(listSPAdd);
                 break;
             case 2:
+                btnReadFile.setEnabled(false);
+                btnThemFromFile.setEnabled(false);
                 txtGiaVon.setEditable(false);
                 new LoadSanPham().load(listSPAdd);
                 break;
@@ -63,7 +61,11 @@ public class jf_SanPham extends javax.swing.JFrame {
         for (int i = 0; i < btn.length; i++) {
             btn[i].setEnabled(false);
         }
+
         JRadioButton[] radioBtn = {radioThem, radioSua, radioXoa};
+        for (int i = 0; i < radioBtn.length; i++) {
+            radioBtn[i].setEnabled(false);
+        }
         for (int i = 0; i < radioBtn.length; i++) {
             int a = i;
             radioBtn[i].addActionListener(new ActionListener() {
@@ -87,15 +89,22 @@ public class jf_SanPham extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent ae) {
                 btnReadFile.setEnabled(false);
                 btnThemFromFile.setEnabled(false);
-                btnThem.setEnabled(true);
+                for (int i = 0; i < radioBtn.length; i++) {
+                    radioBtn[i].setEnabled(true);
+                }
             }
+
         });
         nhapFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 btnReadFile.setEnabled(true);
                 btnThemFromFile.setEnabled(true);
-                btnThem.setEnabled(false);
+                for (int i = 0; i < btn.length - 2; i++) {
+                    btn[i].setEnabled(false);
+                    radioBtn[i].setEnabled(false);
+                    buttonGroup2.clearSelection();
+                }
             }
         });
     }
@@ -112,7 +121,6 @@ public class jf_SanPham extends javax.swing.JFrame {
         txtIDSanPham = new javax.swing.JTextField();
         txtTenSanPham = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtTenNhom = new javax.swing.JTextField();
         txtGiam = new javax.swing.JTextField();
         txtGiaVon = new javax.swing.JTextField();
         txtDonGia = new javax.swing.JTextField();
@@ -135,6 +143,7 @@ public class jf_SanPham extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         hsd = new com.toedter.calendar.JDateChooser();
+        cbTenNhom = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listSPAdd = new javax.swing.JTable();
@@ -171,10 +180,6 @@ public class jf_SanPham extends javax.swing.JFrame {
         jLabel6.setText("Tên Nhóm");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(10, 150, 140, 30);
-
-        txtTenNhom.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel2.add(txtTenNhom);
-        txtTenNhom.setBounds(150, 140, 230, 50);
 
         txtGiam.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jPanel2.add(txtGiam);
@@ -223,6 +228,11 @@ public class jf_SanPham extends javax.swing.JFrame {
         btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-edit-45.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSua);
         btnSua.setBounds(1210, 80, 140, 50);
 
@@ -310,6 +320,11 @@ public class jf_SanPham extends javax.swing.JFrame {
         jPanel2.add(hsd);
         hsd.setBounds(980, 20, 160, 50);
 
+        cbTenNhom.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        cbTenNhom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cbTenNhom);
+        cbTenNhom.setBounds(150, 140, 230, 50);
+
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setBackground(java.awt.Color.white);
@@ -360,21 +375,19 @@ public class jf_SanPham extends javax.swing.JFrame {
         float giaVonSP = Float.parseFloat(txtGiaVon.getText().replace(",", "").replace(" VNĐ", ""));
         tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
         String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
-        String idNhomSanPham = new LoadSanPham().getIDByNhomSP(txtTenNhom.getText());
+        String idNhomSanPham = new LoadSanPham().getIDByNhomSP(cbTenNhom.getSelectedItem().toString());
         String tenSanPham = txtTenSanPham.getText();
         String donViTinh = txtDonViTinh.getText();
         tac.them(idSanPham, idNhomSanPham, tenSanPham, donViTinh,
-        formatDate.format(nsx.getDate()), formatDate.format(hsd.getDate()), idNhomSanPham + ".png", idBangGia, null, 0);
+                formatDate.format(nsx.getDate()), formatDate.format(hsd.getDate()), idNhomSanPham + ".png", idBangGia, null, 0);
         txtIDSanPham.setText(StringUtil.taoID("IDSanPham", "SanPham", "SP"));
         JOptionPane.showMessageDialog(this, "Thành Công");
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void listSPAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSPAddMouseClicked
         int index = listSPAdd.getSelectedRow();
-        if (!radioThem.isSelected()) {
-            txtIDSanPham.setText(listSPAdd.getModel().getValueAt(index, 0).toString());
-        }
-        txtTenNhom.setText(listSPAdd.getModel().getValueAt(index, 1).toString());
+        txtIDSanPham.setText(listSPAdd.getModel().getValueAt(index, 0).toString());
+        cbTenNhom.setSelectedItem(listSPAdd.getModel().getValueAt(index, 1).toString());
         txtTenSanPham.setText(listSPAdd.getModel().getValueAt(index, 2).toString());
         txtDonViTinh.setText(listSPAdd.getModel().getValueAt(index, 3).toString());
         txtDonGia.setText(listSPAdd.getModel().getValueAt(index, 4).toString());
@@ -404,10 +417,23 @@ public class jf_SanPham extends javax.swing.JFrame {
             String nsx = listSPAdd.getModel().getValueAt(i, 4).toString();
             String hsd = listSPAdd.getModel().getValueAt(i, 5).toString();
             tac.them(idSanPham, idNhomSanPham, tenSanPham, donViTinh,
-            nsx,hsd,idNhomSanPham + ".png", idBangGia, null, 0);
+                    nsx, hsd, idNhomSanPham + ".png", idBangGia, null, 0);
         }
         JOptionPane.showMessageDialog(this, "Thành Công");
     }//GEN-LAST:event_btnThemFromFileActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        int i = new UpdateDB().updateSanPham(txtTenSanPham.getText(), txtDonViTinh.getText(), 
+        txtIDSanPham.getText(), Float.parseFloat(txtDonGia.getText().replace(" VNĐ", "").replace(",", "")), 
+        Integer.parseInt(txtGiam.getText().replace(" VNĐ", "").replace(",", "")));
+        if (i != 0) {
+            JOptionPane.showMessageDialog(this, "Thành Công");
+            new LoadSanPham().load(listSPAdd);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Thất Bại");
+        
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     public static void main(String args[]) {
 
@@ -426,6 +452,7 @@ public class jf_SanPham extends javax.swing.JFrame {
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cbTenNhom;
     private com.toedter.calendar.JDateChooser hsd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -451,7 +478,6 @@ public class jf_SanPham extends javax.swing.JFrame {
     private javax.swing.JTextField txtGiaVon;
     private javax.swing.JTextField txtGiam;
     private javax.swing.JTextField txtIDSanPham;
-    private javax.swing.JTextField txtTenNhom;
     private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables
 }

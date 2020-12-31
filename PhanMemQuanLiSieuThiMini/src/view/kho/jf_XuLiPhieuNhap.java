@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import model.ConnectDAO;
 import model.NhanVien;
+import model.StringUtil;
 
 public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
     String idHoaDon;
@@ -21,6 +23,7 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
         String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0";
         new LoadTable_Kho().NhapHangTK(query, table);
         cbNgayNhap.setDate(new Date(System.currentTimeMillis()));
+        txtMaSKU.setText(StringUtil.taoID("SKU", "Kho", "MV"));
     }
     public int checkEnd(String idHoaDon) {
         int kq = 0;
@@ -135,6 +138,11 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
         btnNhapFile.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnNhapFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
         btnNhapFile.setText("Nhập Từ Bảng");
+        btnNhapFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhapFileActionPerformed(evt);
+            }
+        });
         top.add(btnNhapFile);
         btnNhapFile.setBounds(1050, 110, 220, 50);
 
@@ -183,8 +191,10 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbKieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKieuNhapActionPerformed
-        if (cbKieuNhap.getSelectedIndex() == 0 ) 
+        if (cbKieuNhap.getSelectedIndex() == 0 ) {
             trueOrFalse(true);
+            txtMaSKU.setText(StringUtil.taoID("SKU", "Kho", "MV"));
+        }  
         else 
             trueOrFalse(false);
     }//GEN-LAST:event_cbKieuNhapActionPerformed
@@ -202,14 +212,33 @@ public class jf_XuLiPhieuNhap extends javax.swing.JFrame {
         String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0 ";
         new XuLiPhieu().insertKho(txtMaSKU.getText(), txtIDSanPham.getText(),
                 new SimpleDateFormat("yyyy-MM-dd hh:mm:sss").format(cbNgayNhap.getDate()),
-                null, Integer.parseInt(txtSoLuongNhap.getText()), Integer.parseInt(txtSoLuongNhap.getText())
+                null, Integer.parseInt(txtSoLuongNhap.getText()), 0
                 , 0, idKVKho);
         new XuLiPhieu().updateSKUSanPham(txtMaSKU.getText(), txtIDSanPham.getText());
         new LoadTable_Kho().NhapHangTK(query, table);
         if (checkEnd(idHoaDon) == 0) {
             new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
         }
+        txtMaSKU.setText(StringUtil.taoID("SKU", "Kho", "MV"));
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnNhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapFileActionPerformed
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String sku = StringUtil.taoID("SKU", "Kho", "MV");
+            new XuLiPhieu().xuLiPhieuNhap(1, table.getModel().getValueAt(i, 0).toString());
+            new XuLiPhieu().insertKho(sku, table.getModel().getValueAt(i, 1).toString(),
+                    new SimpleDateFormat("yyyy-MM-dd hh:mm:sss").format(cbNgayNhap.getDate()),
+                    null, Integer.parseInt(table.getModel().getValueAt(i, 4).toString()), 0
+                    , 0, table.getModel().getValueAt(i, 6).toString());
+            new XuLiPhieu().updateSKUSanPham(sku, table.getModel().getValueAt(i, 1).toString());
+            if (checkEnd(idHoaDon) == 0) {
+                new XuLiPhieu().updateTinhTrangHD(1, idHoaDon);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Thành Công");
+        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon +"' AND DongHoaDon.TinhTrang = 0 ";
+        new LoadTable_Kho().NhapHangTK(query, table);
+    }//GEN-LAST:event_btnNhapFileActionPerformed
     public void trueOrFalse(boolean b) {
         txtIDSanPham.setEditable(b);
         txtMaSKU.setEditable(b);
