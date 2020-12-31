@@ -2,13 +2,18 @@ package controller;
 
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ConnectDAO;
 
 public class ThongKe {
 
+    DecimalFormat format = new DecimalFormat("###,###,###");
     public String NGAY = "WHERE NgayTao >= CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
             + "AND NgayTao <= GETDATE() AND HoaDon.LoaiHoaDon = 0";
     public String NGAY_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE(),'yyyy-MM-dd'),' 00:00:00.000') \n"
@@ -198,50 +203,57 @@ public class ThongKe {
         return count;
     }
 
-    public int[] load(JTable table, String subQuery) {
-        int[] arr = new int[10];
-        table.removeAll();
-        DecimalFormat format = new DecimalFormat("###,###,###");
+    public int[]  load(String subQuery, JPanel pn) {
+        int[] arr = new int[4];
         int soHoaDon = 0;
         int tienLai = 0;
         int tongSanPham = 0;
+        int top = 0;
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "SELECT HoaDon.IDHoaDon , SanPham.IDSanPham,Kho.SKU,SanPham.TenSanPham,DongHoaDon.SoLuong,\n"
+            String query = "SELECT HoaDon.IDHoaDon , SanPham.TenSanPham,DongHoaDon.SoLuong,\n"
                     + "BangGia.GiaVonSP * DongHoaDon.SoLuong AS 'Đơn Giá',\n"
                     + "BangGia.DonGia * DongHoaDon.SoLuong - ((BangGia.DonGia * DongHoaDon.SoLuong)*((100-BangGia.Giam)/100)) AS 'Giảm',\n"
                     + "BangGia.DonGia * DongHoaDon.SoLuong - (BangGia.GiaVonSP * DongHoaDon.SoLuong+ \n"
-                    + "BangGia.DonGia * DongHoaDon.SoLuong - ((BangGia.DonGia * DongHoaDon.SoLuong)*((100-BangGia.Giam)/100))) AS ' Tiền Lãi'\n"
+                    + "BangGia.DonGia * DongHoaDon.SoLuong - ((BangGia.DonGia * DongHoaDon.SoLuong)*((100-BangGia.Giam)/100))) AS ' Tiền Lãi',\n"
+                    + "TongHD = (SELECT COUNT(IDDongHoaDon) FROM DongHoaDon WHERE DongHoaDon.IDHoaDon = HoaDon.IDHoaDon)\n"
                     + "FROM HoaDon \n"
                     + "INNER JOIN DongHoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon\n"
                     + "INNER JOIN SanPham ON DongHoaDon.IDSanPham = SanPham.IDSanPham\n"
                     + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia\n"
-                    + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham\n"
-                    + subQuery + " AND HoaDon.LoaiHoaDon = 0 ORDER BY HoaDon.IDHoaDon DESC ";
+                    + "INNER JOIN Kho ON Kho.IDSanPham = SanPham.IDSanPham " + subQuery + " AND HoaDon.LoaiHoaDon = 0 ORDER BY HoaDon.IDHoaDon DESC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rms = rs.getMetaData();
-            Vector vTitle = new Vector(rms.getColumnCount());
-            Vector vData = null;
-            for (int i = 1; i <= rms.getColumnCount(); i++) {
-                vTitle.add(rms.getColumnLabel(i));
-            }
-            DefaultTableModel tableModel = new DefaultTableModel(vTitle, 0);
+            lb(pn, "IDHoaDon").setBounds(0, 0, 200, 40);
+            lb(pn, "Tên Sản Phẩm").setBounds(200, 0, 450, 40);
+            lb(pn, "Số Lượng").setBounds(650, 0, 150, 40);
+            lb(pn, "Đơn Giá").setBounds(800, 0, 200, 40);
+            lb(pn, "Giảm").setBounds(1000, 0, 150, 40);
+            lb(pn, "Tiền Lãi").setBounds(1150, 0, 200, 40);
+            int i = 0;
+            int height = 40;
             while (rs.next()) {
+                i++;
+                top += 40;
+                if (i == rs.getInt(7) - 1) {
+                    lb(pn, rs.getString(1)).setBounds(0, height, 200, 40 * rs.getInt(7));
+                    height += 40*rs.getInt(7);
+                    i = 0;
+                }
+                else if (rs.getInt(7) == 1) {
+                    lb(pn, rs.getString(1)).setBounds(0, height, 200, 40 * rs.getInt(7));
+                    height += 40*rs.getInt(7);
+                    i = 0;
+                }
+                lb(pn, rs.getString(2)).setBounds(200, top, 450, 40);
+                lb(pn, format.format(rs.getInt(3))).setBounds(650, top, 150, 40);
+                lb(pn, format.format(rs.getInt(4)) + " VNĐ").setBounds(800, top, 200, 40);
+                lb(pn, format.format(rs.getInt(5)) + " VNĐ").setBounds(1000, top, 150, 40);
+                lb(pn, format.format(rs.getInt(6)) + " VNĐ").setBounds(1150, top, 200, 40);
 
-                vData = new Vector();
-                vData.add(rs.getString(1));
-                vData.add(rs.getString(2));
-                vData.add(rs.getString(3));
-                vData.add(rs.getString(4));
-                vData.add(rs.getInt(5));
-                vData.add(format.format(rs.getInt(6)) + " VNĐ");
-                vData.add(format.format(rs.getInt(7)) + " VNĐ");
-                vData.add(format.format(rs.getInt(8)) + " VNĐ");
-                tienLai += rs.getInt(8);
-                tongSanPham += rs.getInt(5);
-                tableModel.addRow(vData);
+                tienLai += rs.getInt(6);
+                tongSanPham += rs.getInt(3);
+
             }
-            table.setModel(tableModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -249,9 +261,9 @@ public class ThongKe {
             String query = "SELECT DISTINCT COUNT(*) \n"
                     + " FROM HoaDon " + subQuery;
             PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                soHoaDon = rs.getInt(1);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                soHoaDon = rs1.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,7 +271,37 @@ public class ThongKe {
         arr[0] = tongSanPham;
         arr[1] = soHoaDon;
         arr[2] = tienLai;
+        arr[3] = top;
         return arr;
     }
 
+    public JLabel lb(JPanel pn, String s) {
+        JLabel lb = new JLabel();
+        lb.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
+        lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb.setText(s);
+        lb.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pn.add(lb);
+        return lb;
+    }
+
+    public JLabel lb1(JPanel pn, String s) {
+        JLabel lb = new JLabel();
+        lb.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb.setText(s);
+        lb.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pn.add(lb);
+        return lb;
+    }
+
+    public JLabel lb2(JPanel pn, String s) {
+        JLabel lb = new JLabel();
+        lb.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lb.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb.setText(s);
+        lb.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pn.add(lb);
+        return lb;
+    }
 }
