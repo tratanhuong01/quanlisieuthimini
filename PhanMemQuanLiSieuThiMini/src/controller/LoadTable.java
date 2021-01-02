@@ -1,20 +1,14 @@
 package controller;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import static java.awt.image.ImageObserver.WIDTH;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.ConnectDAO;
-import model.SanPham;
+import model.*;
 
 public class LoadTable {
 

@@ -450,28 +450,6 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         new jf_TemplatePhieuNhap(listSP, ptThanhToan.getSelectedItem().toString(), "VNĐ", list.get(in),
                 txtTongTien, idKVKho, nv, listSPAdd, txtVAT, txtGhiChu).setVisible(true);
 
-//            for (int i = 0; i < num; i++) {
-//                String idSanPham = StringUtil.taoID("IDSanPham", "SanPham", "SP");
-//                String iddhd = StringUtil.taoID("IDDongHoaDon", "DongHoaDon", "DHD");
-//                String idBangGia = StringUtil.taoID("IDBangGia", "BangGia", "BG");
-//                String idDonViTinh = listSPAdd.getModel().getValueAt(i, 3).toString();
-//                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-//                float giam = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 7).toString().replace(",", ""));
-//                float donGia = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 6).toString().replace(" VNĐ", "").replace(",", ""));
-//                float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(" VNĐ", "").replace(",", ""));
-//                String idNhomSP = new TimKiemSanPham().getAllNhomSanPham(listSPAdd.getModel().getValueAt(i, 1).toString());
-//                String tenSP = listSPAdd.getModel().getValueAt(i, 2).toString();
-//                String ngaySanXuat = listSPAdd.getModel().getValueAt(i, 4).toString();
-//                String hanSuDung = listSPAdd.getModel().getValueAt(i, 5).toString();
-//                tac.insertBangGia(idBangGia, donGia, giam, giaVonSP);
-//                tac.them(idSanPham, idNhomSP, tenSP, idDonViTinh, ngaySanXuat, hanSuDung,
-//                        "BANKEO1.png", idBangGia, idNhaCungCap, 0);
-//                tac.insertDongHoaDon(iddhd, id, idSanPham, idDonViTinh, sl, giam, (float) 0, 0);
-//            }
-//            String idPhieu = StringUtil.taoID("IDPhieu", "PhieuKho", "PK");
-//            tac.insertPhieu(idPhieu, id, null, null, idKVKho);
-//            tac.updateIDPhieu(idPhieu, id);
-//            JOptionPane.showMessageDialog(this, "Thành Công");
     }//GEN-LAST:event_btnTaoActionPerformed
 
     private void cbNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhaCungCapActionPerformed
@@ -523,7 +501,8 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
                     listSPMain.remove(i);
                 }
             }
-            new LoadTable().PhieuNhapLeft(listSPMain, table3);
+            new LoadTable().PhieuNhapLeft(!idNhomSanPham.equals("") ? new TimByList().locByNhom(
+                        cbNhomSanPham.getSelectedItem().toString(), listSPMain) : listSPMain, table3);
             listSP.add(s);
             s[10] = op;
             new LoadTable().PhieuNhapRight(listSP, listSPAdd);

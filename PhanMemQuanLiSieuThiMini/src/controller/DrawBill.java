@@ -3,13 +3,8 @@ package controller;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import model.DongHoaDon;
-import model.InfoAtm;
-import model.KhachHang;
-import model.NhanVien;
+import javax.swing.*;
+import model.*;
 
 public class DrawBill {
     public void drawFooter(JPanel pnHoaDon) {

@@ -1,6 +1,7 @@
 package view.kho;
 
 import controller.LoadTable;
+import controller.QuetSanPham;
 import controller.XuatFile;
 import javax.swing.JProgressBar;
 
@@ -36,6 +37,7 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnQuet = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -141,7 +143,7 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnTuDen);
-        btnTuDen.setBounds(451, 90, 120, 51);
+        btnTuDen.setBounds(460, 90, 120, 51);
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -162,6 +164,17 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jLabel6.setText("Từ");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(10, 90, 40, 50);
+
+        btnQuet.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnQuet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
+        btnQuet.setText("Quét Tất Cả Sản Phẩm");
+        btnQuet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuetActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnQuet);
+        btnQuet.setBounds(830, 90, 290, 51);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -219,8 +232,13 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         new XuatFile().execute(table, new JProgressBar(), "SP");
     }//GEN-LAST:event_btnXuatFileActionPerformed
 
+    private void btnQuetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuetActionPerformed
+        new QuetSanPham().quet();
+    }//GEN-LAST:event_btnQuetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuet;
     private javax.swing.JButton btnTimSp;
     private javax.swing.JButton btnTinhTrang;
     private javax.swing.JButton btnTuDen;

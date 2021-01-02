@@ -119,11 +119,11 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         int index = cbTinhTrang.getSelectedIndex();
         if (index == 0) 
-            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 1 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+            new LoadTable_Kho().loadXuat("WHERE HoaDon.TrangThai = 1 AND HoaDon.LoaiHoaDon = 2 ", listHoaDon);
         else if (index == 1)
-            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 0 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+            new LoadTable_Kho().loadXuat("WHERE HoaDon.TrangThai = 0 AND HoaDon.LoaiHoaDon = 2 ", listHoaDon);
         else 
-            new LoadTable_Kho().loadNhap("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 1 ", listHoaDon);
+            new LoadTable_Kho().loadXuat("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 2 ", listHoaDon);
     }//GEN-LAST:event_btnLocActionPerformed
 
 

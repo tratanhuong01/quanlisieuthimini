@@ -430,7 +430,8 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
                     listSPMain.remove(i);
                 }
             }
-            new LoadTable().PhieuNhapLeft(listSPMain, table1);
+            new LoadTable().PhieuNhapLeft(!idNhomSanPham.equals("") ? new TimByList().locByNhom(
+                        cbNhomSanPham.getSelectedItem().toString(), listSPMain) : listSPMain, table1);
             s[10] = op;
             listSP.add(s);
             new LoadTable().PhieuNhapRight(listSP, table2);

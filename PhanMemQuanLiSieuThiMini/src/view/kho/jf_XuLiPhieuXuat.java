@@ -21,7 +21,7 @@ public class jf_XuLiPhieuXuat extends javax.swing.JFrame {
         initComponents();
         this.idHoaDon = idHoaDon;
         btnNhapFile.setEnabled(false);
-        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon + "' AND DongHoaDon.TinhTrang = 0";
+        String query = " WHERE DongHoaDon.IDHoaDon = '" + idHoaDon + "' AND DongHoaDon.TinhTrang = 0 AND HoaDon.LoaiHoaDon = 2 ";
         new LoadTable_Kho().XuatHangTK(query, table);
         cbNgayXuat.setDate(new java.sql.Date(System.currentTimeMillis()));
     }
