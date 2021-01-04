@@ -7,6 +7,7 @@ import controller.ThemAndCapNhatSanPham;
 import controller.ThemKhachHang;
 import controller.TimByList;
 import controller.TimKiemSanPham;
+import controller.XuatFile;
 import controller.loadDanhMuc;
 import java.sql.*;
 import java.text.DecimalFormat;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import model.ConnectDAO;
 import model.KhachHang;
 import model.NhanVien;
@@ -317,8 +319,13 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         txtInput.setBounds(0, 0, 240, 40);
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
-        btnThem.setText("Thêm Mới");
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-import-40.png"))); // NOI18N
+        btnThem.setText("Xuất File");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
         jPanel18.add(btnThem);
         btnThem.setBounds(480, 0, 180, 40);
 
@@ -420,7 +427,7 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         String op = JOptionPane.showInputDialog("Nhập Số Lượng (Có " 
                 + getAmout(table1.getModel().getValueAt(index, 0).toString())
                 + " " + table1.getModel().getValueAt(index, 2).toString() + " Ở Trong Kho)");
-        if (!op.equals("")) {
+        if (op != null) {
             for (int i = 0; i < table1.getColumnCount(); i++) {
                 idss = table1.getModel().getValueAt(index, 0).toString();
                 s[i] = table1.getModel().getValueAt(index, i).toString();
@@ -471,6 +478,10 @@ public class pn_PhieuXuat extends javax.swing.JPanel {
         int index = table2.getSelectedRow();
         new DialogUpdate(table2.getModel().getValueAt(index, 0).toString(), listSP, table2).setVisible(true);
     }//GEN-LAST:event_table2MouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        new XuatFile().execute(table1, new JProgressBar(), "FormatXuat");
+    }//GEN-LAST:event_btnThemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -24,7 +24,7 @@ public class LocHoaDon {
                     + "END AS 'PhuongThucThanhToan',HoaDon.ThueVAT\n"
                     + "FROM  HoaDon\n"
                     + "LEFT JOIN NhanVien ON HoaDon.IDNhanVien = NhanVien.IDNhanVien\n"
-                    + "INNER JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang\n"
+                    + "LEFT JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang\n"
                     + "WHERE NgayTao >= ? AND NgayTao <= ? " + subQuery ;
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, timeFrom);

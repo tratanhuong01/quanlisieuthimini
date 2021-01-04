@@ -53,7 +53,7 @@ public class pn_NhomKhachHang extends javax.swing.JPanel {
     }
     public boolean add(String idNhomKH, String tenNhom,String loai) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO NhomKhachHang(IDNhomKH,TenNhom,Loai)VALUES "
+            String query = "INSERT INTO NhomKhachHang(IDNhomKH,TenNhom,LoaiNhom)VALUES "
                     + "(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhomKH);

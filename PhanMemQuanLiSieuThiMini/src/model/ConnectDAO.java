@@ -14,4 +14,8 @@ public class ConnectDAO {
         }
         return conn;
     }
+    
+    public static void main(String[] args) {
+        
+    }
 }

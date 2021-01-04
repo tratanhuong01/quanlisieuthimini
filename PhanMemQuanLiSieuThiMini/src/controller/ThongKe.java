@@ -41,8 +41,9 @@ public class ThongKe {
     public String THANG_TRUOC = "WHERE NgayTao < CONCAT(FORMAT(GETDATE() - DAY(GETDATE() - 1),'yyyy-MM-dd'),' 00:00:00.000')\n"
             + "AND NgayTao >= CONVERT(Datetime,CONCAT(FORMAT(GETDATE() - DAY(GETDATE()) - DAY(EOMONTH(GETDATE() - DAY(GETDATE())))"
             + " + 1,'yyyy-MM-dd'),' 00:00:00')) AND HoaDon.LoaiHoaDon = 0";
-    public String NAM = "";
-    public String NAM_TRUOC = "";
+    public String NAM = "WHERE NgayTao >= DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0) AND NgayTao <= GETDATE()  AND HoaDon.LoaiHoaDon = 0";
+    public String NAM_TRUOC = "WHERE NgayTao < DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0) "
+            + "AND NgayTao >= dateadd(year, -1, DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0))  AND HoaDon.LoaiHoaDon = 0";
 
     public int LocHoaDon(String query) {
         int count = 0;
@@ -125,6 +126,16 @@ public class ThongKe {
                         + THANG_TRUOC;
                 count = LocTien(q6);
                 break;
+            case 7:
+                String q7 = "SELECT  SUM(TongTien) FROM HoaDon \n"
+                        + NAM;
+                count = LocTien(q7);
+                break;
+            case 8:
+                String q8 = "SELECT  SUM(TongTien) FROM HoaDon \n"
+                        + NAM_TRUOC;
+                count = LocTien(q8);
+                break;
         }
         return count;
     }
@@ -168,6 +179,18 @@ public class ThongKe {
                         + THANG_TRUOC;
                 count = LocSanPham(q6);
                 break;
+            case 7:
+                String q7 = "SELECT  SUM(SoLuong) FROM DongHoaDon \n"
+                        + "INNER JOIN HoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon \n"
+                        + NAM;
+                count = LocSanPham(q7);
+                break;
+            case 8:
+                String q8 = "SELECT  SUM(SoLuong) FROM DongHoaDon \n"
+                        + "INNER JOIN HoaDon ON HoaDon.IDHoaDon = DongHoaDon.IDHoaDon \n"
+                        + NAM_TRUOC;
+                count = LocSanPham(q8);
+                break;
         }
         return count;
     }
@@ -199,11 +222,19 @@ public class ThongKe {
                 String q6 = "SELECT  COUNT(*) FROM HoaDon " + THANG_TRUOC;
                 count = LocHoaDon(q6);
                 break;
+            case 7:
+                String q7 = "SELECT  COUNT(*) FROM HoaDon " + NAM;
+                count = LocHoaDon(q7);
+                break;
+            case 8:
+                String q8 = "SELECT  COUNT(*) FROM HoaDon " + NAM_TRUOC;
+                count = LocHoaDon(q8);
+                break;
         }
         return count;
     }
 
-    public int[]  load(String subQuery, JPanel pn) {
+    public int[] load(String subQuery, JPanel pn) {
         int[] arr = new int[4];
         int soHoaDon = 0;
         int tienLai = 0;
@@ -233,17 +264,17 @@ public class ThongKe {
             int height = 40;
             while (rs.next()) {
                 i++;
-                top += 40;
+                
                 if (i == rs.getInt(7) - 1) {
                     lb(pn, rs.getString(1)).setBounds(0, height, 200, 40 * rs.getInt(7));
-                    height += 40*rs.getInt(7);
+                    height += 40 * rs.getInt(7);
                     i = 0;
-                }
-                else if (rs.getInt(7) == 1) {
+                } else if (rs.getInt(7) == 1) {
                     lb(pn, rs.getString(1)).setBounds(0, height, 200, 40 * rs.getInt(7));
-                    height += 40*rs.getInt(7);
+                    height += 40 * rs.getInt(7);
                     i = 0;
                 }
+                top += 40;
                 lb(pn, rs.getString(2)).setBounds(200, top, 450, 40);
                 lb(pn, format.format(rs.getInt(3))).setBounds(650, top, 150, 40);
                 lb(pn, format.format(rs.getInt(4)) + " VNĐ").setBounds(800, top, 200, 40);

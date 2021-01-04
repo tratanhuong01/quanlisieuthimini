@@ -17,7 +17,7 @@ public class LoadHoaDon {
         Vector vData = null;
         DefaultTableModel tableMode;
         tableMode = new DefaultTableModel(vTitle, 0);
-        
+
         for (HoaDon hd : list) {
             vData = new Vector();
             vData.add(hd.getIdHoaDon());
@@ -35,9 +35,10 @@ public class LoadHoaDon {
         listHoaDon.removeAll();
         listHoaDon.setModel(tableMode);
     }
+
     public Vector addHeader() {
         Vector vTitle = null;
-        try (Connection conn =  new ConnectDAO().getConnection()){
+        try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT HoaDon.IDHoaDon, HoaDon.NgayTao,NhanVien.IDNhanVien , NhanVien.HoTen,KhachHang.IDKhachHang,\n"
                     + "KhachHang.HoTen,HoaDon.TongTien ,\n"
                     + "CASE \n"
@@ -51,12 +52,12 @@ public class LoadHoaDon {
                     + "END AS 'PhuongThucThanhToan',HoaDon.ThueVAT\n"
                     + "FROM  HoaDon\n"
                     + "LEFT JOIN NhanVien ON HoaDon.IDNhanVien = NhanVien.IDNhanVien\n"
-                    + "INNER JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang\n";
+                    + "LEFT JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rms = rs.getMetaData();
             if (rs.next()) {
-                vTitle =  new Vector(rms.getColumnCount());
+                vTitle = new Vector(rms.getColumnCount());
                 for (int i = 1; i <= rms.getColumnCount(); i++) {
                     vTitle.add(rms.getColumnLabel(i));
                 }
@@ -67,6 +68,7 @@ public class LoadHoaDon {
         }
         return vTitle;
     }
+
     public List<HoaDon> getAll() {
         List<HoaDon> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
@@ -83,7 +85,7 @@ public class LoadHoaDon {
                     + "END AS 'PhuongThucThanhToan',HoaDon.ThueVAT\n"
                     + "FROM  HoaDon\n"
                     + "LEFT JOIN NhanVien ON HoaDon.IDNhanVien = NhanVien.IDNhanVien\n"
-                    + "INNER JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang\n";
+                    + "LEFT JOIN KhachHang ON KhachHang.IDKhachHang = HoaDon.IDKhachHang";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

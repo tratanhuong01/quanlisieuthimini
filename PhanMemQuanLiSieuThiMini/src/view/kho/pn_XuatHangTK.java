@@ -1,6 +1,8 @@
 package view.kho;
 
 import controller.LoadTable_Kho;
+import controller.XuatFile;
+import javax.swing.JProgressBar;
 
 public class pn_XuatHangTK extends javax.swing.JPanel {
     String idHoaDon = "";
@@ -18,7 +20,7 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         cbTinhTrang = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        input = new javax.swing.JTextField();
         btnLoc = new javax.swing.JButton();
         btnTim = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -32,7 +34,13 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jPanel1.setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
         jButton1.setText("Xuất File");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
         jButton1.setBounds(1140, 20, 190, 51);
 
@@ -51,9 +59,9 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(550, 20, 135, 50);
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(680, 20, 293, 50);
+        input.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(input);
+        input.setBounds(680, 20, 293, 50);
 
         btnLoc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnLoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-search-client-45.png"))); // NOI18N
@@ -69,6 +77,11 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
         btnTim.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search1.png"))); // NOI18N
         btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnTim);
         btnTim.setBounds(980, 20, 120, 51);
 
@@ -126,18 +139,26 @@ public class pn_XuatHangTK extends javax.swing.JPanel {
             new LoadTable_Kho().loadXuat("WHERE HoaDon.TrangThai = 2 AND HoaDon.LoaiHoaDon = 2 ", listHoaDon);
     }//GEN-LAST:event_btnLocActionPerformed
 
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        new LoadTable_Kho().loadXuat("WHERE HoaDon.IDHoaDon LIKE N'%" + input.getText() + "%'", listHoaDon);
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new XuatFile().execute(listHoaDon, new JProgressBar(), "XuatHang");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnTim;
     private javax.swing.JComboBox<String> cbTinhTrang;
+    private javax.swing.JTextField input;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable listHoaDon;
     // End of variables declaration//GEN-END:variables
 

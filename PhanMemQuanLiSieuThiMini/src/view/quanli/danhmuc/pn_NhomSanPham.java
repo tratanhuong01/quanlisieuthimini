@@ -53,10 +53,9 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         }
     }
 
-    public boolean add(String idNhomSP, String tenNhom,int loaiNhom) {
+    public boolean add(String idNhomSP, String tenNhom, int loaiNhom) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "INSERT INTO NhomSanPham(IDNhomSanPham,TenNhom,LoaiNhom)VALUES "
-                    + "(?,?,?)";
+            String query = "INSERT INTO NhomSanPham(IDNhomSanPham,TenNhom,LoaiNhom) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, idNhomSP);
             ps.setString(2, tenNhom);
@@ -69,9 +68,9 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
         return false;
     }
 
-    public boolean update(String tenNhom,int loaiNhom,String idNhomSP) {
+    public boolean update(String tenNhom, int loaiNhom, String idNhomSP) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "UPDATE NhomKhachHang SET TenNhom = ? , LoaiNhom = ? WHERE IDNhomSanPham = ?";
+            String query = "UPDATE NhomSanPham SET TenNhom = ? , LoaiNhom = ? WHERE IDNhomSanPham = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, tenNhom);
             ps.setInt(2, loaiNhom);
@@ -214,25 +213,32 @@ public class pn_NhomSanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (add(txtIDNhomSanPham.getText(),  txtTenNhomSanPham.getText(),
-                Integer.parseInt(txtLoai.getText())))
+        if (add(txtIDNhomSanPham.getText(), txtTenNhomSanPham.getText(),
+                Integer.parseInt(txtLoai.getText()))) {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
-        else 
+            loadTable();
+        } else {
             JOptionPane.showMessageDialog(this, "Thêm thất bại ... vui lòng kiểm tra lại !!");
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if (delete(txtIDNhomSanPham.getText()) == true)
+        if (delete(txtIDNhomSanPham.getText()) == true) {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
-        else 
+            loadTable();
+        } else {
             JOptionPane.showMessageDialog(this, "Xóa thất bại ... vui lòng kiểm tra lại !!");
+            
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (update(txtTenNhomSanPham.getText(),Integer.parseInt(txtLoai.getText()),txtIDNhomSanPham.getText()))
+        if (update(txtTenNhomSanPham.getText(), Integer.parseInt(txtLoai.getText()), txtIDNhomSanPham.getText())) {
             JOptionPane.showMessageDialog(this, "Sửa thành công");
-        else 
+            loadTable();
+        } else {
             JOptionPane.showMessageDialog(this, "Sửa thất bại ... vui lòng kiểm tra lại !!");
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked

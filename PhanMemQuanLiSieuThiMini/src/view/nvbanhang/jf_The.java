@@ -79,9 +79,7 @@ public class jf_The extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 toString += line + "=";
             }
-            System.out.println(toString.split("=").length);
             String[] arr = toString.split("=");
-            System.out.println(arr.length);
             for (int i = 0; i < arr.length; i++) {
                 String[] arrI = arr[i].split("@");
                 Bank bank = new Bank(arrI[2], arrI[1]);

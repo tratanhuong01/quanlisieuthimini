@@ -3,6 +3,7 @@ package view.kho;
 import controller.LoadTable;
 import controller.QuetSanPham;
 import controller.XuatFile;
+import java.text.SimpleDateFormat;
 import javax.swing.JProgressBar;
 
 public class pn_KiemKeTK extends javax.swing.JPanel {
@@ -33,8 +34,8 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         btnTuDen = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        den = new com.toedter.calendar.JDateChooser();
+        tu = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnQuet = new javax.swing.JButton();
@@ -145,15 +146,15 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
         jPanel1.add(btnTuDen);
         btnTuDen.setBounds(460, 90, 120, 51);
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jDateChooser1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jDateChooser1);
-        jDateChooser1.setBounds(270, 90, 160, 50);
+        den.setDateFormatString("yyyy-MM-dd");
+        den.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(den);
+        den.setBounds(270, 90, 160, 50);
 
-        jDateChooser2.setDateFormatString("yyyy-MM-dd");
-        jDateChooser2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jPanel1.add(jDateChooser2);
-        jDateChooser2.setBounds(50, 90, 150, 50);
+        tu.setDateFormatString("yyyy-MM-dd");
+        tu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jPanel1.add(tu);
+        tu.setBounds(50, 90, 150, 50);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel5.setText("Tình Trạng SP");
@@ -215,13 +216,14 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
                 new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()",table);
                 break;
             case 1:
-                new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()-15",table);
+                new LoadTable().SanPham("WHERE HanSuDung >= GETDATE()-7 AND HanSuDung <= GETDATE()",table);
                 break;
         }
     }//GEN-LAST:event_btnTinhTrangActionPerformed
 
     private void btnTuDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTuDenActionPerformed
-        new LoadTable().SanPham("WHERE HanSuDung <= GETDATE()",table);
+        new LoadTable().SanPham("WHERE HanSuDung <= '" + new SimpleDateFormat("yyyy-MM-dd").format(den.getDate())
+                + "' AND HanSuDung >= '" + new SimpleDateFormat("yyyy-MM-dd").format(tu.getDate()) + "'" ,table);
     }//GEN-LAST:event_btnTuDenActionPerformed
 
     private void btnTimSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimSpActionPerformed
@@ -244,12 +246,11 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
     private javax.swing.JButton btnTuDen;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cbTinhTrangSP;
+    private com.toedter.calendar.JDateChooser den;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -262,6 +263,7 @@ public class pn_KiemKeTK extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable table;
+    private com.toedter.calendar.JDateChooser tu;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 

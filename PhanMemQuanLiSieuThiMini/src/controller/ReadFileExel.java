@@ -61,17 +61,17 @@ public class ReadFileExel {
                         vData.add(excelRow.getCell(1).toString());
                         vData.add(excelRow.getCell(2).toString());
                         vData.add(excelRow.getCell(3).toString());
-                        String date4 = new SimpleDateFormat("yyyy-MM-dd").format(
-                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
-                                parse(excelRow.getCell(4).toString()));
-                        String date5 = new SimpleDateFormat("yyyy-MM-dd").format(
-                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
-                                parse(excelRow.getCell(5).toString()));
-                        vData.add(date4);
-                        vData.add(date5);
-                        vData.add(format.format(formatString(excelRow.getCell(6))) + " VNĐ");
-                        vData.add(format.format(formatString(excelRow.getCell(7))));
-                        vData.add(format.format(formatString(excelRow.getCell(8))) + " VNĐ");
+//                        String date4 = new SimpleDateFormat("yyyy-MM-dd").format(
+//                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+//                                parse(excelRow.getCell(4).toString()));
+//                        String date5 = new SimpleDateFormat("yyyy-MM-dd").format(
+//                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+//                                parse(excelRow.getCell(5).toString()));
+                        vData.add(excelRow.getCell(4).toString());
+                        vData.add(excelRow.getCell(5).toString());
+                        vData.add(excelRow.getCell(6));
+                        vData.add(excelRow.getCell(7));
+                        vData.add(excelRow.getCell(8));
                         vData.add(excelRow.getCell(9).toString());
                         vData.add(format.format(formatString(excelRow.getCell(10))));
                         tableModel.addRow(vData);
@@ -118,17 +118,17 @@ public class ReadFileExel {
                         vData.add(excelRow.getCell(1).toString());
                         vData.add(excelRow.getCell(2).toString());
                         vData.add(excelRow.getCell(3).toString());
-                        String date4 = new SimpleDateFormat("yyyy-MM-dd").format(
-                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
-                                parse(excelRow.getCell(4).toString()));
-                        String date5 = new SimpleDateFormat("yyyy-MM-dd").format(
-                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
-                                parse(excelRow.getCell(5).toString()));
-                        vData.add(date4);
-                        vData.add(date5);
-                        vData.add(format.format(formatString(excelRow.getCell(6))) + " VNĐ");
+//                        String date4 = new SimpleDateFormat("yyyy-MM-dd").format(
+//                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+//                                parse(excelRow.getCell(4).toString()));
+//                        String date5 = new SimpleDateFormat("yyyy-MM-dd").format(
+//                        (java.util.Date) new SimpleDateFormat("dd-MMM-yyyy").
+//                                parse(excelRow.getCell(5).toString()));
+                        vData.add(excelRow.getCell(4).toString());
+                        vData.add(excelRow.getCell(5).toString());
+                        vData.add(excelRow.getCell(6));
                         vData.add(format.format(formatString(excelRow.getCell(7))));
-                        vData.add(format.format(formatString(excelRow.getCell(8))) + " VNĐ");
+                        vData.add(excelRow.getCell(8));
                         vData.add(excelRow.getCell(9).toString());
                         vData.add(format.format(formatString(excelRow.getCell(10))));
                         tableModel.addRow(vData);

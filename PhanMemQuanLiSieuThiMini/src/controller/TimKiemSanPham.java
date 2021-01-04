@@ -2,15 +2,12 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import model.ConnectDAO;
-import model.SanPham;
+import model.*;
 
 public class TimKiemSanPham {
     public String getAllNhomSanPham(String tenNhom) {
@@ -28,7 +25,7 @@ public class TimKiemSanPham {
         }
         return s;
     }
-    public List<SanPham> getSanPhamByNhomSanPham(String tenSanPham) {
+    public List<SanPham> getSanPhamByNhomSanPham(String subQuery) {
         List<SanPham> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {
             String query = "SELECT SanPham.IDSanPham,SanPham.IDNhomSanPham,SanPham.TenSanPham,SanPham.IDDonViTinh,\n"
@@ -39,7 +36,7 @@ public class TimKiemSanPham {
                     + "INNER JOIN KhachHang ON SanPham.IDKhachHang = KhachHang.IDKhachHang\n"
                     + "FULL JOIN Kho ON SanPham.SKU = Kho.SKU\n"
                     + "INNER JOIN BangGia ON SanPham.IDBangGia = BangGia.IDBangGia \n"
-                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc ";
+                    + "INNER JOIN KhuVuc ON NhomSanPham.IDKhuVuc = KhuVuc.IDKhuVuc " + subQuery;
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

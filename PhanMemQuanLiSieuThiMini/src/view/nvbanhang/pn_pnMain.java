@@ -1,44 +1,21 @@
 package view.nvbanhang;
 
-import controller.CapNhatTienHoaDon;
-import controller.PTHoaDon;
-import controller.TimKiemSanPham;
-import controller.loadDanhMuc;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Point;
+import controller.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
 import javafx.stage.Screen;
-import javax.swing.BoxLayout;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import model.ConnectDAO;
+import model.*;
 import model.DAO;
-import model.DongHoaDon;
-import model.InfoAtm;
-import model.KhachHang;
-import model.NhanVien;
-import model.NhomSanPham;
-import model.SanPham;
-import model.StringUtil;
 import view.jf_QuanLi;
 
 public class pn_pnMain extends javax.swing.JPanel {
@@ -83,7 +60,7 @@ public class pn_pnMain extends javax.swing.JPanel {
         new loadDanhMuc().loadNhomSanPham(cbNhomSanPham);
         new loadDanhMuc().loadPTThanhToan(ptThanhToan);
         cssJScrollPanel();
-        loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+        loadSanPhamByNhomSanPham(new loadDanhMuc().get(cbNhomSanPham.getSelectedItem().toString()));
         int diem = check(kh.getIdKhachHang());
         if (diem == 0) {
             txtSoDiemTich.setText(String.valueOf(0));
@@ -482,14 +459,16 @@ public class pn_pnMain extends javax.swing.JPanel {
     private void cbNhomSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhomSanPhamActionPerformed
         pnChonSanPham.removeAll();
         pnChonSanPham.repaint();
-        loadSanPhamByNhomSanPham(cbNhomSanPham.getSelectedItem().toString());
+        loadSanPhamByNhomSanPham(new loadDanhMuc().get(cbNhomSanPham.getSelectedItem().toString()));
     }//GEN-LAST:event_cbNhomSanPhamActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         pnChonSanPham.removeAll();
         pnChonSanPham.repaint();
+        
         String query = "WHERE SanPham.IDSanPham LIKE N'%" + txtSearch.getText() + "%' "
-                + " OR SanPham.TenSanPham LIKE N'%" + txtSearch.getText() + "%' ";
+                + " OR SanPham.TenSanPham LIKE N'%" + txtSearch.getText() + "%' "
+        + " OR SanPham.SKU LIKE N'%" + txtSearch.getText() + "%' ";
         List<SanPham> list = new TimKiemSanPham().getSanPhamByNhomSanPham(query);
         loadSanPhamByNhomSanPham(list);
     }//GEN-LAST:event_txtSearchKeyPressed

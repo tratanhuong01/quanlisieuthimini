@@ -521,7 +521,7 @@ public class jf_TaoHoaDon extends javax.swing.JFrame {
         lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anhsanpham/LogoBank/TPBank.png"))); // NOI18N
         pnHoaDonATM.add(lbLogo);
-        lbLogo.setBounds(90, 10, 230, 90);
+        lbLogo.setBounds(0, 0, 400, 110);
 
         jLabel67.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel67.setForeground(java.awt.Color.blue);

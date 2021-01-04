@@ -69,8 +69,8 @@ public class pn_DonViTinh extends javax.swing.JPanel {
 
     public boolean update(int macDinh, String idDonViTinh) {
         try (Connection conn = new ConnectDAO().getConnection()) {
-            String query = "UPDATE PhuongThucThanhToan SET "
-                    + "TenPTThanhToan = ? WHERE IDPTThanhToan = ?";
+            String query = "UPDATE DonViTinh SET "
+                    + "MacDinh = ? WHERE IDDonViTinh = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, macDinh);
             ps.setString(2, idDonViTinh);

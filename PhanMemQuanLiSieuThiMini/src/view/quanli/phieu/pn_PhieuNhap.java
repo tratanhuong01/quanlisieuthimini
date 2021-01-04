@@ -1,27 +1,14 @@
 package view.quanli.phieu;
 
-import controller.Kho;
-import controller.LoadSanPham;
-import controller.LoadTable;
-import controller.ReadFileExel;
-import controller.ThemAndCapNhatSanPham;
-import controller.ThemKhachHang;
-import controller.TimByList;
-import controller.TimKiemSanPham;
-import controller.loadDanhMuc;
+import controller.*;
 import java.sql.*;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.ConnectDAO;
-import model.KhachHang;
-import model.NhanVien;
-import model.NhomSanPham;
-import model.SanPham;
-import model.StringUtil;
+import javax.swing.JProgressBar;
+import model.*;
 
 public class pn_PhieuNhap extends javax.swing.JPanel {
 
@@ -36,6 +23,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     List<SanPham> listSPMain;
     int in = 0;
     long tongTien = 0;
+
     public pn_PhieuNhap(NhanVien nv) {
         this.nv = nv;
         initComponents();
@@ -348,8 +336,8 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         txtInput.setBounds(0, 0, 240, 40);
 
         btnThemMoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-add-new-45.png"))); // NOI18N
-        btnThemMoi.setText("Thêm Mới");
+        btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-xls-export-40.png"))); // NOI18N
+        btnThemMoi.setText("Xuất File");
         btnThemMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemMoiActionPerformed(evt);
@@ -434,15 +422,15 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        if (new ReadFileExel().readNhap(listSPAdd) == true) {
-            for (int i = 0; i < listSPAdd.getRowCount(); i++) {
-                int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
-                float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
-                        replace(" VNĐ", ""));
-                tongTien += sl * giaVonSP;
-            }
-            txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
+        new ReadFileExel().readNhap(listSPAdd);
+        for (int i = 0; i < listSPAdd.getRowCount(); i++) {
+            int sl = Integer.parseInt(listSPAdd.getModel().getValueAt(i, 10).toString().replace(",", ""));
+            float giaVonSP = Float.parseFloat(listSPAdd.getModel().getValueAt(i, 8).toString().replace(",", "").
+                    replace(" VNĐ", ""));
+            tongTien += sl * giaVonSP;
         }
+        txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien) + " VNĐ");
+
 
     }//GEN-LAST:event_btnImportActionPerformed
 
@@ -478,7 +466,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_cbKieuActionPerformed
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        new jf_SanPham().setVisible(true);
+        new XuatFile().execute(table3, new JProgressBar(), "FormatNhap");
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void txtInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInputKeyPressed
@@ -490,7 +478,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
         String[] s = new String[11];
         String idss = "";
         String op = JOptionPane.showInputDialog("Nhập Số Lượng");
-        if (!op.equals("")) {
+        if (op != null) {
             int index = table3.getSelectedRow();
             idss = table3.getModel().getValueAt(index, 0).toString();
             for (int i = 0; i < table3.getColumnCount(); i++) {
@@ -502,7 +490,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
                 }
             }
             new LoadTable().PhieuNhapLeft(!idNhomSanPham.equals("") ? new TimByList().locByNhom(
-                        cbNhomSanPham.getSelectedItem().toString(), listSPMain) : listSPMain, table3);
+                    cbNhomSanPham.getSelectedItem().toString(), listSPMain) : listSPMain, table3);
             listSP.add(s);
             s[10] = op;
             new LoadTable().PhieuNhapRight(listSP, listSPAdd);
@@ -541,7 +529,7 @@ public class pn_PhieuNhap extends javax.swing.JPanel {
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         int value = jSlider1.getValue();
         txtVAT.setText(String.valueOf(value));
-        float VAT = ((float)100 + (float)value)/(float)100;
+        float VAT = ((float) 100 + (float) value) / (float) 100;
         txtTongTien.setText(new DecimalFormat("###,###,###").format(tongTien * VAT) + " VNĐ");
     }//GEN-LAST:event_jSlider1StateChanged
 

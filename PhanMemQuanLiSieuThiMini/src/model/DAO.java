@@ -45,7 +45,7 @@ public class DAO {
         }
         return list;
     }
-
+    
     public List<SanPham> getSanPhamByNhomSanPham(String tenNhomSP) {
         List<SanPham> list = new ArrayList<>();
         try (Connection conn = new ConnectDAO().getConnection()) {

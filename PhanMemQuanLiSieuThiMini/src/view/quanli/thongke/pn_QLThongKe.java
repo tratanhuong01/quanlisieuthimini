@@ -1,21 +1,14 @@
 package view.quanli.thongke;
 
 import controller.ThongKe;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.util.logging.*;
+import javax.swing.*;
 import model.ConnectDAO;
 
 public class pn_QLThongKe extends javax.swing.JPanel {
@@ -23,9 +16,9 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     DecimalFormat format = new DecimalFormat("###,###,###");
     public pn_QLThongKe() {
         initComponents();
-        JPanel[] pn = {pnNgay, pnNgayTruoc, pnTuan, pnTuanTruoc, pnThang, pnThangTruoc};
-        JButton[] btn = {btnNgay, btnNgayTruoc, btnTuan, btnTuanTruoc, btnThang, btnThangTruoc};
-        String[] query = {tk.NAM,tk.NGAY_TRUOC,tk.TUAN,tk.TUAN_TRUOC,tk.THANG,tk.THANG_TRUOC,tk.NAM,tk.NAM_TRUOC};
+        JPanel[] pn = {pnNgay, pnNgayTruoc, pnTuan, pnTuanTruoc, pnThang, pnThangTruoc,pnNam,pnNamTruoc};
+        JButton[] btn = {btnNgay, btnNgayTruoc, btnTuan, btnTuanTruoc, btnThang, btnThangTruoc,btnNam,btnNamTruoc};
+        String[] query = {tk.NGAY,tk.NGAY_TRUOC,tk.TUAN,tk.TUAN_TRUOC,tk.THANG,tk.THANG_TRUOC,tk.NAM,tk.NAM_TRUOC};
         for (int i = 0; i < pn.length; i++) {
             try {
                 addLabel("Hóa Đơn : " + String.valueOf(format.format(tk.switchHoaDon(i + 1))
@@ -122,7 +115,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         btnNam = new javax.swing.JButton();
         jPanel29 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jPanel30 = new javax.swing.JPanel();
+        pnNam = new javax.swing.JPanel();
         pnDoanhThuNamTruoc = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
@@ -130,7 +123,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
         btnNamTruoc = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jPanel34 = new javax.swing.JPanel();
+        pnNamTruoc = new javax.swing.JPanel();
         pnDoanhThuNamTruoc1 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel35 = new javax.swing.JPanel();
@@ -449,6 +442,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Thống Kê Trong Năm");
         jPanel27.add(jLabel19);
 
         pnDoanhThuTrongNam.add(jPanel27, java.awt.BorderLayout.PAGE_START);
@@ -476,10 +470,10 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuTrongNam.add(jPanel29, java.awt.BorderLayout.LINE_START);
 
-        jPanel30.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel30.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jPanel30.setLayout(new java.awt.GridLayout(3, 0));
-        pnDoanhThuTrongNam.add(jPanel30, java.awt.BorderLayout.CENTER);
+        pnNam.setBackground(new java.awt.Color(255, 204, 204));
+        pnNam.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnNam.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuTrongNam.add(pnNam, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuTrongNam);
 
@@ -496,6 +490,7 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Thống Kê Năm Trước");
         jPanel31.add(jLabel22);
 
         pnDoanhThuNamTruoc.add(jPanel31, java.awt.BorderLayout.PAGE_START);
@@ -523,10 +518,10 @@ public class pn_QLThongKe extends javax.swing.JPanel {
 
         pnDoanhThuNamTruoc.add(jPanel33, java.awt.BorderLayout.LINE_START);
 
-        jPanel34.setBackground(new java.awt.Color(153, 255, 204));
-        jPanel34.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jPanel34.setLayout(new java.awt.GridLayout(3, 0));
-        pnDoanhThuNamTruoc.add(jPanel34, java.awt.BorderLayout.CENTER);
+        pnNamTruoc.setBackground(new java.awt.Color(153, 255, 204));
+        pnNamTruoc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnNamTruoc.setLayout(new java.awt.GridLayout(3, 0));
+        pnDoanhThuNamTruoc.add(pnNamTruoc, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(pnDoanhThuNamTruoc);
 
@@ -660,11 +655,9 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
@@ -682,6 +675,8 @@ public class pn_QLThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel pnDoanhThuTrongThang;
     private javax.swing.JPanel pnDoanhThuTrongTuan;
     private javax.swing.JPanel pnDoanhThuTuanTruoc;
+    private javax.swing.JPanel pnNam;
+    private javax.swing.JPanel pnNamTruoc;
     private javax.swing.JPanel pnNgay;
     private javax.swing.JPanel pnNgayTruoc;
     private javax.swing.JPanel pnThang;
